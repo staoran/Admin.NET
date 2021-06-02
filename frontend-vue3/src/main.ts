@@ -13,10 +13,10 @@ import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
 
 // Register icon Sprite
-import 'vite-plugin-svg-icons/register';
+import 'virtual:svg-icons-register';
 
-// Do not introduce` on-demand in local development?
-// In the local development for on-demand introduction, the number of browser requests will increase by about 20%.
+// Do not introduce on-demand in local development?
+// In the local development for introduce on-demand, the number of browser requests will increase by about 20%.
 // Which may slow down the browser refresh.
 // Therefore, all are introduced in local development, and only introduced on demand in the production environment
 if (import.meta.env.DEV) {
@@ -26,7 +26,7 @@ if (import.meta.env.DEV) {
 (async () => {
   const app = createApp(App);
 
-  // Configure vuex store
+  // Configure store
   setupStore(app);
 
   // Initialize internal system configuration
@@ -55,8 +55,4 @@ if (import.meta.env.DEV) {
   await router.isReady();
 
   app.mount('#app', true);
-
-  if (import.meta.env.DEV) {
-    window.__APP__ = app;
-  }
 })();
