@@ -9,15 +9,11 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
-import {
-  GetUserInfoByUserIdModel,
-  GetUserInfoByUserIdParams,
-  LoginParams,
-} from '/@/api/sys/model/userModel';
+import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
 
-import { getUserInfoById, loginApi } from '/@/api/sys/user';
+import { getUserInfo, loginApi } from '/@/api/sys/user';
 
-import { t, useI18n } from '/@/hooks/web/useI18n';
+import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import router from '/@/router';
 import { AuthApi } from '/@/api_base/apis/auth-api';
@@ -93,7 +89,7 @@ export const useUserStore = defineStore({
       try {
         const { goHome = true, mode, ...loginParams } = params;
         // const data = await loginApi(loginParams, mode);
-        // const { token, userId } = data;
+        // const { token } = data;
 
         var authApi = new AuthApi(undefined, undefined, defHttp.getAxios());
         var user = await authApi.loginPost(loginParams);
@@ -106,7 +102,7 @@ export const useUserStore = defineStore({
         this.setToken("Bearer " + user.data.data);
 
         // get user info
-        // const userInfo = await this.getUserInfoAction({ userId });
+        // const userInfo = await this.getUserInfoAction();
         const userInfo =  await authApi.getLoginUserGet();
         //const { roles } = userInfo.data;
         //const roleList = roles.map((item) => item.value) as RoleEnum[];
@@ -121,8 +117,8 @@ export const useUserStore = defineStore({
         return Promise.reject(error);
       }
     },
-    // async getUserInfoAction({ userId }: GetUserInfoByUserIdParams) {
-    //   const userInfo =  await getUserInfoById({ userId });
+    // async getUserInfoAction() {
+    //   const userInfo =  await getUserInfo();
     //   const { roles } = userInfo;
     //   const roleList = roles.map((item) => item.value) as RoleEnum[];
     //   this.setUserInfo(userInfo);

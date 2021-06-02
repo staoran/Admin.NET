@@ -124,9 +124,8 @@
 
       const { t } = useI18n();
 
-      const realName = computed(() => {
-        const { realName } = userStore.getUserInfo || {};
-        return realName;
+      const userinfo = computed(() => {
+        return userStore.getUserInfo || {};
       });
 
       /**
@@ -157,7 +156,7 @@
 
       return {
         goLogin,
-        realName,
+        userinfo,
         unLock,
         errMsg,
         loading,
