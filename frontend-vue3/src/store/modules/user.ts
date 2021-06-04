@@ -9,21 +9,15 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
-import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
-
-import { getUserInfo, loginApi } from '/@/api/sys/user';
 
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import router from '/@/router';
-import { AuthApi } from '/@/api_base/apis/auth-api';
-import { defHttp } from '/@/utils/http/axios';
-import { LoginOutput, XnRestfulResultOfLoginOutput } from '/@/api_base/models';
-
-const { createMessage, createErrorModal } = useMessage();
+import { authApi } from '/@/api';
+import { LoginInput } from "/@/api_base/models";
 
 interface UserState {
-  userInfo: Nullable<LoginOutput>;
+  userInfo: Nullable<UserInfo>;
   token?: string;
   roleList: RoleEnum[];
   sessionTimeout?: boolean;
@@ -42,8 +36,8 @@ export const useUserStore = defineStore({
     sessionTimeout: false,
   }),
   getters: {
-    getUserInfo(): LoginOutput {
-      return this.userInfo || getAuthCache<LoginOutput>(USER_INFO_KEY) || {};
+    getUserInfo(): UserInfo {
+      return this.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY) || {};
     },
     getToken(): string {
       return this.token || getAuthCache<string>(TOKEN_KEY);
@@ -64,7 +58,7 @@ export const useUserStore = defineStore({
       this.roleList = roleList;
       setAuthCache(ROLES_KEY, roleList);
     },
-    setUserInfo(info: LoginOutput) {
+    setUserInfo(info: UserInfo) {
       this.userInfo = info;
       setAuthCache(USER_INFO_KEY, info);
     },
@@ -81,38 +75,34 @@ export const useUserStore = defineStore({
      * @description: login
      */
     async login(
-      params: LoginParams & {
+      params: LoginInput & {
         goHome?: boolean;
         mode?: ErrorMessageMode;
       }
-    ): Promise<LoginOutput | null> {
+    ): Promise<UserInfo | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
         // const data = await loginApi(loginParams, mode);
         // const { token } = data;
 
-        var authApi = new AuthApi(undefined, undefined, defHttp.getAxios());
-        var user = await authApi.loginPost(loginParams);
-        if(user.data.code !== 200) {
-          createMessage.error(user.data.message);
-          return null;
-        }
+        const { data: { data }} = await authApi.loginPost(loginParams);
 
         // save token
-        this.setToken("Bearer " + user.data.data);
+        this.setToken("Bearer " + data);
 
         // get user info
         // const userInfo = await this.getUserInfoAction();
-        const userInfo =  await authApi.getLoginUserGet();
+        const { data: {data: userInfo} } =  await authApi.getLoginUserGet();
+        this.setUserInfo(userInfo);
+
         //const { roles } = userInfo.data;
         //const roleList = roles.map((item) => item.value) as RoleEnum[];
-        this.setUserInfo(userInfo.data.data);
         //this.setRoleList(roleList);
 
         const sessionTimeout = this.sessionTimeout;
-	sessionTimeout && this.setSessionTimeout(false);
+        sessionTimeout && this.setSessionTimeout(false);
         !sessionTimeout && goHome && (await router.replace(PageEnum.BASE_HOME));
-        return userInfo.data.data;
+        return userInfo;
       } catch (error) {
         return Promise.reject(error);
       }
