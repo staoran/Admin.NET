@@ -54,7 +54,7 @@ const transform: AxiosTransform = {
       //return errorResult;
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, result, message } = data;
+    const { code, result = data.data, message } = data;
 
     // 这里逻辑可以根据项目进行修改
     const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
@@ -152,63 +152,7 @@ const transform: AxiosTransform = {
     return config;
   },
 
-    /**
-   * @description: 请求之后拦截器
-   */
-  responseInterceptors: (res: AxiosResponse<any>) => {
-    const { t } = useI18n();
-
-    // 错误的时候返回
-    const { data } = res;
-    if (!data) {
-      // return '[HTTP] Request has no return value';
-      throw new Error(t('sys.api.apiRequestFailed'));
-      //return errorResult;
-    }
-    //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, message } = data;
-
-    // 这里逻辑可以根据项目进行修改
-    const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
-    if (!hasSuccess) {
-      if (message) {
-          createMessage.error(message);
-      }
-      throw new Error(message);
-      //return errorResult;
-    }
-
-    // 接口请求成功，直接返回结果
-    if (code === ResultEnum.SUCCESS) {
-      return res;
-    }
-    // 接口请求错误，统一提示错误信息
-    if (code === ResultEnum.ERROR) {
-      if (message) {
-        createMessage.error(data.message);
-        throw new Error(message);
-      } else {
-        const msg = t('sys.api.errorMessage');
-        createMessage.error(msg);
-        throw new Error(msg);
-      }
-      //return errorResult;
-    }
-    // 登录超时
-    if (code === ResultEnum.TIMEOUT) {
-      const timeoutMsg = t('sys.api.timeoutMessage');
-      createErrorModal({
-        title: t('sys.api.operationFailed'),
-        content: timeoutMsg,
-      });
-      throw new Error(timeoutMsg);
-      //return errorResult;
-    }
-    throw new Error(t('sys.api.apiRequestFailed'));
-    //return errorResult;
-  },
-
-  /**
+   /**
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
