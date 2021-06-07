@@ -9,6 +9,7 @@ export default {
     networkException: 'network anomaly',
     networkExceptionMsg:
       'Please check if your network connection is normal! The network is abnormal',
+    assertParamExists: 'Required parameter {0} was null or undefined when calling {1}.',
 
     errMsg401: 'The user does not have permission (token, user name, password error)!',
     errMsg403: 'The user is authorized, but access is forbidden!',

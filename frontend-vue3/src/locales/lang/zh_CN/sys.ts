@@ -8,6 +8,7 @@ export default {
     apiRequestFailed: '请求出错，请稍候重试',
     networkException: '网络异常',
     networkExceptionMsg: '请检查您的网络连接是否正常!',
+    assertParamExists: '调用 {0} 时, 参数 {1} 不可为空或未定义.',
 
     errMsg401: '用户没有权限（令牌、用户名、密码错误）!',
     errMsg403: '用户得到授权，但是访问是被禁止的。!',
