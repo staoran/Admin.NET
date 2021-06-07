@@ -13,8 +13,8 @@ import { getAuthCache, setAuthCache } from '/@/utils/auth';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import router from '/@/router';
-import { authApi } from '/@/api';
-import { LoginInput } from "/@/api_base/models";
+import { loginPost, getLoginUserGet } from '/@/api_base/api/auth-api';
+import { LoginInput } from "/@/api_base/models/login-input";
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -85,14 +85,14 @@ export const useUserStore = defineStore({
         // const data = await loginApi(loginParams, mode);
         // const { token } = data;
 
-        const { data: { data }} = await authApi.loginPost(loginParams);
+        const token = await loginPost(loginParams, 'modal');
 
         // save token
-        this.setToken("Bearer " + data);
+        this.setToken("Bearer " + token);
 
         // get user info
         // const userInfo = await this.getUserInfoAction();
-        const { data: {data: userInfo} } =  await authApi.getLoginUserGet();
+        const userInfo =  await getLoginUserGet();
         this.setUserInfo(userInfo);
 
         //const { roles } = userInfo.data;
