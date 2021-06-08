@@ -2,9 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 {{>licenseInfo}}
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '{{apiRelativeToRoot}}common';
 import {
    {{#imports}}
@@ -17,19 +16,20 @@ import {
 {{#operations}}
     {{#operation}}
 
-{{^multipartFormData}}
+{{^hasFormParams}}
          /**
          {{#summary}}
-         * @summary{{&summary}}
+         * @summary {{&summary}}
          {{/summary}}
          {{#allParams}}
-         * @param {{=<% %>=}}{<%&dataType%>}<%={{ }}=%>{{^required}}[{{/required}}{{paramName}}{{^required}}]{{/required}}{{description}}
+         * @param {{=<% %>=}}{<%&dataType%>}<%={{ }}=%>{{^required}}[{{/required}}{{paramName}}{{^required}}]{{/required}} {{description}}
          {{/allParams}}
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          {{#isDeprecated}}
          * @deprecated
          {{/isDeprecated}}
          */
-         export function {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}mode: ErrorMessageMode = 'message') {
+         export function {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}options?: RequestOptions) {
     {{!必填验证}}
     {{#allParams}}
     {{#required}}
@@ -37,7 +37,7 @@ import {
             assertParamExists('{{nickname}}', '{{paramName}}', {{paramName}})
     {{/required}}
     {{#-first}}
-            const params = { {{^queryParams}} {{paramName}} {{/queryParams}} }{{#hasQueryParams}} as any{{/hasQueryParams}}
+            const params = { {{^queryParams}} ...{{paramName}} {{/queryParams}} }{{#hasQueryParams}} as any{{/hasQueryParams}}
     {{/-first}}
     {{/allParams}}
     {{!如果是query}}
@@ -93,28 +93,29 @@ import {
             {{#consumes.0}}
                 headers: {'Content-Type': '{{mediaType}}'},
             {{/consumes.0}}
-                {{#allParams}}
+    {{#allParams}}
     {{#-first}}
                 params
     {{/-first}}
     {{/allParams}}
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
-{{/multipartFormData}}
-{{#multipartFormData}}
+{{/hasFormParams}}
+{{#formParams}}
+  {{#isFile}}
         /**
          {{#summary}}
-         * @summary{{&summary}}
+         * @summary {{&summary}}
          {{/summary}}
          {{#allParams}}
-         * @param {UploadFileParams} params
-         * @param {(progressEvent: ProgressEvent) => void} onUploadProgress
+         * @param {UploadFileParams} params 文件信息
+         * @param {(progressEvent: ProgressEvent) => void} onUploadProgress 上传进度
          {{/allParams}}
          {{#isDeprecated}}
-         * @deprecated{{/isDeprecated}}
+         * @deprecated
+         {{/isDeprecated}}
          */
          export function {{nickname}}(params: UploadFileParams, onUploadProgress: (progressEvent: ProgressEvent) => void) {
            return defHttp.uploadFile<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>(
@@ -125,6 +126,7 @@ import {
              params
            )
          }
-{{/multipartFormData}}
+  {{/isFile}}
+{{/formParams}}
     {{/operation}}
 {{/operations}}
