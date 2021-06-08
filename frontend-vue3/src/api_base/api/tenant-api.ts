@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    AddTenantInput,
@@ -30,11 +29,12 @@ import {
    } from '../models';
 
          /**
-         * @summary新增租户时，初始化数据
-         * @param {SysTenant}[sysTenant]
+         * @summary 新增租户时，初始化数据
+         * @param {SysTenant}[sysTenant] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function apiTenantInitNewTenantPost(sysTenant?: SysTenant, mode: ErrorMessageMode = 'message') {
-            const params = {  sysTenant  }
+         export function apiTenantInitNewTenantPost(sysTenant?: SysTenant, options?: RequestOptions) {
+            const params = {  ...sysTenant  }
             return defHttp.request<void>(
               {
                 url: '/api/tenant/init-new-tenant',
@@ -42,17 +42,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary增加租户
-         * @param {AddTenantInput}[addTenantInput]
+         * @summary 增加租户
+         * @param {AddTenantInput}[addTenantInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTenantAddPost(addTenantInput?: AddTenantInput, mode: ErrorMessageMode = 'message') {
-            const params = {  addTenantInput  }
+         export function sysTenantAddPost(addTenantInput?: AddTenantInput, options?: RequestOptions) {
+            const params = {  ...addTenantInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTenant/add',
@@ -60,17 +60,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary删除租户
-         * @param {DeleteTenantInput}[deleteTenantInput]
+         * @summary 删除租户
+         * @param {DeleteTenantInput}[deleteTenantInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTenantDeletePost(deleteTenantInput?: DeleteTenantInput, mode: ErrorMessageMode = 'message') {
-            const params = {  deleteTenantInput  }
+         export function sysTenantDeletePost(deleteTenantInput?: DeleteTenantInput, options?: RequestOptions) {
+            const params = {  ...deleteTenantInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTenant/delete',
@@ -78,16 +78,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取租户
-         * @param {number}id主键Id
+         * @summary 获取租户
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTenantDetailGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysTenantDetailGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysTenantDetailGet', 'id', id)
             const params = {  } as any
@@ -101,17 +101,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary更新租户
-         * @param {UpdateTenantInput}[updateTenantInput]
+         * @summary 更新租户
+         * @param {UpdateTenantInput}[updateTenantInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTenantEditPost(updateTenantInput?: UpdateTenantInput, mode: ErrorMessageMode = 'message') {
-            const params = {  updateTenantInput  }
+         export function sysTenantEditPost(updateTenantInput?: UpdateTenantInput, options?: RequestOptions) {
+            const params = {  ...updateTenantInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTenant/edit',
@@ -119,17 +119,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary授权租户管理员角色菜单
-         * @param {GrantRoleMenuInput}[grantRoleMenuInput]
+         * @summary 授权租户管理员角色菜单
+         * @param {GrantRoleMenuInput}[grantRoleMenuInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTenantGrantMenuPost(grantRoleMenuInput?: GrantRoleMenuInput, mode: ErrorMessageMode = 'message') {
-            const params = {  grantRoleMenuInput  }
+         export function sysTenantGrantMenuPost(grantRoleMenuInput?: GrantRoleMenuInput, options?: RequestOptions) {
+            const params = {  ...grantRoleMenuInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTenant/grantMenu',
@@ -137,16 +137,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取租户管理员角色拥有菜单Id集合
-         * @param {number}id主键Id
+         * @summary 获取租户管理员角色拥有菜单Id集合
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTenantOwnMenuGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysTenantOwnMenuGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysTenantOwnMenuGet', 'id', id)
             const params = {  } as any
@@ -160,26 +160,26 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary分页查询租户
-         * @param {string}[name]公司名称
-         * @param {string}[host]主机
-         * @param {string}[searchValue]搜索值
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
-         * @param {string}[searchBeginTime]搜索开始时间
-         * @param {string}[searchEndTime]搜索结束时间
-         * @param {string}[sortField]排序字段
-         * @param {string}[sortOrder]排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
-         * @param {string}[descStr]降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
-         * @param {Array<Condition>}[searchParameters]复杂查询条件
+         * @summary 分页查询租户
+         * @param {string}[name] 公司名称
+         * @param {string}[host] 主机
+         * @param {string}[searchValue] 搜索值
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {string}[searchBeginTime] 搜索开始时间
+         * @param {string}[searchEndTime] 搜索结束时间
+         * @param {string}[sortField] 排序字段
+         * @param {string}[sortOrder] 排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
+         * @param {string}[descStr] 降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
+         * @param {Array<Condition>}[searchParameters] 复杂查询条件
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTenantPageGet(name?: string, host?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, mode: ErrorMessageMode = 'message') {
+         export function sysTenantPageGet(name?: string, host?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, options?: RequestOptions) {
             const params = {  } as any
             if (name !== undefined) {
                 params['Name'] = name;
@@ -221,17 +221,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary重置租户管理员密码
-         * @param {QueryTenantInput}[queryTenantInput]
+         * @summary 重置租户管理员密码
+         * @param {QueryTenantInput}[queryTenantInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTenantResetPwdPost(queryTenantInput?: QueryTenantInput, mode: ErrorMessageMode = 'message') {
-            const params = {  queryTenantInput  }
+         export function sysTenantResetPwdPost(queryTenantInput?: QueryTenantInput, options?: RequestOptions) {
+            const params = {  ...queryTenantInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTenant/resetPwd',
@@ -239,7 +239,6 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

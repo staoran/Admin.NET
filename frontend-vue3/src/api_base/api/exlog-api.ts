@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    Condition,
@@ -22,37 +21,38 @@ import {
    } from '../models';
 
          /**
-         * @summary清空异常日志
+         * @summary 清空异常日志
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysExLogDeletePost(mode: ErrorMessageMode = 'message') {
+         export function sysExLogDeletePost(options?: RequestOptions) {
             return defHttp.request<void>(
               {
                 url: '/sysExLog/delete',
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary分页查询异常日志
-         * @param {string}[name]名称
-         * @param {string}[className]类名
-         * @param {string}[methodName]方法名
-         * @param {string}[exceptionMsg]异常信息
-         * @param {string}[searchValue]搜索值
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
-         * @param {string}[searchBeginTime]搜索开始时间
-         * @param {string}[searchEndTime]搜索结束时间
-         * @param {string}[sortField]排序字段
-         * @param {string}[sortOrder]排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
-         * @param {string}[descStr]降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
-         * @param {Array<Condition>}[searchParameters]复杂查询条件
+         * @summary 分页查询异常日志
+         * @param {string}[name] 名称
+         * @param {string}[className] 类名
+         * @param {string}[methodName] 方法名
+         * @param {string}[exceptionMsg] 异常信息
+         * @param {string}[searchValue] 搜索值
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {string}[searchBeginTime] 搜索开始时间
+         * @param {string}[searchEndTime] 搜索结束时间
+         * @param {string}[sortField] 排序字段
+         * @param {string}[sortOrder] 排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
+         * @param {string}[descStr] 降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
+         * @param {Array<Condition>}[searchParameters] 复杂查询条件
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysExLogPageGet(name?: string, className?: string, methodName?: string, exceptionMsg?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, mode: ErrorMessageMode = 'message') {
+         export function sysExLogPageGet(name?: string, className?: string, methodName?: string, exceptionMsg?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, options?: RequestOptions) {
             const params = {  } as any
             if (name !== undefined) {
                 params['Name'] = name;
@@ -100,7 +100,6 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

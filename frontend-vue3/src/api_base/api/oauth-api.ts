@@ -12,35 +12,35 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    XnRestfulResultOfObject,
    } from '../models';
 
          /**
-         * @summary微信登录授权
+         * @summary 微信登录授权
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function oauthWechatGet(mode: ErrorMessageMode = 'message') {
+         export function oauthWechatGet(options?: RequestOptions) {
             return defHttp.request<void>(
               {
                 url: '/oauth/wechat',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取微信用户基本信息
-         * @param {string}[token]
-         * @param {string}[openId]
+         * @summary 获取微信用户基本信息
+         * @param {string}[token] 
+         * @param {string}[openId] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function oauthWechatUserGet(token?: string, openId?: string, mode: ErrorMessageMode = 'message') {
+         export function oauthWechatUserGet(token?: string, openId?: string, options?: RequestOptions) {
             const params = {  } as any
             if (token !== undefined) {
                 params['token'] = token;
@@ -55,18 +55,18 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary微信登录授权回调
-         * @param {string}[code]
-         * @param {string}[state]
-         * @param {string}[errorDescription]
+         * @summary 微信登录授权回调
+         * @param {string}[code] 
+         * @param {string}[state] 
+         * @param {string}[errorDescription] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function oauthWechatcallbackGet(code?: string, state?: string, errorDescription?: string, mode: ErrorMessageMode = 'message') {
+         export function oauthWechatcallbackGet(code?: string, state?: string, errorDescription?: string, options?: RequestOptions) {
             const params = {  } as any
             if (code !== undefined) {
                 params['code'] = code;
@@ -84,7 +84,6 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

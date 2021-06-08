@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    Condition,
@@ -27,11 +26,12 @@ import {
    } from '../models';
 
          /**
-         * @summary删除文件
-         * @param {DeleteFileInfoInput}[deleteFileInfoInput]
+         * @summary 删除文件
+         * @param {DeleteFileInfoInput}[deleteFileInfoInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysFileInfoDeletePost(deleteFileInfoInput?: DeleteFileInfoInput, mode: ErrorMessageMode = 'message') {
-            const params = {  deleteFileInfoInput  }
+         export function sysFileInfoDeletePost(deleteFileInfoInput?: DeleteFileInfoInput, options?: RequestOptions) {
+            const params = {  ...deleteFileInfoInput  }
             return defHttp.request<void>(
               {
                 url: '/sysFileInfo/delete',
@@ -39,16 +39,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取文件详情
-         * @param {number}id主键Id
+         * @summary 获取文件详情
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysFileInfoDetailGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysFileInfoDetailGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysFileInfoDetailGet', 'id', id)
             const params = {  } as any
@@ -62,16 +62,16 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary下载文件
-         * @param {number}id主键Id
+         * @summary 下载文件
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysFileInfoDownloadGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysFileInfoDownloadGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysFileInfoDownloadGet', 'id', id)
             const params = {  } as any
@@ -85,24 +85,24 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取文件列表
-         * @param {number}[id]文件Id
-         * @param {number}[fileLocation]文件存储位置（1:阿里云，2:腾讯云，3:minio，4:本地）
-         * @param {string}[fileBucket]文件仓库
-         * @param {string}[fileOriginName]文件名称（上传时候的文件名）
-         * @param {string}[fileSuffix]文件后缀
-         * @param {number}[fileSizeKb]文件大小kb
-         * @param {string}[fileSizeInfo]文件大小信息，计算后的
-         * @param {string}[fileObjectName]存储到bucket的名称（文件唯一标识id）
-         * @param {string}[filePath]存储路径
+         * @summary 获取文件列表
+         * @param {number}[id] 文件Id
+         * @param {number}[fileLocation] 文件存储位置（1:阿里云，2:腾讯云，3:minio，4:本地）
+         * @param {string}[fileBucket] 文件仓库
+         * @param {string}[fileOriginName] 文件名称（上传时候的文件名）
+         * @param {string}[fileSuffix] 文件后缀
+         * @param {number}[fileSizeKb] 文件大小kb
+         * @param {string}[fileSizeInfo] 文件大小信息，计算后的
+         * @param {string}[fileObjectName] 存储到bucket的名称（文件唯一标识id）
+         * @param {string}[filePath] 存储路径
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysFileInfoListGet(id?: number, fileLocation?: number, fileBucket?: string, fileOriginName?: string, fileSuffix?: string, fileSizeKb?: number, fileSizeInfo?: string, fileObjectName?: string, filePath?: string, mode: ErrorMessageMode = 'message') {
+         export function sysFileInfoListGet(id?: number, fileLocation?: number, fileBucket?: string, fileOriginName?: string, fileSuffix?: string, fileSizeKb?: number, fileSizeInfo?: string, fileObjectName?: string, filePath?: string, options?: RequestOptions) {
             const params = {  } as any
             if (id !== undefined) {
                 params['Id'] = id;
@@ -138,27 +138,27 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary分页获取文件列表
-         * @param {number}[fileLocation]文件存储位置（1:阿里云，2:腾讯云，3:minio，4:本地）
-         * @param {string}[fileBucket]文件仓库
-         * @param {string}[fileOriginName]文件名称（上传时候的文件名）
-         * @param {string}[searchValue]搜索值
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
-         * @param {string}[searchBeginTime]搜索开始时间
-         * @param {string}[searchEndTime]搜索结束时间
-         * @param {string}[sortField]排序字段
-         * @param {string}[sortOrder]排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
-         * @param {string}[descStr]降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
-         * @param {Array<Condition>}[searchParameters]复杂查询条件
+         * @summary 分页获取文件列表
+         * @param {number}[fileLocation] 文件存储位置（1:阿里云，2:腾讯云，3:minio，4:本地）
+         * @param {string}[fileBucket] 文件仓库
+         * @param {string}[fileOriginName] 文件名称（上传时候的文件名）
+         * @param {string}[searchValue] 搜索值
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {string}[searchBeginTime] 搜索开始时间
+         * @param {string}[searchEndTime] 搜索结束时间
+         * @param {string}[sortField] 排序字段
+         * @param {string}[sortOrder] 排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
+         * @param {string}[descStr] 降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
+         * @param {Array<Condition>}[searchParameters] 复杂查询条件
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysFileInfoPageGet(fileLocation?: number, fileBucket?: string, fileOriginName?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, mode: ErrorMessageMode = 'message') {
+         export function sysFileInfoPageGet(fileLocation?: number, fileBucket?: string, fileOriginName?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, options?: RequestOptions) {
             const params = {  } as any
             if (fileLocation !== undefined) {
                 params['FileLocation'] = fileLocation;
@@ -203,16 +203,16 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary预览文件
-         * @param {number}id主键Id
+         * @summary 预览文件
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysFileInfoPreviewGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysFileInfoPreviewGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysFileInfoPreviewGet', 'id', id)
             const params = {  } as any
@@ -226,79 +226,66 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
-         /**
-         * @summary上传头像
-         * @param {any}[file]
+        /**
+         * @summary 上传头像
+         * @param {UploadFileParams} params 文件信息
+         * @param {(progressEvent: ProgressEvent) => void} onUploadProgress 上传进度
          */
-         export function sysFileInfoUploadAvatarPost(file?: any, mode: ErrorMessageMode = 'message') {
-            const params = {  file  }
-            return defHttp.request<XnRestfulResultOfInt64>(
-              {
-                url: '/sysFileInfo/uploadAvatar',
-                method: 'POST',
-                headers: {'Content-Type': 'multipart/form-data'},
-                params
-              },
-              {
-                errorMessageMode: mode,
-              })
+         export function sysFileInfoUploadAvatarPost(params: UploadFileParams, onUploadProgress: (progressEvent: ProgressEvent) => void) {
+           return defHttp.uploadFile<XnRestfulResultOfInt64>(
+             {
+               url: '/sysFileInfo/uploadAvatar',
+               onUploadProgress
+             },
+             params
+           )
          }
 
-         /**
-         * @summary上传文档
-         * @param {any}[file]
+        /**
+         * @summary 上传文档
+         * @param {UploadFileParams} params 文件信息
+         * @param {(progressEvent: ProgressEvent) => void} onUploadProgress 上传进度
          */
-         export function sysFileInfoUploadDocumentPost(file?: any, mode: ErrorMessageMode = 'message') {
-            const params = {  file  }
-            return defHttp.request<void>(
-              {
-                url: '/sysFileInfo/uploadDocument',
-                method: 'POST',
-                headers: {'Content-Type': 'multipart/form-data'},
-                params
-              },
-              {
-                errorMessageMode: mode,
-              })
+         export function sysFileInfoUploadDocumentPost(params: UploadFileParams, onUploadProgress: (progressEvent: ProgressEvent) => void) {
+           return defHttp.uploadFile<void>(
+             {
+               url: '/sysFileInfo/uploadDocument',
+               onUploadProgress
+             },
+             params
+           )
          }
 
-         /**
-         * @summary上传文件
-         * @param {any}[file]
+        /**
+         * @summary 上传文件
+         * @param {UploadFileParams} params 文件信息
+         * @param {(progressEvent: ProgressEvent) => void} onUploadProgress 上传进度
          */
-         export function sysFileInfoUploadPost(file?: any, mode: ErrorMessageMode = 'message') {
-            const params = {  file  }
-            return defHttp.request<XnRestfulResultOfInt64>(
-              {
-                url: '/sysFileInfo/upload',
-                method: 'POST',
-                headers: {'Content-Type': 'multipart/form-data'},
-                params
-              },
-              {
-                errorMessageMode: mode,
-              })
+         export function sysFileInfoUploadPost(params: UploadFileParams, onUploadProgress: (progressEvent: ProgressEvent) => void) {
+           return defHttp.uploadFile<XnRestfulResultOfInt64>(
+             {
+               url: '/sysFileInfo/upload',
+               onUploadProgress
+             },
+             params
+           )
          }
 
-         /**
-         * @summary上传商店图片
-         * @param {any}[file]
+        /**
+         * @summary 上传商店图片
+         * @param {UploadFileParams} params 文件信息
+         * @param {(progressEvent: ProgressEvent) => void} onUploadProgress 上传进度
          */
-         export function sysFileInfoUploadShopPost(file?: any, mode: ErrorMessageMode = 'message') {
-            const params = {  file  }
-            return defHttp.request<void>(
-              {
-                url: '/sysFileInfo/uploadShop',
-                method: 'POST',
-                headers: {'Content-Type': 'multipart/form-data'},
-                params
-              },
-              {
-                errorMessageMode: mode,
-              })
+         export function sysFileInfoUploadShopPost(params: UploadFileParams, onUploadProgress: (progressEvent: ProgressEvent) => void) {
+           return defHttp.uploadFile<void>(
+             {
+               url: '/sysFileInfo/uploadShop',
+               onUploadProgress
+             },
+             params
+           )
          }

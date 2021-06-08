@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    AddPosInput,
@@ -25,11 +24,12 @@ import {
    } from '../models';
 
          /**
-         * @summary增加职位
-         * @param {AddPosInput}[addPosInput]
+         * @summary 增加职位
+         * @param {AddPosInput}[addPosInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysPosAddPost(addPosInput?: AddPosInput, mode: ErrorMessageMode = 'message') {
-            const params = {  addPosInput  }
+         export function sysPosAddPost(addPosInput?: AddPosInput, options?: RequestOptions) {
+            const params = {  ...addPosInput  }
             return defHttp.request<void>(
               {
                 url: '/sysPos/add',
@@ -37,17 +37,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary删除职位
-         * @param {DeletePosInput}[deletePosInput]
+         * @summary 删除职位
+         * @param {DeletePosInput}[deletePosInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysPosDeletePost(deletePosInput?: DeletePosInput, mode: ErrorMessageMode = 'message') {
-            const params = {  deletePosInput  }
+         export function sysPosDeletePost(deletePosInput?: DeletePosInput, options?: RequestOptions) {
+            const params = {  ...deletePosInput  }
             return defHttp.request<void>(
               {
                 url: '/sysPos/delete',
@@ -55,16 +55,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取职位
-         * @param {number}id主键Id
+         * @summary 获取职位
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysPosDetailGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysPosDetailGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysPosDetailGet', 'id', id)
             const params = {  } as any
@@ -78,17 +78,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary更新职位
-         * @param {UpdatePosInput}[updatePosInput]
+         * @summary 更新职位
+         * @param {UpdatePosInput}[updatePosInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysPosEditPost(updatePosInput?: UpdatePosInput, mode: ErrorMessageMode = 'message') {
-            const params = {  updatePosInput  }
+         export function sysPosEditPost(updatePosInput?: UpdatePosInput, options?: RequestOptions) {
+            const params = {  ...updatePosInput  }
             return defHttp.request<void>(
               {
                 url: '/sysPos/edit',
@@ -96,22 +96,22 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取职位列表
-         * @param {string}[name]名称
-         * @param {string}[code]编码
-         * @param {number}[sort]排序
-         * @param {string}[remark]备注
-         * @param {number}[status]状态（字典 0正常 1停用 2删除）
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
+         * @summary 获取职位列表
+         * @param {string}[name] 名称
+         * @param {string}[code] 编码
+         * @param {number}[sort] 排序
+         * @param {string}[remark] 备注
+         * @param {number}[status] 状态（字典 0正常 1停用 2删除）
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysPosListGet(name?: string, code?: string, sort?: number, remark?: string, status?: number, pageNo?: number, pageSize?: number, mode: ErrorMessageMode = 'message') {
+         export function sysPosListGet(name?: string, code?: string, sort?: number, remark?: string, status?: number, pageNo?: number, pageSize?: number, options?: RequestOptions) {
             const params = {  } as any
             if (name !== undefined) {
                 params['Name'] = name;
@@ -141,22 +141,22 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary分页获取职位
-         * @param {string}[name]名称
-         * @param {string}[code]编码
-         * @param {number}[sort]排序
-         * @param {string}[remark]备注
-         * @param {number}[status]状态（字典 0正常 1停用 2删除）
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
+         * @summary 分页获取职位
+         * @param {string}[name] 名称
+         * @param {string}[code] 编码
+         * @param {number}[sort] 排序
+         * @param {string}[remark] 备注
+         * @param {number}[status] 状态（字典 0正常 1停用 2删除）
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysPosPageGet(name?: string, code?: string, sort?: number, remark?: string, status?: number, pageNo?: number, pageSize?: number, mode: ErrorMessageMode = 'message') {
+         export function sysPosPageGet(name?: string, code?: string, sort?: number, remark?: string, status?: number, pageNo?: number, pageSize?: number, options?: RequestOptions) {
             const params = {  } as any
             if (name !== undefined) {
                 params['Name'] = name;
@@ -186,7 +186,6 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

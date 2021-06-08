@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    XnRestfulResultOfListOfString,
@@ -22,10 +21,11 @@ import {
    } from '../models';
 
          /**
-         * @summary获取缓存
-         * @param {string}[cacheKey]
+         * @summary 获取缓存
+         * @param {string}[cacheKey] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysCacheDetailGet(cacheKey?: string, mode: ErrorMessageMode = 'message') {
+         export function sysCacheDetailGet(cacheKey?: string, options?: RequestOptions) {
             const params = {  } as any
             if (cacheKey !== undefined) {
                 params['cacheKey'] = cacheKey;
@@ -37,31 +37,31 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取所有缓存关键字
+         * @summary 获取所有缓存关键字
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysCacheKeyListGet(mode: ErrorMessageMode = 'message') {
+         export function sysCacheKeyListGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfListOfString>(
               {
                 url: '/sysCache/keyList',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary删除指定关键字缓存
-         * @param {string}[key]
+         * @summary 删除指定关键字缓存
+         * @param {string}[key] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysCacheRemoveGet(key?: string, mode: ErrorMessageMode = 'message') {
+         export function sysCacheRemoveGet(key?: string, options?: RequestOptions) {
             const params = {  } as any
             if (key !== undefined) {
                 params['key'] = key;
@@ -73,7 +73,6 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

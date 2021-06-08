@@ -12,55 +12,54 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    XnRestfulResultOfObject,
    } from '../models';
 
          /**
-         * @summary获取服务器基本参数
+         * @summary 获取服务器基本参数
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMachineBaseGet(mode: ErrorMessageMode = 'message') {
+         export function sysMachineBaseGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfObject>(
               {
                 url: '/sysMachine/base',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary动态获取网络信息
+         * @summary 动态获取网络信息
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMachineNetworkGet(mode: ErrorMessageMode = 'message') {
+         export function sysMachineNetworkGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfObject>(
               {
                 url: '/sysMachine/network',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取服务器资源信息
+         * @summary 获取服务器资源信息
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMachineUseGet(mode: ErrorMessageMode = 'message') {
+         export function sysMachineUseGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfObject>(
               {
                 url: '/sysMachine/use',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

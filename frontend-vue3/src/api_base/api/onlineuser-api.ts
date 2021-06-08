@@ -12,25 +12,24 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    XnRestfulResultOfObject,
    } from '../models';
 
          /**
-         * @summary获取在线用户信息
+         * @summary 获取在线用户信息
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysOnlineUserListGet(mode: ErrorMessageMode = 'message') {
+         export function sysOnlineUserListGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfObject>(
               {
                 url: '/sysOnlineUser/list',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

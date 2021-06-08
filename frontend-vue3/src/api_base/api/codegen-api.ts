@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    AddCodeGenInput,
@@ -29,11 +28,12 @@ import {
    } from '../models';
 
          /**
-         * @summary增加
-         * @param {AddCodeGenInput}[addCodeGenInput]
+         * @summary 增加
+         * @param {AddCodeGenInput}[addCodeGenInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function codeGenerateAddPost(addCodeGenInput?: AddCodeGenInput, mode: ErrorMessageMode = 'message') {
-            const params = {  addCodeGenInput  }
+         export function codeGenerateAddPost(addCodeGenInput?: AddCodeGenInput, options?: RequestOptions) {
+            const params = {  ...addCodeGenInput  }
             return defHttp.request<void>(
               {
                 url: '/codeGenerate/add',
@@ -41,19 +41,19 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary根据表名获取列
-         * @param {string}tableName
+         * @summary 根据表名获取列
+         * @param {string}tableName 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function codeGenerateColumnListTableNameGet(tableName: string, mode: ErrorMessageMode = 'message') {
+         export function codeGenerateColumnListTableNameGet(tableName: string, options?: RequestOptions) {
             // verify required parameter 'tableName' is not null or undefined
             assertParamExists('codeGenerateColumnListTableNameGet', 'tableName', tableName)
-            const params = {  tableName  }
+            const params = {  ...tableName  }
             return defHttp.request<XnRestfulResultOfListOfTableColumnOuput>(
               {
                 url: '/codeGenerate/ColumnList/{tableName}',
@@ -61,17 +61,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary删除
-         * @param {Array<DeleteCodeGenInput>}[deleteCodeGenInput]
+         * @summary 删除
+         * @param {Array<DeleteCodeGenInput>}[deleteCodeGenInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function codeGenerateDeletePost(deleteCodeGenInput?: Array<DeleteCodeGenInput>, mode: ErrorMessageMode = 'message') {
-            const params = {  deleteCodeGenInput  }
+         export function codeGenerateDeletePost(deleteCodeGenInput?: Array<DeleteCodeGenInput>, options?: RequestOptions) {
+            const params = {  ...deleteCodeGenInput  }
             return defHttp.request<void>(
               {
                 url: '/codeGenerate/delete',
@@ -79,16 +79,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary详情
-         * @param {number}id主键Id
+         * @summary 详情
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function codeGenerateDetailGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function codeGenerateDetailGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('codeGenerateDetailGet', 'id', id)
             const params = {  } as any
@@ -102,17 +102,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary更新
-         * @param {UpdateCodeGenInput}[updateCodeGenInput]
+         * @summary 更新
+         * @param {UpdateCodeGenInput}[updateCodeGenInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function codeGenerateEditPost(updateCodeGenInput?: UpdateCodeGenInput, mode: ErrorMessageMode = 'message') {
-            const params = {  updateCodeGenInput  }
+         export function codeGenerateEditPost(updateCodeGenInput?: UpdateCodeGenInput, options?: RequestOptions) {
+            const params = {  ...updateCodeGenInput  }
             return defHttp.request<void>(
               {
                 url: '/codeGenerate/edit',
@@ -120,40 +120,40 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取数据库表(实体)集合
+         * @summary 获取数据库表(实体)集合
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function codeGenerateInformationListGet(mode: ErrorMessageMode = 'message') {
+         export function codeGenerateInformationListGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfListOfTableOutput>(
               {
                 url: '/codeGenerate/InformationList',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary分页查询
-         * @param {string}[tableName]数据库表名
-         * @param {string}[searchValue]搜索值
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
-         * @param {string}[searchBeginTime]搜索开始时间
-         * @param {string}[searchEndTime]搜索结束时间
-         * @param {string}[sortField]排序字段
-         * @param {string}[sortOrder]排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
-         * @param {string}[descStr]降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
-         * @param {Array<Condition>}[searchParameters]复杂查询条件
+         * @summary 分页查询
+         * @param {string}[tableName] 数据库表名
+         * @param {string}[searchValue] 搜索值
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {string}[searchBeginTime] 搜索开始时间
+         * @param {string}[searchEndTime] 搜索结束时间
+         * @param {string}[sortField] 排序字段
+         * @param {string}[sortOrder] 排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
+         * @param {string}[descStr] 降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
+         * @param {Array<Condition>}[searchParameters] 复杂查询条件
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function codeGeneratePageGet(tableName?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, mode: ErrorMessageMode = 'message') {
+         export function codeGeneratePageGet(tableName?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, options?: RequestOptions) {
             const params = {  } as any
             if (tableName !== undefined) {
                 params['TableName'] = tableName;
@@ -192,17 +192,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary代码生成_本地项目
-         * @param {SysCodeGen}[sysCodeGen]
+         * @summary 代码生成_本地项目
+         * @param {SysCodeGen}[sysCodeGen] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function codeGenerateRunLocalPost(sysCodeGen?: SysCodeGen, mode: ErrorMessageMode = 'message') {
-            const params = {  sysCodeGen  }
+         export function codeGenerateRunLocalPost(sysCodeGen?: SysCodeGen, options?: RequestOptions) {
+            const params = {  ...sysCodeGen  }
             return defHttp.request<void>(
               {
                 url: '/codeGenerate/runLocal',
@@ -210,7 +210,6 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

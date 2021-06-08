@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    AddMenuInput,
@@ -27,11 +26,12 @@ import {
    } from '../models';
 
          /**
-         * @summary增加系统菜单
-         * @param {AddMenuInput}[addMenuInput]
+         * @summary 增加系统菜单
+         * @param {AddMenuInput}[addMenuInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMenuAddPost(addMenuInput?: AddMenuInput, mode: ErrorMessageMode = 'message') {
-            const params = {  addMenuInput  }
+         export function sysMenuAddPost(addMenuInput?: AddMenuInput, options?: RequestOptions) {
+            const params = {  ...addMenuInput  }
             return defHttp.request<void>(
               {
                 url: '/sysMenu/add',
@@ -39,17 +39,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary根据系统应用切换菜单
-         * @param {ChangeAppMenuInput}[changeAppMenuInput]
+         * @summary 根据系统应用切换菜单
+         * @param {ChangeAppMenuInput}[changeAppMenuInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMenuChangePost(changeAppMenuInput?: ChangeAppMenuInput, mode: ErrorMessageMode = 'message') {
-            const params = {  changeAppMenuInput  }
+         export function sysMenuChangePost(changeAppMenuInput?: ChangeAppMenuInput, options?: RequestOptions) {
+            const params = {  ...changeAppMenuInput  }
             return defHttp.request<XnRestfulResultOfListOfAntDesignTreeNode>(
               {
                 url: '/sysMenu/change',
@@ -57,17 +57,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary删除系统菜单
-         * @param {DeleteMenuInput}[deleteMenuInput]
+         * @summary 删除系统菜单
+         * @param {DeleteMenuInput}[deleteMenuInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMenuDeletePost(deleteMenuInput?: DeleteMenuInput, mode: ErrorMessageMode = 'message') {
-            const params = {  deleteMenuInput  }
+         export function sysMenuDeletePost(deleteMenuInput?: DeleteMenuInput, options?: RequestOptions) {
+            const params = {  ...deleteMenuInput  }
             return defHttp.request<void>(
               {
                 url: '/sysMenu/delete',
@@ -75,17 +75,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取系统菜单
-         * @param {QueryMenuInput}[queryMenuInput]
+         * @summary 获取系统菜单
+         * @param {QueryMenuInput}[queryMenuInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMenuDetailPost(queryMenuInput?: QueryMenuInput, mode: ErrorMessageMode = 'message') {
-            const params = {  queryMenuInput  }
+         export function sysMenuDetailPost(queryMenuInput?: QueryMenuInput, options?: RequestOptions) {
+            const params = {  ...queryMenuInput  }
             return defHttp.request<XnRestfulResultOfObject>(
               {
                 url: '/sysMenu/detail',
@@ -93,17 +93,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary更新系统菜单
-         * @param {UpdateMenuInput}[updateMenuInput]
+         * @summary 更新系统菜单
+         * @param {UpdateMenuInput}[updateMenuInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMenuEditPost(updateMenuInput?: UpdateMenuInput, mode: ErrorMessageMode = 'message') {
-            const params = {  updateMenuInput  }
+         export function sysMenuEditPost(updateMenuInput?: UpdateMenuInput, options?: RequestOptions) {
+            const params = {  ...updateMenuInput  }
             return defHttp.request<void>(
               {
                 url: '/sysMenu/edit',
@@ -111,17 +111,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary系统菜单列表（树表）
-         * @param {string}[name]名称
-         * @param {string}[application]应用分类（应用编码）
+         * @summary 系统菜单列表（树表）
+         * @param {string}[name] 名称
+         * @param {string}[application] 应用分类（应用编码）
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMenuListGet(name?: string, application?: string, mode: ErrorMessageMode = 'message') {
+         export function sysMenuListGet(name?: string, application?: string, options?: RequestOptions) {
             const params = {  } as any
             if (name !== undefined) {
                 params['Name'] = name;
@@ -136,16 +136,16 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取系统菜单树，用于给角色授权时选择
-         * @param {string}[application]应用分类（应用编码）
+         * @summary 获取系统菜单树，用于给角色授权时选择
+         * @param {string}[application] 应用分类（应用编码）
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMenuTreeForGrantGet(application?: string, mode: ErrorMessageMode = 'message') {
+         export function sysMenuTreeForGrantGet(application?: string, options?: RequestOptions) {
             const params = {  } as any
             if (application !== undefined) {
                 params['Application'] = application;
@@ -157,16 +157,16 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取系统菜单树，用于新增、编辑时选择上级节点
-         * @param {string}[application]应用分类（应用编码）
+         * @summary 获取系统菜单树，用于新增、编辑时选择上级节点
+         * @param {string}[application] 应用分类（应用编码）
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysMenuTreeGet(application?: string, mode: ErrorMessageMode = 'message') {
+         export function sysMenuTreeGet(application?: string, options?: RequestOptions) {
             const params = {  } as any
             if (application !== undefined) {
                 params['Application'] = application;
@@ -178,7 +178,6 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

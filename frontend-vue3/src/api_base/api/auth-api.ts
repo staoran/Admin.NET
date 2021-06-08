@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    ClickWordCaptchaInput,
@@ -25,11 +24,12 @@ import {
    } from '../models';
 
          /**
-         * @summary校验验证码
-         * @param {ClickWordCaptchaInput}[clickWordCaptchaInput]
+         * @summary 校验验证码
+         * @param {ClickWordCaptchaInput}[clickWordCaptchaInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function captchaCheckPost(clickWordCaptchaInput?: ClickWordCaptchaInput, mode: ErrorMessageMode = 'message') {
-            const params = {  clickWordCaptchaInput  }
+         export function captchaCheckPost(clickWordCaptchaInput?: ClickWordCaptchaInput, options?: RequestOptions) {
+            const params = {  ...clickWordCaptchaInput  }
             return defHttp.request<void>(
               {
                 url: '/captcha/check',
@@ -37,64 +37,64 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取验证码（默认点选模式）
+         * @summary 获取验证码（默认点选模式）
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function captchaGetPost(mode: ErrorMessageMode = 'message') {
+         export function captchaGetPost(options?: RequestOptions) {
             return defHttp.request<void>(
               {
                 url: '/captcha/get',
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取验证码开关
+         * @summary 获取验证码开关
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function getCaptchaOpenGet(mode: ErrorMessageMode = 'message') {
+         export function getCaptchaOpenGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfBoolean>(
               {
                 url: '/getCaptchaOpen',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取当前登录用户信息
+         * @summary 获取当前登录用户信息
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function getLoginUserGet(mode: ErrorMessageMode = 'message') {
+         export function getLoginUserGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfLoginOutput>(
               {
                 url: '/getLoginUser',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary用户登录
-         * @param {LoginInput}loginInput
+         * @summary 用户登录
+         * @param {LoginInput}loginInput 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function loginPost(loginInput: LoginInput, mode: ErrorMessageMode = 'message') {
+         export function loginPost(loginInput: LoginInput, options?: RequestOptions) {
             // verify required parameter 'loginInput' is not null or undefined
             assertParamExists('loginPost', 'loginInput', loginInput)
-            const params = {  loginInput  }
+            const params = {  ...loginInput  }
             return defHttp.request<XnRestfulResultOfString>(
               {
                 url: '/login',
@@ -102,22 +102,21 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary退出
+         * @summary 退出
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function logoutGet(mode: ErrorMessageMode = 'message') {
+         export function logoutGet(options?: RequestOptions) {
             return defHttp.request<void>(
               {
                 url: '/logout',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

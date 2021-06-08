@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    AddConfigInput,
@@ -27,29 +26,30 @@ import {
    } from '../models';
 
          /**
-         * @summary获取验证码开关标识
+         * @summary 获取验证码开关标识
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function apiConfigCaptchaOpenFlagGet(mode: ErrorMessageMode = 'message') {
+         export function apiConfigCaptchaOpenFlagGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfBoolean>(
               {
                 url: '/api/config/captcha-open-flag',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary更新配置缓存
-         * @param {string}code
-         * @param {any}[body]
+         * @summary 更新配置缓存
+         * @param {string}code 
+         * @param {any}[body] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function apiConfigConfigCacheCodePut(code: string, body?: any, mode: ErrorMessageMode = 'message') {
+         export function apiConfigConfigCacheCodePut(code: string, body?: any, options?: RequestOptions) {
             // verify required parameter 'code' is not null or undefined
             assertParamExists('apiConfigConfigCacheCodePut', 'code', code)
-            const params = {  code  }
+            const params = {  ...code  }
             return defHttp.request<void>(
               {
                 url: '/api/config/config-cache/{code}',
@@ -57,17 +57,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary增加系统参数配置
-         * @param {AddConfigInput}[addConfigInput]
+         * @summary 增加系统参数配置
+         * @param {AddConfigInput}[addConfigInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysConfigAddPost(addConfigInput?: AddConfigInput, mode: ErrorMessageMode = 'message') {
-            const params = {  addConfigInput  }
+         export function sysConfigAddPost(addConfigInput?: AddConfigInput, options?: RequestOptions) {
+            const params = {  ...addConfigInput  }
             return defHttp.request<void>(
               {
                 url: '/sysConfig/add',
@@ -75,17 +75,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary删除系统参数配置
-         * @param {DeleteConfigInput}[deleteConfigInput]
+         * @summary 删除系统参数配置
+         * @param {DeleteConfigInput}[deleteConfigInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysConfigDeletePost(deleteConfigInput?: DeleteConfigInput, mode: ErrorMessageMode = 'message') {
-            const params = {  deleteConfigInput  }
+         export function sysConfigDeletePost(deleteConfigInput?: DeleteConfigInput, options?: RequestOptions) {
+            const params = {  ...deleteConfigInput  }
             return defHttp.request<void>(
               {
                 url: '/sysConfig/delete',
@@ -93,16 +93,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取系统参数配置
-         * @param {number}id主键Id
+         * @summary 获取系统参数配置
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysConfigDetailGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysConfigDetailGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysConfigDetailGet', 'id', id)
             const params = {  } as any
@@ -116,17 +116,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary更新系统参数配置
-         * @param {UpdateConfigInput}[updateConfigInput]
+         * @summary 更新系统参数配置
+         * @param {UpdateConfigInput}[updateConfigInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysConfigEditPost(updateConfigInput?: UpdateConfigInput, mode: ErrorMessageMode = 'message') {
-            const params = {  updateConfigInput  }
+         export function sysConfigEditPost(updateConfigInput?: UpdateConfigInput, options?: RequestOptions) {
+            const params = {  ...updateConfigInput  }
             return defHttp.request<void>(
               {
                 url: '/sysConfig/edit',
@@ -134,42 +134,42 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取系统参数配置列表
+         * @summary 获取系统参数配置列表
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysConfigListGet(mode: ErrorMessageMode = 'message') {
+         export function sysConfigListGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfObject>(
               {
                 url: '/sysConfig/list',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary分页获取系统参数配置
-         * @param {string}[name]名称
-         * @param {string}[code]编码
-         * @param {string}[groupCode]常量所属分类的编码，来自于“常量的分类”字典
-         * @param {string}[searchValue]搜索值
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
-         * @param {string}[searchBeginTime]搜索开始时间
-         * @param {string}[searchEndTime]搜索结束时间
-         * @param {string}[sortField]排序字段
-         * @param {string}[sortOrder]排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
-         * @param {string}[descStr]降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
-         * @param {Array<Condition>}[searchParameters]复杂查询条件
+         * @summary 分页获取系统参数配置
+         * @param {string}[name] 名称
+         * @param {string}[code] 编码
+         * @param {string}[groupCode] 常量所属分类的编码，来自于“常量的分类”字典
+         * @param {string}[searchValue] 搜索值
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {string}[searchBeginTime] 搜索开始时间
+         * @param {string}[searchEndTime] 搜索结束时间
+         * @param {string}[sortField] 排序字段
+         * @param {string}[sortOrder] 排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
+         * @param {string}[descStr] 降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
+         * @param {Array<Condition>}[searchParameters] 复杂查询条件
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysConfigPageGet(name?: string, code?: string, groupCode?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, mode: ErrorMessageMode = 'message') {
+         export function sysConfigPageGet(name?: string, code?: string, groupCode?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, options?: RequestOptions) {
             const params = {  } as any
             if (name !== undefined) {
                 params['Name'] = name;
@@ -214,7 +214,6 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

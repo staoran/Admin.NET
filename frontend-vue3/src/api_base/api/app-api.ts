@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    AddAppInput,
@@ -28,11 +27,12 @@ import {
    } from '../models';
 
          /**
-         * @summary增加系统应用
-         * @param {AddAppInput}[addAppInput]
+         * @summary 增加系统应用
+         * @param {AddAppInput}[addAppInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysAppAddPost(addAppInput?: AddAppInput, mode: ErrorMessageMode = 'message') {
-            const params = {  addAppInput  }
+         export function sysAppAddPost(addAppInput?: AddAppInput, options?: RequestOptions) {
+            const params = {  ...addAppInput  }
             return defHttp.request<void>(
               {
                 url: '/sysApp/add',
@@ -40,17 +40,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary修改用户状态
-         * @param {ChangeUserAppStatusInput}[changeUserAppStatusInput]
+         * @summary 修改用户状态
+         * @param {ChangeUserAppStatusInput}[changeUserAppStatusInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysAppChangeStatusPost(changeUserAppStatusInput?: ChangeUserAppStatusInput, mode: ErrorMessageMode = 'message') {
-            const params = {  changeUserAppStatusInput  }
+         export function sysAppChangeStatusPost(changeUserAppStatusInput?: ChangeUserAppStatusInput, options?: RequestOptions) {
+            const params = {  ...changeUserAppStatusInput  }
             return defHttp.request<void>(
               {
                 url: '/sysApp/changeStatus',
@@ -58,17 +58,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary删除系统应用
-         * @param {BaseId}[baseId]
+         * @summary 删除系统应用
+         * @param {BaseId}[baseId] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysAppDeletePost(baseId?: BaseId, mode: ErrorMessageMode = 'message') {
-            const params = {  baseId  }
+         export function sysAppDeletePost(baseId?: BaseId, options?: RequestOptions) {
+            const params = {  ...baseId  }
             return defHttp.request<void>(
               {
                 url: '/sysApp/delete',
@@ -76,16 +76,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取系统应用
-         * @param {number}id主键Id
+         * @summary 获取系统应用
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysAppDetailGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysAppDetailGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysAppDetailGet', 'id', id)
             const params = {  } as any
@@ -99,17 +99,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary更新系统应用
-         * @param {UpdateAppInput}[updateAppInput]
+         * @summary 更新系统应用
+         * @param {UpdateAppInput}[updateAppInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysAppEditPost(updateAppInput?: UpdateAppInput, mode: ErrorMessageMode = 'message') {
-            const params = {  updateAppInput  }
+         export function sysAppEditPost(updateAppInput?: UpdateAppInput, options?: RequestOptions) {
+            const params = {  ...updateAppInput  }
             return defHttp.request<void>(
               {
                 url: '/sysApp/edit',
@@ -117,41 +117,41 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取系统应用列表
+         * @summary 获取系统应用列表
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysAppListGet(mode: ErrorMessageMode = 'message') {
+         export function sysAppListGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfObject>(
               {
                 url: '/sysApp/list',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary分页查询系统应用
-         * @param {string}[name]名称
-         * @param {string}[code]编码
-         * @param {string}[searchValue]搜索值
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
-         * @param {string}[searchBeginTime]搜索开始时间
-         * @param {string}[searchEndTime]搜索结束时间
-         * @param {string}[sortField]排序字段
-         * @param {string}[sortOrder]排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
-         * @param {string}[descStr]降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
-         * @param {Array<Condition>}[searchParameters]复杂查询条件
+         * @summary 分页查询系统应用
+         * @param {string}[name] 名称
+         * @param {string}[code] 编码
+         * @param {string}[searchValue] 搜索值
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {string}[searchBeginTime] 搜索开始时间
+         * @param {string}[searchEndTime] 搜索结束时间
+         * @param {string}[sortField] 排序字段
+         * @param {string}[sortOrder] 排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
+         * @param {string}[descStr] 降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
+         * @param {Array<Condition>}[searchParameters] 复杂查询条件
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysAppPageGet(name?: string, code?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, mode: ErrorMessageMode = 'message') {
+         export function sysAppPageGet(name?: string, code?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, options?: RequestOptions) {
             const params = {  } as any
             if (name !== undefined) {
                 params['Name'] = name;
@@ -193,17 +193,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary设为默认应用
-         * @param {SetDefaultAppInput}[setDefaultAppInput]
+         * @summary 设为默认应用
+         * @param {SetDefaultAppInput}[setDefaultAppInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysAppSetAsDefaultPost(setDefaultAppInput?: SetDefaultAppInput, mode: ErrorMessageMode = 'message') {
-            const params = {  setDefaultAppInput  }
+         export function sysAppSetAsDefaultPost(setDefaultAppInput?: SetDefaultAppInput, options?: RequestOptions) {
+            const params = {  ...setDefaultAppInput  }
             return defHttp.request<void>(
               {
                 url: '/sysApp/setAsDefault',
@@ -211,7 +211,6 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

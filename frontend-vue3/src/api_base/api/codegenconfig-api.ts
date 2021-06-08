@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    CodeGenConfig,
@@ -23,32 +22,33 @@ import {
    } from '../models';
 
          /**
-         * @summary详情
-         * @param {number}[id]主键Id
-         * @param {number}[codeGenId]代码生成主表ID
-         * @param {string}[columnName]数据库字段名
-         * @param {string}[lowerColumnName]数据库字段名(首字母小写)
-         * @param {string}[columnComment]字段描述
-         * @param {string}[netType].NET类型
-         * @param {string}[effectType]作用类型（字典）
-         * @param {string}[fkEntityName]外键实体名称
-         * @param {string}[lowerFkEntityName]外键实体名称(首字母小写)
-         * @param {string}[fkColumnName]外键显示字段
-         * @param {string}[lowerFkColumnName]外键显示字段(首字母小写)
-         * @param {string}[fkColumnNetType]外键显示字段.NET类型
-         * @param {string}[dictTypeCode]字典code
-         * @param {string}[whetherRetract]列表是否缩进（字典）
-         * @param {string}[whetherRequired]是否必填（字典）
-         * @param {string}[queryWhether]是否是查询条件
-         * @param {string}[queryType]查询方式
-         * @param {string}[whetherTable]列表显示
-         * @param {string}[whetherOrderBy]列表排序显示
-         * @param {string}[whetherAddUpdate]增改
-         * @param {string}[columnKey]主外键
-         * @param {string}[dataType]数据库中类型（物理类型）
-         * @param {string}[whetherCommon]是否是通用字段
+         * @summary 详情
+         * @param {number}[id] 主键Id
+         * @param {number}[codeGenId] 代码生成主表ID
+         * @param {string}[columnName] 数据库字段名
+         * @param {string}[lowerColumnName] 数据库字段名(首字母小写)
+         * @param {string}[columnComment] 字段描述
+         * @param {string}[netType] .NET类型
+         * @param {string}[effectType] 作用类型（字典）
+         * @param {string}[fkEntityName] 外键实体名称
+         * @param {string}[lowerFkEntityName] 外键实体名称(首字母小写)
+         * @param {string}[fkColumnName] 外键显示字段
+         * @param {string}[lowerFkColumnName] 外键显示字段(首字母小写)
+         * @param {string}[fkColumnNetType] 外键显示字段.NET类型
+         * @param {string}[dictTypeCode] 字典code
+         * @param {string}[whetherRetract] 列表是否缩进（字典）
+         * @param {string}[whetherRequired] 是否必填（字典）
+         * @param {string}[queryWhether] 是否是查询条件
+         * @param {string}[queryType] 查询方式
+         * @param {string}[whetherTable] 列表显示
+         * @param {string}[whetherOrderBy] 列表排序显示
+         * @param {string}[whetherAddUpdate] 增改
+         * @param {string}[columnKey] 主外键
+         * @param {string}[dataType] 数据库中类型（物理类型）
+         * @param {string}[whetherCommon] 是否是通用字段
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysCodeGenerateConfigDetailGet(id?: number, codeGenId?: number, columnName?: string, lowerColumnName?: string, columnComment?: string, netType?: string, effectType?: string, fkEntityName?: string, lowerFkEntityName?: string, fkColumnName?: string, lowerFkColumnName?: string, fkColumnNetType?: string, dictTypeCode?: string, whetherRetract?: string, whetherRequired?: string, queryWhether?: string, queryType?: string, whetherTable?: string, whetherOrderBy?: string, whetherAddUpdate?: string, columnKey?: string, dataType?: string, whetherCommon?: string, mode: ErrorMessageMode = 'message') {
+         export function sysCodeGenerateConfigDetailGet(id?: number, codeGenId?: number, columnName?: string, lowerColumnName?: string, columnComment?: string, netType?: string, effectType?: string, fkEntityName?: string, lowerFkEntityName?: string, fkColumnName?: string, lowerFkColumnName?: string, fkColumnNetType?: string, dictTypeCode?: string, whetherRetract?: string, whetherRequired?: string, queryWhether?: string, queryType?: string, whetherTable?: string, whetherOrderBy?: string, whetherAddUpdate?: string, columnKey?: string, dataType?: string, whetherCommon?: string, options?: RequestOptions) {
             const params = {  } as any
             if (id !== undefined) {
                 params['Id'] = id;
@@ -126,17 +126,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary更新
-         * @param {Array<CodeGenConfig>}[codeGenConfig]
+         * @summary 更新
+         * @param {Array<CodeGenConfig>}[codeGenConfig] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysCodeGenerateConfigEditPost(codeGenConfig?: Array<CodeGenConfig>, mode: ErrorMessageMode = 'message') {
-            const params = {  codeGenConfig  }
+         export function sysCodeGenerateConfigEditPost(codeGenConfig?: Array<CodeGenConfig>, options?: RequestOptions) {
+            const params = {  ...codeGenConfig  }
             return defHttp.request<void>(
               {
                 url: '/sysCodeGenerateConfig/edit',
@@ -144,38 +144,38 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary代码生成详细配置列表
-         * @param {number}[id]主键Id
-         * @param {number}[codeGenId]代码生成主表ID
-         * @param {string}[columnName]数据库字段名
-         * @param {string}[lowerColumnName]数据库字段名(首字母小写)
-         * @param {string}[columnComment]字段描述
-         * @param {string}[netType].NET类型
-         * @param {string}[effectType]作用类型（字典）
-         * @param {string}[fkEntityName]外键实体名称
-         * @param {string}[lowerFkEntityName]外键实体名称(首字母小写)
-         * @param {string}[fkColumnName]外键显示字段
-         * @param {string}[lowerFkColumnName]外键显示字段(首字母小写)
-         * @param {string}[fkColumnNetType]外键显示字段.NET类型
-         * @param {string}[dictTypeCode]字典code
-         * @param {string}[whetherRetract]列表是否缩进（字典）
-         * @param {string}[whetherRequired]是否必填（字典）
-         * @param {string}[queryWhether]是否是查询条件
-         * @param {string}[queryType]查询方式
-         * @param {string}[whetherTable]列表显示
-         * @param {string}[whetherOrderBy]列表排序显示
-         * @param {string}[whetherAddUpdate]增改
-         * @param {string}[columnKey]主外键
-         * @param {string}[dataType]数据库中类型（物理类型）
-         * @param {string}[whetherCommon]是否是通用字段
+         * @summary 代码生成详细配置列表
+         * @param {number}[id] 主键Id
+         * @param {number}[codeGenId] 代码生成主表ID
+         * @param {string}[columnName] 数据库字段名
+         * @param {string}[lowerColumnName] 数据库字段名(首字母小写)
+         * @param {string}[columnComment] 字段描述
+         * @param {string}[netType] .NET类型
+         * @param {string}[effectType] 作用类型（字典）
+         * @param {string}[fkEntityName] 外键实体名称
+         * @param {string}[lowerFkEntityName] 外键实体名称(首字母小写)
+         * @param {string}[fkColumnName] 外键显示字段
+         * @param {string}[lowerFkColumnName] 外键显示字段(首字母小写)
+         * @param {string}[fkColumnNetType] 外键显示字段.NET类型
+         * @param {string}[dictTypeCode] 字典code
+         * @param {string}[whetherRetract] 列表是否缩进（字典）
+         * @param {string}[whetherRequired] 是否必填（字典）
+         * @param {string}[queryWhether] 是否是查询条件
+         * @param {string}[queryType] 查询方式
+         * @param {string}[whetherTable] 列表显示
+         * @param {string}[whetherOrderBy] 列表排序显示
+         * @param {string}[whetherAddUpdate] 增改
+         * @param {string}[columnKey] 主外键
+         * @param {string}[dataType] 数据库中类型（物理类型）
+         * @param {string}[whetherCommon] 是否是通用字段
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysCodeGenerateConfigListGet(id?: number, codeGenId?: number, columnName?: string, lowerColumnName?: string, columnComment?: string, netType?: string, effectType?: string, fkEntityName?: string, lowerFkEntityName?: string, fkColumnName?: string, lowerFkColumnName?: string, fkColumnNetType?: string, dictTypeCode?: string, whetherRetract?: string, whetherRequired?: string, queryWhether?: string, queryType?: string, whetherTable?: string, whetherOrderBy?: string, whetherAddUpdate?: string, columnKey?: string, dataType?: string, whetherCommon?: string, mode: ErrorMessageMode = 'message') {
+         export function sysCodeGenerateConfigListGet(id?: number, codeGenId?: number, columnName?: string, lowerColumnName?: string, columnComment?: string, netType?: string, effectType?: string, fkEntityName?: string, lowerFkEntityName?: string, fkColumnName?: string, lowerFkColumnName?: string, fkColumnNetType?: string, dictTypeCode?: string, whetherRetract?: string, whetherRequired?: string, queryWhether?: string, queryType?: string, whetherTable?: string, whetherOrderBy?: string, whetherAddUpdate?: string, columnKey?: string, dataType?: string, whetherCommon?: string, options?: RequestOptions) {
             const params = {  } as any
             if (id !== undefined) {
                 params['Id'] = id;
@@ -253,7 +253,6 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

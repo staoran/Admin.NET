@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    AddJobInput,
@@ -29,11 +28,12 @@ import {
    } from '../models';
 
          /**
-         * @summary增加任务
-         * @param {AddJobInput}[addJobInput]
+         * @summary 增加任务
+         * @param {AddJobInput}[addJobInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTimersAddPost(addJobInput?: AddJobInput, mode: ErrorMessageMode = 'message') {
-            const params = {  addJobInput  }
+         export function sysTimersAddPost(addJobInput?: AddJobInput, options?: RequestOptions) {
+            const params = {  ...addJobInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTimers/add',
@@ -41,17 +41,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary删除任务
-         * @param {DeleteJobInput}[deleteJobInput]
+         * @summary 删除任务
+         * @param {DeleteJobInput}[deleteJobInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTimersDeletePost(deleteJobInput?: DeleteJobInput, mode: ErrorMessageMode = 'message') {
-            const params = {  deleteJobInput  }
+         export function sysTimersDeletePost(deleteJobInput?: DeleteJobInput, options?: RequestOptions) {
+            const params = {  ...deleteJobInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTimers/delete',
@@ -59,16 +59,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary查看任务
-         * @param {number}id主键Id
+         * @summary 查看任务
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTimersDetailGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysTimersDetailGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysTimersDetailGet', 'id', id)
             const params = {  } as any
@@ -82,17 +82,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary修改任务
-         * @param {UpdateJobInput}[updateJobInput]
+         * @summary 修改任务
+         * @param {UpdateJobInput}[updateJobInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTimersEditPost(updateJobInput?: UpdateJobInput, mode: ErrorMessageMode = 'message') {
-            const params = {  updateJobInput  }
+         export function sysTimersEditPost(updateJobInput?: UpdateJobInput, options?: RequestOptions) {
+            const params = {  ...updateJobInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTimers/edit',
@@ -100,51 +100,51 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取所有本地任务
+         * @summary 获取所有本地任务
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTimersLocalJobListGet(mode: ErrorMessageMode = 'message') {
+         export function sysTimersLocalJobListGet(options?: RequestOptions) {
             return defHttp.request<XnRestfulResultOfObject>(
               {
                 url: '/sysTimers/localJobList',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary分页获取任务列表
-         * @param {string}[jobName]任务名称
-         * @param {boolean}[doOnce]只执行一次
-         * @param {boolean}[startNow]立即执行（默认等待启动）
-         * @param {SpareTimeExecuteTypes}[executeType]执行类型(并行、列队)
-         * @param {number}[interval]执行间隔时间（单位秒）
-         * @param {string}[cron]Cron表达式
-         * @param {SpareTimeTypes}[timerType]定时器类型
-         * @param {string}[requestUrl]请求url
-         * @param {string}[requestParameters]请求参数（Post，Put请求用）
-         * @param {string}[headers]Headers(可以包含如：Authorization授权认证)  格式：{\&quot;Authorization\&quot;:\&quot;userpassword..\&quot;}
-         * @param {RequestTypeEnum}[requestType]请求类型
-         * @param {string}[remark]备注
-         * @param {string}[searchValue]搜索值
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
-         * @param {string}[searchBeginTime]搜索开始时间
-         * @param {string}[searchEndTime]搜索结束时间
-         * @param {string}[sortField]排序字段
-         * @param {string}[sortOrder]排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
-         * @param {string}[descStr]降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
-         * @param {Array<Condition>}[searchParameters]复杂查询条件
+         * @summary 分页获取任务列表
+         * @param {string}[jobName] 任务名称
+         * @param {boolean}[doOnce] 只执行一次
+         * @param {boolean}[startNow] 立即执行（默认等待启动）
+         * @param {SpareTimeExecuteTypes}[executeType] 执行类型(并行、列队)
+         * @param {number}[interval] 执行间隔时间（单位秒）
+         * @param {string}[cron] Cron表达式
+         * @param {SpareTimeTypes}[timerType] 定时器类型
+         * @param {string}[requestUrl] 请求url
+         * @param {string}[requestParameters] 请求参数（Post，Put请求用）
+         * @param {string}[headers] Headers(可以包含如：Authorization授权认证)  格式：{\&quot;Authorization\&quot;:\&quot;userpassword..\&quot;}
+         * @param {RequestTypeEnum}[requestType] 请求类型
+         * @param {string}[remark] 备注
+         * @param {string}[searchValue] 搜索值
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {string}[searchBeginTime] 搜索开始时间
+         * @param {string}[searchEndTime] 搜索结束时间
+         * @param {string}[sortField] 排序字段
+         * @param {string}[sortOrder] 排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
+         * @param {string}[descStr] 降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
+         * @param {Array<Condition>}[searchParameters] 复杂查询条件
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTimersPageGet(jobName?: string, doOnce?: boolean, startNow?: boolean, executeType?: SpareTimeExecuteTypes, interval?: number, cron?: string, timerType?: SpareTimeTypes, requestUrl?: string, requestParameters?: string, headers?: string, requestType?: RequestTypeEnum, remark?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, mode: ErrorMessageMode = 'message') {
+         export function sysTimersPageGet(jobName?: string, doOnce?: boolean, startNow?: boolean, executeType?: SpareTimeExecuteTypes, interval?: number, cron?: string, timerType?: SpareTimeTypes, requestUrl?: string, requestParameters?: string, headers?: string, requestType?: RequestTypeEnum, remark?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, options?: RequestOptions) {
             const params = {  } as any
             if (jobName !== undefined) {
                 params['JobName'] = jobName;
@@ -216,17 +216,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary启动任务
-         * @param {AddJobInput}[addJobInput]
+         * @summary 启动任务
+         * @param {AddJobInput}[addJobInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTimersStartPost(addJobInput?: AddJobInput, mode: ErrorMessageMode = 'message') {
-            const params = {  addJobInput  }
+         export function sysTimersStartPost(addJobInput?: AddJobInput, options?: RequestOptions) {
+            const params = {  ...addJobInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTimers/start',
@@ -234,17 +234,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary停止任务
-         * @param {StopJobInput}[stopJobInput]
+         * @summary 停止任务
+         * @param {StopJobInput}[stopJobInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysTimersStopPost(stopJobInput?: StopJobInput, mode: ErrorMessageMode = 'message') {
-            const params = {  stopJobInput  }
+         export function sysTimersStopPost(stopJobInput?: StopJobInput, options?: RequestOptions) {
+            const params = {  ...stopJobInput  }
             return defHttp.request<void>(
               {
                 url: '/sysTimers/stop',
@@ -252,7 +252,6 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }

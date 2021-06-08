@@ -12,9 +12,8 @@
  * Do not edit the class manually.
  */
 
-
 import { defHttp } from '/@/utils/http/axios';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    AddDictDataInput,
@@ -26,11 +25,12 @@ import {
    } from '../models';
 
          /**
-         * @summary增加字典值
-         * @param {AddDictDataInput}[addDictDataInput]
+         * @summary 增加字典值
+         * @param {AddDictDataInput}[addDictDataInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysDictDataAddPost(addDictDataInput?: AddDictDataInput, mode: ErrorMessageMode = 'message') {
-            const params = {  addDictDataInput  }
+         export function sysDictDataAddPost(addDictDataInput?: AddDictDataInput, options?: RequestOptions) {
+            const params = {  ...addDictDataInput  }
             return defHttp.request<void>(
               {
                 url: '/sysDictData/add',
@@ -38,17 +38,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary修改字典值状态
-         * @param {ChageStateDictDataInput}[chageStateDictDataInput]
+         * @summary 修改字典值状态
+         * @param {ChageStateDictDataInput}[chageStateDictDataInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysDictDataChangeStatusPost(chageStateDictDataInput?: ChageStateDictDataInput, mode: ErrorMessageMode = 'message') {
-            const params = {  chageStateDictDataInput  }
+         export function sysDictDataChangeStatusPost(chageStateDictDataInput?: ChageStateDictDataInput, options?: RequestOptions) {
+            const params = {  ...chageStateDictDataInput  }
             return defHttp.request<void>(
               {
                 url: '/sysDictData/changeStatus',
@@ -56,17 +56,17 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary删除字典值
-         * @param {DeleteDictDataInput}[deleteDictDataInput]
+         * @summary 删除字典值
+         * @param {DeleteDictDataInput}[deleteDictDataInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysDictDataDeletePost(deleteDictDataInput?: DeleteDictDataInput, mode: ErrorMessageMode = 'message') {
-            const params = {  deleteDictDataInput  }
+         export function sysDictDataDeletePost(deleteDictDataInput?: DeleteDictDataInput, options?: RequestOptions) {
+            const params = {  ...deleteDictDataInput  }
             return defHttp.request<void>(
               {
                 url: '/sysDictData/delete',
@@ -74,16 +74,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary字典值详情
-         * @param {number}id主键Id
+         * @summary 字典值详情
+         * @param {number}id 主键Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysDictDataDetailGet(id: number, mode: ErrorMessageMode = 'message') {
+         export function sysDictDataDetailGet(id: number, options?: RequestOptions) {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('sysDictDataDetailGet', 'id', id)
             const params = {  } as any
@@ -97,17 +97,17 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary更新字典值
-         * @param {UpdateDictDataInput}[updateDictDataInput]
+         * @summary 更新字典值
+         * @param {UpdateDictDataInput}[updateDictDataInput] 
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysDictDataEditPost(updateDictDataInput?: UpdateDictDataInput, mode: ErrorMessageMode = 'message') {
-            const params = {  updateDictDataInput  }
+         export function sysDictDataEditPost(updateDictDataInput?: UpdateDictDataInput, options?: RequestOptions) {
+            const params = {  ...updateDictDataInput  }
             return defHttp.request<void>(
               {
                 url: '/sysDictData/edit',
@@ -115,16 +115,16 @@ import {
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary获取某个字典类型下字典值列表
-         * @param {number}typeId字典类型Id
+         * @summary 获取某个字典类型下字典值列表
+         * @param {number}typeId 字典类型Id
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysDictDataListGet(typeId: number, mode: ErrorMessageMode = 'message') {
+         export function sysDictDataListGet(typeId: number, options?: RequestOptions) {
             // verify required parameter 'typeId' is not null or undefined
             assertParamExists('sysDictDataListGet', 'typeId', typeId)
             const params = {  } as any
@@ -138,27 +138,27 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
 
          /**
-         * @summary分页查询字典值
-         * @param {number}[typeId]字典类型Id
-         * @param {string}[value]值
-         * @param {string}[code]编码
-         * @param {string}[searchValue]搜索值
-         * @param {number}[pageNo]当前页码
-         * @param {number}[pageSize]页码容量
-         * @param {string}[searchBeginTime]搜索开始时间
-         * @param {string}[searchEndTime]搜索结束时间
-         * @param {string}[sortField]排序字段
-         * @param {string}[sortOrder]排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
-         * @param {string}[descStr]降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
-         * @param {Array<Condition>}[searchParameters]复杂查询条件
+         * @summary 分页查询字典值
+         * @param {number}[typeId] 字典类型Id
+         * @param {string}[value] 值
+         * @param {string}[code] 编码
+         * @param {string}[searchValue] 搜索值
+         * @param {number}[pageNo] 当前页码
+         * @param {number}[pageSize] 页码容量
+         * @param {string}[searchBeginTime] 搜索开始时间
+         * @param {string}[searchEndTime] 搜索结束时间
+         * @param {string}[sortField] 排序字段
+         * @param {string}[sortOrder] 排序方法,默认升序,否则降序(配合antd前端,约定参数为 Ascend,Dscend)
+         * @param {string}[descStr] 降序排序(不要问我为什么是descend不是desc，前端约定参数就是这样)
+         * @param {Array<Condition>}[searchParameters] 复杂查询条件
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
-         export function sysDictDataPageGet(typeId?: number, value?: string, code?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, mode: ErrorMessageMode = 'message') {
+         export function sysDictDataPageGet(typeId?: number, value?: string, code?: string, searchValue?: string, pageNo?: number, pageSize?: number, searchBeginTime?: string, searchEndTime?: string, sortField?: string, sortOrder?: string, descStr?: string, searchParameters?: Array<Condition>, options?: RequestOptions) {
             const params = {  } as any
             if (typeId !== undefined) {
                 params['TypeId'] = typeId;
@@ -203,7 +203,6 @@ import {
                 headers: {'Content-Type': 'application/json'},
                 params
               },
-              {
-                errorMessageMode: mode,
-              })
+              options
+            )
          }
