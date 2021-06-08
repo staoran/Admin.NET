@@ -85,7 +85,7 @@ export const useUserStore = defineStore({
         // const data = await loginApi(loginParams, mode);
         // const { token } = data;
 
-        const token = await loginPost(loginParams, 'modal');
+        const token = await loginPost(loginParams, { errorMessageMode: 'modal' })
 
         // save token
         this.setToken("Bearer " + token);
