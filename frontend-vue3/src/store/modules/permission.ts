@@ -22,6 +22,7 @@ import { getMenuList } from '/@/api/sys/menu';
 import { getPermCode } from '/@/api/sys/user';
 
 import { useMessage } from '/@/hooks/web/useMessage';
+import { cloneDeep } from 'lodash-es';
 
 interface PermissionState {
   // Permission code list
@@ -134,7 +135,15 @@ export const usePermissionStore = defineStore({
               icon: 'bx:bx-home',
             },
           };
-          let menuList = userStore.getUserInfo?.menus;
+          let menuList = cloneDeep(userStore.getUserInfo?.menus);
+          debugger
+          menuList.forEach(menu => {
+            const component: string = menu.component
+            if(component && component.indexOf('/') != -1 && component.indexOf('/') != 0)
+            {
+              menu.component = '/' + menu.component
+            }
+          });
           menuList = [dashboardRoute, ...menuList];
           const menuTree = listToTree(menuList);
           routeList = menuTree as AppRouteRecordRaw[]; // (await getMenuList()) as AppRouteRecordRaw[];
