@@ -11,6 +11,8 @@ import { checkStatus } from './checkStatus';
 import { useGlobSetting } from '/@/hooks/setting';
 import { useMessage } from '/@/hooks/web/useMessage';
 
+import router from '/@/router';
+import { PageEnum } from '/@/enums/pageEnum';
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
 
 import { isString } from '/@/utils/is';
@@ -56,21 +58,6 @@ const transform: AxiosTransform = {
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
     const { code, result = data.data, message } = data;
 
-    // 这里逻辑可以根据项目进行修改
-    const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
-    if (!hasSuccess) {
-      if (message) {
-        // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
-        if (options.errorMessageMode === 'modal') {
-          createErrorModal({ title: t('sys.api.errorTip'), content: message });
-        } else if (options.errorMessageMode === 'message') {
-          createMessage.error(message);
-        }
-      }
-      throw new Error(message);
-      //return errorResult;
-    }
-
     // 接口请求成功，直接返回结果
     if (code === ResultEnum.SUCCESS) {
       return result;
@@ -89,13 +76,19 @@ const transform: AxiosTransform = {
     }
     // 登录超时
     if (code === ResultEnum.TIMEOUT) {
-      const timeoutMsg = t('sys.api.timeoutMessage');
-      createErrorModal({
-        title: t('sys.api.operationFailed'),
-        content: timeoutMsg,
-      });
-      throw new Error(timeoutMsg);
-      //return errorResult;
+      router.push(PageEnum.BASE_LOGIN);
+      setTimeout(() => {
+        location.reload();
+        createMessage.error(message);
+      }, 500);
+    }
+    if (message) {
+      // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
+      if (options.errorMessageMode === 'modal') {
+        createErrorModal({ title: t('sys.api.errorTip'), content: message });
+      } else if (options.errorMessageMode === 'message') {
+        createMessage.error(message);
+      }
     }
     throw new Error(t('sys.api.apiRequestFailed'));
     //return errorResult;
@@ -152,7 +145,7 @@ const transform: AxiosTransform = {
     return config;
   },
 
-   /**
+  /**
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
