@@ -136,12 +136,10 @@ export const usePermissionStore = defineStore({
             },
           };
           let menuList = cloneDeep(userStore.getUserInfo?.menus);
-          debugger
-          menuList.forEach(menu => {
-            const component: string = menu.component
-            if(component && component.indexOf('/') != -1 && component.indexOf('/') != 0)
-            {
-              menu.component = '/' + menu.component
+          menuList.forEach((menu) => {
+            const component: string = menu.component;
+            if (component && component.indexOf('/') != -1 && component.indexOf('/') != 0) {
+              menu.component = '/' + menu.component;
             }
           });
           menuList = [dashboardRoute, ...menuList];
