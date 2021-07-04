@@ -100,8 +100,11 @@ namespace Admin.NET.EntityFramework.Core
                         case EntityState.Modified:
                             entity.Property(nameof(Entity.TenantId)).IsModified = false;
                             obj.UpdatedTime = DateTimeOffset.Now;
-                            obj.UpdatedUserId = long.Parse(userId);
-                            obj.UpdatedUserName = userName;
+                            if (!string.IsNullOrEmpty(userId))
+                            {
+                                obj.UpdatedUserId = long.Parse(userId);
+                                obj.UpdatedUserName = userName;
+                            }
                             break;
                     }
                 }
@@ -121,8 +124,11 @@ namespace Admin.NET.EntityFramework.Core
                     else if (entity.State == EntityState.Modified)
                     {
                         obj.UpdatedTime = DateTimeOffset.Now;
-                        obj.UpdatedUserId = long.Parse(userId);
-                        obj.UpdatedUserName = userName;
+                        if (!string.IsNullOrEmpty(userId))
+                        {
+                            obj.UpdatedUserId = long.Parse(userId);
+                            obj.UpdatedUserName = userName;
+                        }
                     }
                 }
             }
@@ -176,18 +182,6 @@ namespace Admin.NET.EntityFramework.Core
             }
 
             return Expression.Lambda(finialExpression, parameterExpression);
-        }
-
-        /// <summary>
-        /// 配置假删除过滤器
-        /// </summary>
-        /// <param name="entityBuilder"></param>
-        /// <param name="dbContext"></param>
-        /// <param name="isDeletedKey"></param>
-        /// <returns></returns>
-        protected LambdaExpression FakeDeleteQueryFilterExpression(EntityTypeBuilder entityBuilder, DbContext dbContext, string isDeletedKey = null)
-        {
-            return base.FakeDeleteQueryFilterExpression(entityBuilder, dbContext, isDeletedKey);
         }
     }
 }
