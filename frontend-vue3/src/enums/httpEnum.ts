@@ -3,8 +3,11 @@
  */
 export enum ResultEnum {
   SUCCESS = 200,
+  NOCONTENT = 204,
   ERROR = 500,
-  TIMEOUT = 401,
+  BADREQUEST = 400,
+  UNAUTH = 401,
+  FORBIDDEN = 403,
   TYPE = 'success',
 }
 

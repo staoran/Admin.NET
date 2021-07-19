@@ -18,32 +18,17 @@ import { assertParamExists } from '../common';
 import {
    AddConfigInput,
    Condition,
+   ConfigPageInput,
    DeleteConfigInput,
    UpdateConfigInput,
-   XnRestfulResultOfBoolean,
    XnRestfulResultOfObject,
    XnRestfulResultOfSysConfig,
    } from '../models';
 
          /**
-         * @summary 获取验证码开关标识
-         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
-         */
-         export function apiConfigCaptchaOpenFlagGet(options?: RequestOptions) {
-            return defHttp.request<XnRestfulResultOfBoolean>(
-              {
-                url: '/api/config/captcha-open-flag',
-                method: 'GET',
-                headers: {'Content-Type': 'application/json'},
-              },
-              options
-            )
-         }
-
-         /**
          * @summary 更新配置缓存
-         * @param {string}code 
-         * @param {any}[body] 
+         * @param {string}code
+         * @param {any}[body]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function apiConfigConfigCacheCodePut(code: string, body?: any, options?: RequestOptions) {
@@ -63,7 +48,7 @@ import {
 
          /**
          * @summary 增加系统参数配置
-         * @param {AddConfigInput}[addConfigInput] 
+         * @param {AddConfigInput}[addConfigInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysConfigAddPost(addConfigInput?: AddConfigInput, options?: RequestOptions) {
@@ -81,7 +66,7 @@ import {
 
          /**
          * @summary 删除系统参数配置
-         * @param {DeleteConfigInput}[deleteConfigInput] 
+         * @param {DeleteConfigInput}[deleteConfigInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysConfigDeletePost(deleteConfigInput?: DeleteConfigInput, options?: RequestOptions) {
@@ -122,7 +107,7 @@ import {
 
          /**
          * @summary 更新系统参数配置
-         * @param {UpdateConfigInput}[updateConfigInput] 
+         * @param {UpdateConfigInput}[updateConfigInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysConfigEditPost(updateConfigInput?: UpdateConfigInput, options?: RequestOptions) {
@@ -148,6 +133,24 @@ import {
                 url: '/sysConfig/list',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询
+         * @param {ConfigPageInput}[configPageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysConfigPage3Post(configPageInput?: ConfigPageInput, options?: RequestOptions) {
+            const params = {  ...configPageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysConfig/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
+                params
               },
               options
             )

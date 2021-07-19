@@ -17,6 +17,7 @@ import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    Condition,
+   OpLogPageInput,
    XnRestfulResultOfObject,
    YesOrNot,
    } from '../models';
@@ -31,6 +32,24 @@ import {
                 url: '/sysOpLog/delete',
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询
+         * @param {OpLogPageInput}[opLogPageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysOpLogPage3Post(opLogPageInput?: OpLogPageInput, options?: RequestOptions) {
+            const params = {  ...opLogPageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysOpLog/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
+                params
               },
               options
             )

@@ -19,13 +19,15 @@ import {
    ClickWordCaptchaInput,
    LoginInput,
    XnRestfulResultOfBoolean,
+   XnRestfulResultOfLoginAuthOutput,
    XnRestfulResultOfLoginOutput,
+   XnRestfulResultOfLoginUserOutput,
    XnRestfulResultOfString,
    } from '../models';
 
          /**
          * @summary 校验验证码
-         * @param {ClickWordCaptchaInput}[clickWordCaptchaInput] 
+         * @param {ClickWordCaptchaInput}[clickWordCaptchaInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function captchaCheckPost(clickWordCaptchaInput?: ClickWordCaptchaInput, options?: RequestOptions) {
@@ -72,6 +74,36 @@ import {
          }
 
          /**
+         * @summary 获取当前登录用户基本信息
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function getLoginUser3Get(options?: RequestOptions) {
+            return defHttp.request<XnRestfulResultOfLoginUserOutput>(
+              {
+                url: '/getLoginUser@3',
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 获取当前登录用户权限信息
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function getLoginUserAuthGet(options?: RequestOptions) {
+            return defHttp.request<XnRestfulResultOfLoginAuthOutput>(
+              {
+                url: '/getLoginUserAuth',
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+              },
+              options
+            )
+         }
+
+         /**
          * @summary 获取当前登录用户信息
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
@@ -88,7 +120,7 @@ import {
 
          /**
          * @summary 用户登录
-         * @param {LoginInput}loginInput 
+         * @param {LoginInput}loginInput
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function loginPost(loginInput: LoginInput, options?: RequestOptions) {

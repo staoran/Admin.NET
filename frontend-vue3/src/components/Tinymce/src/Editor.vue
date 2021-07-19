@@ -6,6 +6,7 @@
       @done="handleDone"
       v-if="showImageUpload"
       v-show="editorRef"
+      :disabled="disabled"
     />
     <textarea :id="tinymceId" ref="elRef" :style="{ visibility: 'hidden' }"></textarea>
   </div>
@@ -15,7 +16,6 @@
   import type { RawEditorSettings } from 'tinymce';
   import tinymce from 'tinymce/tinymce';
   import 'tinymce/themes/silver';
-
   import 'tinymce/icons/default/icons';
   import 'tinymce/plugins/advlist';
   import 'tinymce/plugins/anchor';
@@ -57,11 +57,8 @@
     onUnmounted,
     onDeactivated,
   } from 'vue';
-
   import ImgUpload from './ImgUpload.vue';
-
   import { toolbar, plugins } from './tinymce';
-
   import { buildShortUUID } from '/@/utils/uuid';
   import { bindHandlers } from './helper';
   import { onMountedOrActivated } from '/@/hooks/core/onMountedOrActivated';
@@ -95,7 +92,6 @@
       required: false,
       default: 400,
     },
-
     width: {
       type: [Number, String] as PropType<string | number>,
       required: false,
@@ -168,6 +164,16 @@
             editor.on('init', (e) => initSetup(e));
           },
         };
+      });
+
+      const disabled = computed(() => {
+        const { options } = props;
+        const getdDisabled = options && Reflect.get(options, 'readonly');
+        const editor = unref(editorRef);
+        if (editor) {
+          editor.setMode(getdDisabled ? 'readonly' : 'design');
+        }
+        return getdDisabled ?? false;
       });
 
       watch(
@@ -301,6 +307,7 @@
         handleDone,
         editorRef,
         fullscreen,
+        disabled,
       };
     },
   });

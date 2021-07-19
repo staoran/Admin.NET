@@ -117,6 +117,12 @@ export interface SysMenu {
      */
     component?: string | null;
     /**
+     * 忽略缓存
+     * @type {boolean}
+     * @memberof SysMenu
+     */
+    ignoreKeepAlive?: boolean;
+    /**
      * 权限标识
      * @type {string}
      * @memberof SysMenu

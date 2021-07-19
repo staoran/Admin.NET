@@ -18,6 +18,7 @@ import { assertParamExists } from '../common';
 import {
    Condition,
    LoginType,
+   VisLogPageInput,
    XnRestfulResultOfObject,
    YesOrNot,
    } from '../models';
@@ -32,6 +33,24 @@ import {
                 url: '/sysVisLog/delete',
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询
+         * @param {VisLogPageInput}[visLogPageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysVisLogPage3Post(visLogPageInput?: VisLogPageInput, options?: RequestOptions) {
+            const params = {  ...visLogPageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysVisLog/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
+                params
               },
               options
             )

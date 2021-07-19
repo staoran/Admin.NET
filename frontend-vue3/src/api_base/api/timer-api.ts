@@ -19,6 +19,7 @@ import {
    AddJobInput,
    Condition,
    DeleteJobInput,
+   JobPageInput,
    RequestTypeEnum,
    SpareTimeExecuteTypes,
    SpareTimeTypes,
@@ -29,7 +30,7 @@ import {
 
          /**
          * @summary 增加任务
-         * @param {AddJobInput}[addJobInput] 
+         * @param {AddJobInput}[addJobInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTimersAddPost(addJobInput?: AddJobInput, options?: RequestOptions) {
@@ -47,7 +48,7 @@ import {
 
          /**
          * @summary 删除任务
-         * @param {DeleteJobInput}[deleteJobInput] 
+         * @param {DeleteJobInput}[deleteJobInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTimersDeletePost(deleteJobInput?: DeleteJobInput, options?: RequestOptions) {
@@ -88,7 +89,7 @@ import {
 
          /**
          * @summary 修改任务
-         * @param {UpdateJobInput}[updateJobInput] 
+         * @param {UpdateJobInput}[updateJobInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTimersEditPost(updateJobInput?: UpdateJobInput, options?: RequestOptions) {
@@ -114,6 +115,24 @@ import {
                 url: '/sysTimers/localJobList',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页获取任务列表
+         * @param {JobPageInput}[jobPageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysTimersPage3Post(jobPageInput?: JobPageInput, options?: RequestOptions) {
+            const params = {  ...jobPageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysTimers/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
+                params
               },
               options
             )
@@ -222,7 +241,7 @@ import {
 
          /**
          * @summary 启动任务
-         * @param {AddJobInput}[addJobInput] 
+         * @param {AddJobInput}[addJobInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTimersStartPost(addJobInput?: AddJobInput, options?: RequestOptions) {
@@ -240,7 +259,7 @@ import {
 
          /**
          * @summary 停止任务
-         * @param {StopJobInput}[stopJobInput] 
+         * @param {StopJobInput}[stopJobInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTimersStopPost(stopJobInput?: StopJobInput, options?: RequestOptions) {

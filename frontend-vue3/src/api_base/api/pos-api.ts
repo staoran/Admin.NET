@@ -18,6 +18,7 @@ import { assertParamExists } from '../common';
 import {
    AddPosInput,
    DeletePosInput,
+   PosInput,
    UpdatePosInput,
    XnRestfulResultOfObject,
    XnRestfulResultOfSysPos,
@@ -25,7 +26,7 @@ import {
 
          /**
          * @summary 增加职位
-         * @param {AddPosInput}[addPosInput] 
+         * @param {AddPosInput}[addPosInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysPosAddPost(addPosInput?: AddPosInput, options?: RequestOptions) {
@@ -43,7 +44,7 @@ import {
 
          /**
          * @summary 删除职位
-         * @param {DeletePosInput}[deletePosInput] 
+         * @param {DeletePosInput}[deletePosInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysPosDeletePost(deletePosInput?: DeletePosInput, options?: RequestOptions) {
@@ -84,7 +85,7 @@ import {
 
          /**
          * @summary 更新职位
-         * @param {UpdatePosInput}[updatePosInput] 
+         * @param {UpdatePosInput}[updatePosInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysPosEditPost(updatePosInput?: UpdatePosInput, options?: RequestOptions) {
@@ -139,6 +140,24 @@ import {
                 url: '/sysPos/list',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
+                params
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页获取职位
+         * @param {PosInput}[posInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysPosPage3Post(posInput?: PosInput, options?: RequestOptions) {
+            const params = {  ...posInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysPos/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
               options

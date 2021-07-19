@@ -19,6 +19,7 @@ import {
    Condition,
    DeleteOrgInput,
    OrgAddInput,
+   OrgPageInput,
    OrgTypeEnum,
    UpdateOrgInput,
    XnRestfulResultOfListOfOrgOutput,
@@ -28,7 +29,7 @@ import {
 
          /**
          * @summary 增加组织机构
-         * @param {OrgAddInput}[orgAddInput] 
+         * @param {OrgAddInput}[orgAddInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysOrgAddPost(orgAddInput?: OrgAddInput, options?: RequestOptions) {
@@ -46,7 +47,7 @@ import {
 
          /**
          * @summary 删除组织机构
-         * @param {DeleteOrgInput}[deleteOrgInput] 
+         * @param {DeleteOrgInput}[deleteOrgInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysOrgDeletePost(deleteOrgInput?: DeleteOrgInput, options?: RequestOptions) {
@@ -87,7 +88,7 @@ import {
 
          /**
          * @summary 更新组织机构
-         * @param {UpdateOrgInput}[updateOrgInput] 
+         * @param {UpdateOrgInput}[updateOrgInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysOrgEditPost(updateOrgInput?: UpdateOrgInput, options?: RequestOptions) {
@@ -126,8 +127,26 @@ import {
 
          /**
          * @summary 分页查询组织机构
+         * @param {OrgPageInput}[orgPageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysOrgPage3Post(orgPageInput?: OrgPageInput, options?: RequestOptions) {
+            const params = {  ...orgPageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysOrg/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
+                params
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询组织机构
          * @param {OrgTypeEnum}orgType 机构类型-品牌_1、总店(加盟/直营)_2、直营店_3、加盟店_4
-         * @param {string}[id] 
+         * @param {string}[id]
          * @param {string}[pid] 父Id
          * @param {string}[name] 名称
          * @param {string}[searchValue] 搜索值

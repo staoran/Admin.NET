@@ -32,13 +32,19 @@
   </div>
 </template>
 <script lang="ts">
-  import type { BasicTableProps, TableActionType, SizeType } from './types/table';
+  import type {
+    BasicTableProps,
+    TableActionType,
+    SizeType,
+    ColumnChangeParam,
+  } from './types/table';
 
   import { defineComponent, ref, computed, unref, toRaw } from 'vue';
   import { Table } from 'ant-design-vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import expandIcon from './components/ExpandIcon';
   import HeaderCell from './components/HeaderCell.vue';
+  import { InnerHandlers } from './types/table';
 
   import { usePagination } from './hooks/usePagination';
   import { useColumns } from './hooks/useColumns';
@@ -53,7 +59,6 @@
   import { createTableContext } from './hooks/useTableContext';
   import { useTableFooter } from './hooks/useTableFooter';
   import { useTableForm } from './hooks/useTableForm';
-  import { useExpose } from '/@/hooks/core/useExpose';
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import { omit } from 'lodash-es';
@@ -83,8 +88,9 @@
       'edit-change',
       'expanded-rows-change',
       'change',
+      'columns-change',
     ],
-    setup(props, { attrs, emit, slots }) {
+    setup(props, { attrs, emit, slots, expose }) {
       const tableElRef = ref<ComponentRef>(null);
       const tableData = ref<Recordable[]>([]);
 
@@ -122,6 +128,7 @@
         getDataSourceRef,
         getDataSource,
         setTableData,
+        updateTableDataRecord,
         fetch,
         getRowKey,
         reload,
@@ -177,7 +184,15 @@
 
       const { getExpandOption, expandAll, collapseAll } = useTableExpand(getProps, tableData, emit);
 
-      const { getHeaderProps } = useTableHeader(getProps, slots);
+      const handlers: InnerHandlers = {
+        onColumnsChange: (data: ColumnChangeParam[]) => {
+          emit('columns-change', data);
+          // support useTable
+          unref(getProps).onColumnsChange?.(data);
+        },
+      };
+
+      const { getHeaderProps } = useTableHeader(getProps, slots, handlers);
 
       const { getFooterProps } = useTableFooter(
         getProps,
@@ -250,6 +265,7 @@
         deleteSelectRowByKey,
         setPagination,
         setTableData,
+        updateTableDataRecord,
         redoHeight,
         setSelectedRowKeys,
         setColumns,
@@ -273,7 +289,7 @@
       };
       createTableContext({ ...tableAction, wrapRef, getBindValues });
 
-      useExpose<TableActionType>(tableAction);
+      expose(tableAction);
 
       emit('register', tableAction, formActions);
 

@@ -132,7 +132,7 @@ import {
 
          /**
          * @summary 更新
-         * @param {Array<CodeGenConfig>}[codeGenConfig] 
+         * @param {Array<CodeGenConfig>}[codeGenConfig]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysCodeGenerateConfigEditPost(codeGenConfig?: Array<CodeGenConfig>, options?: RequestOptions) {

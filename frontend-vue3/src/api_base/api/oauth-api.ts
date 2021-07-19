@@ -36,8 +36,8 @@ import {
 
          /**
          * @summary 获取微信用户基本信息
-         * @param {string}[token] 
-         * @param {string}[openId] 
+         * @param {string}[token]
+         * @param {string}[openId]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function oauthWechatUserGet(token?: string, openId?: string, options?: RequestOptions) {
@@ -61,9 +61,9 @@ import {
 
          /**
          * @summary 微信登录授权回调
-         * @param {string}[code] 
-         * @param {string}[state] 
-         * @param {string}[errorDescription] 
+         * @param {string}[code]
+         * @param {string}[state]
+         * @param {string}[errorDescription]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function oauthWechatcallbackGet(code?: string, state?: string, errorDescription?: string, options?: RequestOptions) {

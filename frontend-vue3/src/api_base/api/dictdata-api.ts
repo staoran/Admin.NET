@@ -20,13 +20,14 @@ import {
    ChageStateDictDataInput,
    Condition,
    DeleteDictDataInput,
+   DictDataPageInput,
    UpdateDictDataInput,
    XnRestfulResultOfObject,
    } from '../models';
 
          /**
          * @summary 增加字典值
-         * @param {AddDictDataInput}[addDictDataInput] 
+         * @param {AddDictDataInput}[addDictDataInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysDictDataAddPost(addDictDataInput?: AddDictDataInput, options?: RequestOptions) {
@@ -44,7 +45,7 @@ import {
 
          /**
          * @summary 修改字典值状态
-         * @param {ChageStateDictDataInput}[chageStateDictDataInput] 
+         * @param {ChageStateDictDataInput}[chageStateDictDataInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysDictDataChangeStatusPost(chageStateDictDataInput?: ChageStateDictDataInput, options?: RequestOptions) {
@@ -62,7 +63,7 @@ import {
 
          /**
          * @summary 删除字典值
-         * @param {DeleteDictDataInput}[deleteDictDataInput] 
+         * @param {DeleteDictDataInput}[deleteDictDataInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysDictDataDeletePost(deleteDictDataInput?: DeleteDictDataInput, options?: RequestOptions) {
@@ -103,7 +104,7 @@ import {
 
          /**
          * @summary 更新字典值
-         * @param {UpdateDictDataInput}[updateDictDataInput] 
+         * @param {UpdateDictDataInput}[updateDictDataInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysDictDataEditPost(updateDictDataInput?: UpdateDictDataInput, options?: RequestOptions) {
@@ -136,6 +137,24 @@ import {
                 url: '/sysDictData/list',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
+                params
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询
+         * @param {DictDataPageInput}[dictDataPageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysDictDataPage3Post(dictDataPageInput?: DictDataPageInput, options?: RequestOptions) {
+            const params = {  ...dictDataPageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysDictData/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
               options

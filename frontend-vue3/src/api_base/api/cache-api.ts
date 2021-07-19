@@ -22,7 +22,7 @@ import {
 
          /**
          * @summary 获取缓存
-         * @param {string}[cacheKey] 
+         * @param {string}[cacheKey]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysCacheDetailGet(cacheKey?: string, options?: RequestOptions) {
@@ -58,7 +58,7 @@ import {
 
          /**
          * @summary 删除指定关键字缓存
-         * @param {string}[key] 
+         * @param {string}[key]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysCacheRemoveGet(key?: string, options?: RequestOptions) {

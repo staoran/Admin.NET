@@ -20,6 +20,7 @@ import {
    ChangeStatusNoticeInput,
    Condition,
    DeleteNoticeInput,
+   NoticePageInput,
    UpdateNoticeInput,
    XnRestfulResultOfNoticeDetailOutput,
    XnRestfulResultOfObject,
@@ -27,7 +28,7 @@ import {
 
          /**
          * @summary 增加通知公告
-         * @param {AddNoticeInput}[addNoticeInput] 
+         * @param {AddNoticeInput}[addNoticeInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysNoticeAddPost(addNoticeInput?: AddNoticeInput, options?: RequestOptions) {
@@ -45,7 +46,7 @@ import {
 
          /**
          * @summary 修改通知公告状态
-         * @param {ChangeStatusNoticeInput}[changeStatusNoticeInput] 
+         * @param {ChangeStatusNoticeInput}[changeStatusNoticeInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysNoticeChangeStatusPost(changeStatusNoticeInput?: ChangeStatusNoticeInput, options?: RequestOptions) {
@@ -63,7 +64,7 @@ import {
 
          /**
          * @summary 删除通知公告
-         * @param {DeleteNoticeInput}[deleteNoticeInput] 
+         * @param {DeleteNoticeInput}[deleteNoticeInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysNoticeDeletePost(deleteNoticeInput?: DeleteNoticeInput, options?: RequestOptions) {
@@ -104,7 +105,7 @@ import {
 
          /**
          * @summary 更新通知公告
-         * @param {UpdateNoticeInput}[updateNoticeInput] 
+         * @param {UpdateNoticeInput}[updateNoticeInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysNoticeEditPost(updateNoticeInput?: UpdateNoticeInput, options?: RequestOptions) {
@@ -112,6 +113,24 @@ import {
             return defHttp.request<void>(
               {
                 url: '/sysNotice/edit',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
+                params
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询通知公告
+         * @param {NoticePageInput}[noticePageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysNoticePage3Post(noticePageInput?: NoticePageInput, options?: RequestOptions) {
+            const params = {  ...noticePageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysNotice/page@3',
                 method: 'POST',
                 headers: {'Content-Type': 'application/json-patch+json'},
                 params
