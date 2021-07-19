@@ -27,7 +27,7 @@ import {
 
          /**
          * @summary 增加系统菜单
-         * @param {AddMenuInput}[addMenuInput] 
+         * @param {AddMenuInput}[addMenuInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysMenuAddPost(addMenuInput?: AddMenuInput, options?: RequestOptions) {
@@ -45,7 +45,7 @@ import {
 
          /**
          * @summary 根据系统应用切换菜单
-         * @param {ChangeAppMenuInput}[changeAppMenuInput] 
+         * @param {ChangeAppMenuInput}[changeAppMenuInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysMenuChangePost(changeAppMenuInput?: ChangeAppMenuInput, options?: RequestOptions) {
@@ -63,7 +63,7 @@ import {
 
          /**
          * @summary 删除系统菜单
-         * @param {DeleteMenuInput}[deleteMenuInput] 
+         * @param {DeleteMenuInput}[deleteMenuInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysMenuDeletePost(deleteMenuInput?: DeleteMenuInput, options?: RequestOptions) {
@@ -81,7 +81,7 @@ import {
 
          /**
          * @summary 获取系统菜单
-         * @param {QueryMenuInput}[queryMenuInput] 
+         * @param {QueryMenuInput}[queryMenuInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysMenuDetailPost(queryMenuInput?: QueryMenuInput, options?: RequestOptions) {
@@ -99,7 +99,7 @@ import {
 
          /**
          * @summary 更新系统菜单
-         * @param {UpdateMenuInput}[updateMenuInput] 
+         * @param {UpdateMenuInput}[updateMenuInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysMenuEditPost(updateMenuInput?: UpdateMenuInput, options?: RequestOptions) {

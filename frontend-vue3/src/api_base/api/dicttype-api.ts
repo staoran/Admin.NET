@@ -20,6 +20,7 @@ import {
    ChangeStateDictTypeInput,
    Condition,
    DeleteDictTypeInput,
+   DictTypePageInput,
    UpdateDictTypeInput,
    XnRestfulResultOfListOfDictTreeOutput,
    XnRestfulResultOfObject,
@@ -27,7 +28,7 @@ import {
 
          /**
          * @summary 添加字典类型
-         * @param {AddDictTypeInput}[addDictTypeInput] 
+         * @param {AddDictTypeInput}[addDictTypeInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysDictTypeAddPost(addDictTypeInput?: AddDictTypeInput, options?: RequestOptions) {
@@ -45,7 +46,7 @@ import {
 
          /**
          * @summary 更新字典类型状态
-         * @param {ChangeStateDictTypeInput}[changeStateDictTypeInput] 
+         * @param {ChangeStateDictTypeInput}[changeStateDictTypeInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysDictTypeChangeStatusPost(changeStateDictTypeInput?: ChangeStateDictTypeInput, options?: RequestOptions) {
@@ -63,7 +64,7 @@ import {
 
          /**
          * @summary 删除字典类型
-         * @param {DeleteDictTypeInput}[deleteDictTypeInput] 
+         * @param {DeleteDictTypeInput}[deleteDictTypeInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysDictTypeDeletePost(deleteDictTypeInput?: DeleteDictTypeInput, options?: RequestOptions) {
@@ -127,7 +128,7 @@ import {
 
          /**
          * @summary 更新字典类型
-         * @param {UpdateDictTypeInput}[updateDictTypeInput] 
+         * @param {UpdateDictTypeInput}[updateDictTypeInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysDictTypeEditPost(updateDictTypeInput?: UpdateDictTypeInput, options?: RequestOptions) {
@@ -153,6 +154,24 @@ import {
                 url: '/sysDictType/list',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询
+         * @param {DictTypePageInput}[dictTypePageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysDictTypePage3Post(dictTypePageInput?: DictTypePageInput, options?: RequestOptions) {
+            const params = {  ...dictTypePageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysDictType/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
+                params
               },
               options
             )

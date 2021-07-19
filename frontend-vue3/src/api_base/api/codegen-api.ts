@@ -17,6 +17,7 @@ import { RequestOptions, UploadFileParams } from '/@/utils/http/axios/types';
 import { assertParamExists } from '../common';
 import {
    AddCodeGenInput,
+   CodeGenPageInput,
    Condition,
    DeleteCodeGenInput,
    SysCodeGen,
@@ -29,7 +30,7 @@ import {
 
          /**
          * @summary 增加
-         * @param {AddCodeGenInput}[addCodeGenInput] 
+         * @param {AddCodeGenInput}[addCodeGenInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function codeGenerateAddPost(addCodeGenInput?: AddCodeGenInput, options?: RequestOptions) {
@@ -47,7 +48,7 @@ import {
 
          /**
          * @summary 根据表名获取列
-         * @param {string}tableName 
+         * @param {string}tableName
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function codeGenerateColumnListTableNameGet(tableName: string, options?: RequestOptions) {
@@ -67,7 +68,7 @@ import {
 
          /**
          * @summary 删除
-         * @param {Array<DeleteCodeGenInput>}[deleteCodeGenInput] 
+         * @param {Array<DeleteCodeGenInput>}[deleteCodeGenInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function codeGenerateDeletePost(deleteCodeGenInput?: Array<DeleteCodeGenInput>, options?: RequestOptions) {
@@ -108,7 +109,7 @@ import {
 
          /**
          * @summary 更新
-         * @param {UpdateCodeGenInput}[updateCodeGenInput] 
+         * @param {UpdateCodeGenInput}[updateCodeGenInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function codeGenerateEditPost(updateCodeGenInput?: UpdateCodeGenInput, options?: RequestOptions) {
@@ -134,6 +135,24 @@ import {
                 url: '/codeGenerate/InformationList',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询
+         * @param {CodeGenPageInput}[codeGenPageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function codeGeneratePage3Post(codeGenPageInput?: CodeGenPageInput, options?: RequestOptions) {
+            const params = {  ...codeGenPageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/codeGenerate/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
+                params
               },
               options
             )
@@ -198,7 +217,7 @@ import {
 
          /**
          * @summary 代码生成_本地项目
-         * @param {SysCodeGen}[sysCodeGen] 
+         * @param {SysCodeGen}[sysCodeGen]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function codeGenerateRunLocalPost(sysCodeGen?: SysCodeGen, options?: RequestOptions) {

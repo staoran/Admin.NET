@@ -18,6 +18,7 @@ import { assertParamExists } from '../common';
 import {
    Condition,
    DeleteFileInfoInput,
+   FilePageInput,
    XnRestfulResultOfIActionResult,
    XnRestfulResultOfInt64,
    XnRestfulResultOfListOfSysFile,
@@ -27,7 +28,7 @@ import {
 
          /**
          * @summary 删除文件
-         * @param {DeleteFileInfoInput}[deleteFileInfoInput] 
+         * @param {DeleteFileInfoInput}[deleteFileInfoInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysFileInfoDeletePost(deleteFileInfoInput?: DeleteFileInfoInput, options?: RequestOptions) {
@@ -136,6 +137,24 @@ import {
                 url: '/sysFileInfo/list',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
+                params
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询
+         * @param {FilePageInput}[filePageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysFileInfoPage3Post(filePageInput?: FilePageInput, options?: RequestOptions) {
+            const params = {  ...filePageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysFileInfo/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
               options

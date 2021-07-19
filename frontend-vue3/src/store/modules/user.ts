@@ -1,20 +1,16 @@
-import type { UserInfo } from '/#/store';
-import type { ErrorMessageMode } from '/@/utils/http/axios/types';
-
+﻿import type { UserInfo } from '/#/store';
+import type { ErrorMessageMode } from '/#/axios';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
-
 import { RoleEnum } from '/@/enums/roleEnum';
 import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
-
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
-
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
-import router from '/@/router';
-import { loginPost, getLoginUserGet } from '/@/api_base/api/auth-api';
-import { LoginInput } from "/@/api_base/models/login-input";
+import { router } from '/@/router';
+import { loginPost, getLoginUserGet, logoutGet } from '/@/api_base/api/auth-api';
+import { LoginInput } from '/@/api_base/models/login-input';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -85,14 +81,14 @@ export const useUserStore = defineStore({
         // const data = await loginApi(loginParams, mode);
         // const { token } = data;
 
-        const token = await loginPost(loginParams, { errorMessageMode: 'modal' })
+        const token = await loginPost(loginParams, { errorMessageMode: 'modal' });
 
         // save token
-        this.setToken("Bearer " + token);
+        this.setToken('Bearer ' + token);
 
         // get user info
         // const userInfo = await this.getUserInfoAction();
-        const userInfo =  await getLoginUserGet();
+        const userInfo = await getLoginUserGet();
         this.setUserInfo(userInfo);
 
         //const { roles } = userInfo.data;
@@ -118,7 +114,14 @@ export const useUserStore = defineStore({
     /**
      * @description: logout
      */
-    logout(goLogin = false) {
+    async logout(goLogin = false) {
+      try {
+        await logoutGet();
+      } catch {
+        console.log('注销Token失败');
+      }
+      this.setToken(undefined);
+      this.setSessionTimeout(false);
       goLogin && router.push(PageEnum.BASE_LOGIN);
     },
 
@@ -141,6 +144,6 @@ export const useUserStore = defineStore({
 });
 
 // Need to be used outside the setup
-export function useUserStoreWidthOut() {
+export function useUserStoreWithOut() {
   return useUserStore(store);
 }

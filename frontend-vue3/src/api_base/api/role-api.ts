@@ -21,6 +21,7 @@ import {
    DeleteRoleInput,
    GrantRoleDataInput,
    GrantRoleMenuInput,
+   RolePageInput,
    RoleTypeEnum,
    UpdateRoleInput,
    XnRestfulResultOfListOfInt64,
@@ -30,7 +31,7 @@ import {
 
          /**
          * @summary 增加角色
-         * @param {AddRoleInput}[addRoleInput] 
+         * @param {AddRoleInput}[addRoleInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysRoleAddPost(addRoleInput?: AddRoleInput, options?: RequestOptions) {
@@ -48,7 +49,7 @@ import {
 
          /**
          * @summary 删除角色
-         * @param {DeleteRoleInput}[deleteRoleInput] 
+         * @param {DeleteRoleInput}[deleteRoleInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysRoleDeletePost(deleteRoleInput?: DeleteRoleInput, options?: RequestOptions) {
@@ -104,7 +105,7 @@ import {
 
          /**
          * @summary 更新角色
-         * @param {UpdateRoleInput}[updateRoleInput] 
+         * @param {UpdateRoleInput}[updateRoleInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysRoleEditPost(updateRoleInput?: UpdateRoleInput, options?: RequestOptions) {
@@ -122,7 +123,7 @@ import {
 
          /**
          * @summary 授权角色数据范围
-         * @param {GrantRoleDataInput}[grantRoleDataInput] 
+         * @param {GrantRoleDataInput}[grantRoleDataInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysRoleGrantDataPost(grantRoleDataInput?: GrantRoleDataInput, options?: RequestOptions) {
@@ -140,7 +141,7 @@ import {
 
          /**
          * @summary 授权角色菜单
-         * @param {GrantRoleMenuInput}[grantRoleMenuInput] 
+         * @param {GrantRoleMenuInput}[grantRoleMenuInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysRoleGrantMenuPost(grantRoleMenuInput?: GrantRoleMenuInput, options?: RequestOptions) {
@@ -196,6 +197,24 @@ import {
                 url: '/sysRole/ownMenu',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
+                params
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页获取角色列表
+         * @param {RolePageInput}[rolePageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysRolePage3Post(rolePageInput?: RolePageInput, options?: RequestOptions) {
+            const params = {  ...rolePageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysRole/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
               options

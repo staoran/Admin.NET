@@ -85,7 +85,7 @@ export interface LoginOutput {
      */
     tel?: string | null;
     /**
-     * 管理员类型（0超级管理员 1非管理员）
+     * 管理员类型（1超级管理员 2管理员 3普通账号）
      * @type {number}
      * @memberof LoginOutput
      */
@@ -144,6 +144,12 @@ export interface LoginOutput {
      * @memberof LoginOutput
      */
     permissions?: Array<string> | null;
+    /**
+     * 系统所有权限信息
+     * @type {Array<string>}
+     * @memberof LoginOutput
+     */
+    allPermissions?: Array<string> | null;
     /**
      * 登录菜单信息---AntDesign版本菜单
      * @type {Array<AntDesignTreeNode>}

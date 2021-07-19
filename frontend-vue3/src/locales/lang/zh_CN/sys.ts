@@ -10,8 +10,8 @@ export default {
     networkExceptionMsg: '请检查您的网络连接是否正常!',
     assertParamExists: '调用 {0} 时, 参数 {1} 不可为空或未定义.',
 
-    errMsg401: '用户没有权限（令牌、用户名、密码错误）!',
-    errMsg403: '用户得到授权，但是访问是被禁止的。!',
+    errMsg401: '未登录或令牌已过期，请重新登陆!',
+    errMsg403: '无权访问此资源!',
     errMsg404: '网络请求错误,未找到该资源!',
     errMsg405: '网络请求错误,请求方法未允许!',
     errMsg408: '网络请求超时!',

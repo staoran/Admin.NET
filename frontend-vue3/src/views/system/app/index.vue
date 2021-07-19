@@ -24,17 +24,17 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { sysAppPageGet } from '/@/api_base/api/app-api';
+  import { sysAppPage3Post } from '/@/api_base/api/app-api';
 
   import { columns, searchFormSchema } from './app.data';
 
   export default defineComponent({
-    name: 'AppManagement',
+    name: 'AppManagement', // 与路由设置中的name保持一致，页面缓存（openKeepAlive）功能才会生效
     components: { BasicTable, TableAction },
     setup() {
       const [registerTable] = useTable({
         title: '应用列表',
-        api: sysAppPageGet,
+        api: sysAppPage3Post,
         columns,
         formConfig: {
           labelWidth: 120,

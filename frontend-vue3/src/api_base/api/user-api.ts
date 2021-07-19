@@ -28,13 +28,14 @@ import {
    UpdateUserRoleDataInput,
    UpdateUserStatusInput,
    UploadAvatarInput,
+   UserPageInput,
    XnRestfulResultOfIActionResult,
    XnRestfulResultOfObject,
    } from '../models';
 
          /**
          * @summary 增加用户
-         * @param {AddUserInput}[addUserInput] 
+         * @param {AddUserInput}[addUserInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserAddPost(addUserInput?: AddUserInput, options?: RequestOptions) {
@@ -52,7 +53,7 @@ import {
 
          /**
          * @summary 修改用户状态
-         * @param {UpdateUserStatusInput}[updateUserStatusInput] 
+         * @param {UpdateUserStatusInput}[updateUserStatusInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserChangeStatusPost(updateUserStatusInput?: UpdateUserStatusInput, options?: RequestOptions) {
@@ -70,7 +71,7 @@ import {
 
          /**
          * @summary 删除用户
-         * @param {DeleteUserInput}[deleteUserInput] 
+         * @param {DeleteUserInput}[deleteUserInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserDeletePost(deleteUserInput?: DeleteUserInput, options?: RequestOptions) {
@@ -88,7 +89,7 @@ import {
 
          /**
          * @summary 查看用户
-         * @param {number}[id] 
+         * @param {number}[id]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserDetailGet(id?: number, options?: RequestOptions) {
@@ -109,7 +110,7 @@ import {
 
          /**
          * @summary 更新用户
-         * @param {UpdateUserInput}[updateUserInput] 
+         * @param {UpdateUserInput}[updateUserInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserEditPost(updateUserInput?: UpdateUserInput, options?: RequestOptions) {
@@ -142,7 +143,7 @@ import {
 
          /**
          * @summary 授权用户数据范围
-         * @param {UpdateUserRoleDataInput}[updateUserRoleDataInput] 
+         * @param {UpdateUserRoleDataInput}[updateUserRoleDataInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserGrantDataPost(updateUserRoleDataInput?: UpdateUserRoleDataInput, options?: RequestOptions) {
@@ -160,7 +161,7 @@ import {
 
          /**
          * @summary 授权用户角色
-         * @param {UpdateUserRoleDataInput}[updateUserRoleDataInput] 
+         * @param {UpdateUserRoleDataInput}[updateUserRoleDataInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserGrantRolePost(updateUserRoleDataInput?: UpdateUserRoleDataInput, options?: RequestOptions) {
@@ -239,6 +240,24 @@ import {
 
          /**
          * @summary 分页查询用户
+         * @param {UserPageInput}[userPageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysUserPage3Post(userPageInput?: UserPageInput, options?: RequestOptions) {
+            const params = {  ...userPageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysUser/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
+                params
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询用户
          * @param {string}[account] 账号
          * @param {string}[password] 密码
          * @param {string}[nickName] 昵称
@@ -257,9 +276,9 @@ import {
          * @param {Array<EmpExtOrgPosOutput>}[sysEmpParamExtIds] 附属机构
          * @param {Array<number>}[sysEmpParamPosIdList] 职位集合
          * @param {CommonStatus}[searchStatus] 搜索状态（字典 0正常 1停用 2删除）
-         * @param {Array<number>}[grantMenuIdList] 
-         * @param {Array<number>}[grantRoleIdList] 
-         * @param {Array<number>}[grantOrgIdList] 
+         * @param {Array<number>}[grantMenuIdList]
+         * @param {Array<number>}[grantRoleIdList]
+         * @param {Array<number>}[grantOrgIdList]
          * @param {string}[searchValue] 搜索值
          * @param {number}[pageNo] 当前页码
          * @param {number}[pageSize] 页码容量
@@ -378,7 +397,7 @@ import {
 
          /**
          * @summary 重置用户密码
-         * @param {QueryUserInput}[queryUserInput] 
+         * @param {QueryUserInput}[queryUserInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserResetPwdPost(queryUserInput?: QueryUserInput, options?: RequestOptions) {
@@ -396,7 +415,7 @@ import {
 
          /**
          * @summary 获取用户选择器
-         * @param {string}[name] 
+         * @param {string}[name]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserSelectorGet(name?: string, options?: RequestOptions) {
@@ -417,7 +436,7 @@ import {
 
          /**
          * @summary 修改用户头像
-         * @param {UploadAvatarInput}[uploadAvatarInput] 
+         * @param {UploadAvatarInput}[uploadAvatarInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserUpdateAvatarPost(uploadAvatarInput?: UploadAvatarInput, options?: RequestOptions) {
@@ -435,7 +454,7 @@ import {
 
          /**
          * @summary 更新用户信息
-         * @param {UpdateUserBaseInfoInput}[updateUserBaseInfoInput] 
+         * @param {UpdateUserBaseInfoInput}[updateUserBaseInfoInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserUpdateInfoPost(updateUserBaseInfoInput?: UpdateUserBaseInfoInput, options?: RequestOptions) {
@@ -453,7 +472,7 @@ import {
 
          /**
          * @summary 修改用户密码
-         * @param {ChangePasswordUserInput}[changePasswordUserInput] 
+         * @param {ChangePasswordUserInput}[changePasswordUserInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysUserUpdatePwdPost(changePasswordUserInput?: ChangePasswordUserInput, options?: RequestOptions) {

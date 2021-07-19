@@ -22,6 +22,7 @@ import {
    GrantRoleMenuInput,
    QueryTenantInput,
    SysTenant,
+   TenantPageInput,
    UpdateTenantInput,
    XnRestfulResultOfListOfInt64,
    XnRestfulResultOfObject,
@@ -30,7 +31,7 @@ import {
 
          /**
          * @summary 新增租户时，初始化数据
-         * @param {SysTenant}[sysTenant] 
+         * @param {SysTenant}[sysTenant]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function apiTenantInitNewTenantPost(sysTenant?: SysTenant, options?: RequestOptions) {
@@ -48,7 +49,7 @@ import {
 
          /**
          * @summary 增加租户
-         * @param {AddTenantInput}[addTenantInput] 
+         * @param {AddTenantInput}[addTenantInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTenantAddPost(addTenantInput?: AddTenantInput, options?: RequestOptions) {
@@ -66,7 +67,7 @@ import {
 
          /**
          * @summary 删除租户
-         * @param {DeleteTenantInput}[deleteTenantInput] 
+         * @param {DeleteTenantInput}[deleteTenantInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTenantDeletePost(deleteTenantInput?: DeleteTenantInput, options?: RequestOptions) {
@@ -107,7 +108,7 @@ import {
 
          /**
          * @summary 更新租户
-         * @param {UpdateTenantInput}[updateTenantInput] 
+         * @param {UpdateTenantInput}[updateTenantInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTenantEditPost(updateTenantInput?: UpdateTenantInput, options?: RequestOptions) {
@@ -125,7 +126,7 @@ import {
 
          /**
          * @summary 授权租户管理员角色菜单
-         * @param {GrantRoleMenuInput}[grantRoleMenuInput] 
+         * @param {GrantRoleMenuInput}[grantRoleMenuInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTenantGrantMenuPost(grantRoleMenuInput?: GrantRoleMenuInput, options?: RequestOptions) {
@@ -158,6 +159,24 @@ import {
                 url: '/sysTenant/ownMenu',
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
+                params
+              },
+              options
+            )
+         }
+
+         /**
+         * @summary 分页查询租户
+         * @param {TenantPageInput}[tenantPageInput]
+         * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
+         */
+         export function sysTenantPage3Post(tenantPageInput?: TenantPageInput, options?: RequestOptions) {
+            const params = {  ...tenantPageInput  }
+            return defHttp.request<XnRestfulResultOfObject>(
+              {
+                url: '/sysTenant/page@3',
+                method: 'POST',
+                headers: {'Content-Type': 'application/json-patch+json'},
                 params
               },
               options
@@ -227,7 +246,7 @@ import {
 
          /**
          * @summary 重置租户管理员密码
-         * @param {QueryTenantInput}[queryTenantInput] 
+         * @param {QueryTenantInput}[queryTenantInput]
          * @param {RequestOptions}options 额外配置，用来设置错误提示方法，是否返回原始数据，是否返回原始响应头，参数是否拼接到url等等
          */
          export function sysTenantResetPwdPost(queryTenantInput?: QueryTenantInput, options?: RequestOptions) {
