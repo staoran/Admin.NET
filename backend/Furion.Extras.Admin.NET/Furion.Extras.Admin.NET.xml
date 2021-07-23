@@ -3043,6 +3043,16 @@
             <param name="refreshToken"></param>
             <returns></returns>
         </member>
+        <member name="T:Furion.Extras.Admin.NET.Options.RefreshTokenSettingOptions">
+            <summary>
+            刷新令牌设置
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.Options.RefreshTokenSettingOptions.ExpiredTime">
+            <summary>
+            令牌过期时间（分钟）
+            </summary>
+        </member>
         <member name="T:Furion.Extras.Admin.NET.SysAppSeedData">
             <summary>
             系统应用表种子数据
