@@ -2954,6 +2954,11 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="T:Furion.Extras.Admin.NET.DisableOpLogAttribute">
+            <summary>
+            禁用操作日志
+            </summary>
+        </member>
         <member name="T:Furion.Extras.Admin.NET.LogExceptionHandler">
             <summary>
             全局异常处理
@@ -9346,6 +9351,13 @@
             <param name="assembly"></param>
             <returns></returns>
         </member>
+        <member name="M:Furion.Extras.Admin.NET.IPUtil.GetRequestIPv4(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            获取请求的ip4
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
         <member name="T:Furion.Extras.Admin.NET.MachineUtil">
             <summary>
             获取服务器信息
@@ -9406,26 +9418,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Furion.Extras.Admin.NET.ShellUtil">
-            <summary>
-            系统Shell命令
-            </summary>
-        </member>
-        <member name="M:Furion.Extras.Admin.NET.ShellUtil.Bash(System.String)">
-            <summary>
-            Bash命令
-            </summary>
-            <param name="command"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Furion.Extras.Admin.NET.ShellUtil.Cmd(System.String,System.String)">
-            <summary>
-            cmd命令
-            </summary>
-            <param name="fileName"></param>
-            <param name="args"></param>
-            <returns></returns>
-        </member>
         <member name="T:Furion.Extras.Admin.NET.NetworkInfo">
              <summary>
             
@@ -9477,6 +9469,26 @@
             </summary>
             <param name="field"></param>
             <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Furion.Extras.Admin.NET.ShellUtil">
+            <summary>
+            系统Shell命令
+            </summary>
+        </member>
+        <member name="M:Furion.Extras.Admin.NET.ShellUtil.Bash(System.String)">
+            <summary>
+            Bash命令
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Furion.Extras.Admin.NET.ShellUtil.Cmd(System.String,System.String)">
+            <summary>
+            cmd命令
+            </summary>
+            <param name="fileName"></param>
+            <param name="args"></param>
             <returns></returns>
         </member>
         <member name="T:Furion.Extras.Admin.NET.ITreeNode">
