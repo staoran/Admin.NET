@@ -7140,56 +7140,6 @@
             <param name="openId"></param>
             <returns></returns>
         </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.ConnectionId">
-            <summary>
-            连接Id
-            </summary>
-        </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.UserId">
-            <summary>
-            用户Id
-            </summary>
-        </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.Account">
-            <summary>
-            账号
-            </summary>
-        </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.Name">
-            <summary>
-            姓名
-            </summary>
-        </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.LastTime">
-            <summary>
-            最后连接时间
-            </summary>
-        </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.LastLoginIp">
-            <summary>
-            最后登录IP
-            </summary>
-        </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.LastLoginBrowser">
-            <summary>
-            最后登录所用浏览器
-            </summary>
-        </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.LastLoginOs">
-            <summary>
-            最后登录所用系统
-            </summary>
-        </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.TenantId">
-            <summary>
-            租户id
-            </summary>
-        </member>
-        <member name="P:Furion.Extras.Admin.NET.Service.OnlineUserOutput.TenantName">
-            <summary>
-            租户名称
-            </summary>
-        </member>
         <member name="M:Furion.Extras.Admin.NET.Service.ISysOnlineUserService.QueryOnlineUserPageList(Furion.Extras.Admin.NET.PageInputBase)">
             <summary>
             分页获取在线用户信息
@@ -9288,6 +9238,56 @@
             </summary>
             <param name="orgId"></param>
             <returns></returns>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.ConnectionId">
+            <summary>
+            连接Id
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.LastTime">
+            <summary>
+            最后连接时间
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.LastLoginIp">
+            <summary>
+            最后登录IP
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.LastLoginBrowser">
+            <summary>
+            最后登录所用浏览器
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.LastLoginOs">
+            <summary>
+            最后登录所用系统
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.TenantId">
+            <summary>
+            租户id
+            </summary>
+        </member>
+        <member name="P:Furion.Extras.Admin.NET.OnlineUserOutput.TenantName">
+            <summary>
+            租户名称
+            </summary>
         </member>
         <member name="T:Furion.Extras.Admin.NET.CodeGenUtil">
             <summary>
