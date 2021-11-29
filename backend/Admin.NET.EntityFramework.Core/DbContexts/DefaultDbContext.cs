@@ -56,6 +56,10 @@ namespace Admin.NET.EntityFramework.Core
             LambdaExpression expression = TenantIdAndFakeDeleteQueryFilterExpression(entityBuilder, dbContext);
             if (expression != null)
                 entityBuilder.HasQueryFilter(expression);
+            // 配置数据权限动态表达式
+            LambdaExpression dataScopesExpression = DataScopesFilterExpression(entityBuilder, dbContext);
+            if (dataScopesExpression != null)
+                entityBuilder.HasQueryFilter(dataScopesExpression);
         }
 
         protected override void SavingChangesEvent(DbContextEventData eventData, InterceptionResult<int> result)
