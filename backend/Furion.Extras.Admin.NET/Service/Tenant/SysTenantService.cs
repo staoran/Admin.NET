@@ -49,7 +49,7 @@ namespace Furion.Extras.Admin.NET.Service
             var tenants = await _sysTenantRep.DetachedEntities
                                              .Where((name, u => EF.Functions.Like(u.Name, $"%{input.Name.Trim()}%")))
                                              .ProjectToType<TenantOutput>()
-                                             .ToPagedListAsync(input.PageNo, input.PageSize);
+                                             .ToADPagedListAsync(input.PageNo, input.PageSize);
             return tenants;
         }
 

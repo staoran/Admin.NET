@@ -51,7 +51,7 @@ namespace Furion.Extras.Admin.NET.Service.Notice
                                                                       EF.Functions.Like(u.Content, $"%{input.SearchValue.Trim()}%"))
                                              .Where(input.Type > 0, u => u.Type == input.Type)
                                              .Where(u => u.Status != NoticeStatus.DELETED)
-                                             .ToPagedListAsync(input.PageNo, input.PageSize);
+                                             .ToADPagedListAsync(input.PageNo, input.PageSize);
             return notices;
         }
 
@@ -204,7 +204,7 @@ namespace Furion.Extras.Admin.NET.Service.Notice
                                              .Where(input.Type > 0, u => u.u.Type == input.Type)
                                              .Where(u => u.u.Status != NoticeStatus.DELETED)
                                              .Select(u => u.u.Adapt(u.e.Adapt<NoticeReceiveOutput>()))
-                                             .ToPagedListAsync(input.PageNo, input.PageSize);
+                                             .ToADPagedListAsync(input.PageNo, input.PageSize);
             return notices;
         }
 

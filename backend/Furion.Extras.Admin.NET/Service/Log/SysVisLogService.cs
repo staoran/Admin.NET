@@ -42,7 +42,7 @@ namespace Furion.Extras.Admin.NET.Service
                                                                      u.VisTime <= DateTime.Parse(input.SearchEndTime.Trim()))
                                              .OrderByDescending(u => u.Id)
                                              .ProjectToType<VisLogOutput>()
-                                             .ToPagedListAsync(input.PageNo, input.PageSize);
+                                             .ToADPagedListAsync(input.PageNo, input.PageSize);
             return visLogs;
         }
 

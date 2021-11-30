@@ -108,7 +108,7 @@ namespace Furion.Extras.Admin.NET.Service
                     queryable = queryable.Where(SearchExpression(searchDto));
             }
 
-            var pageList = await queryable.ToPagedListAsync(searchDto.PageNo, searchDto.PageSize);
+            var pageList = await queryable.ToADPagedListAsync(searchDto.PageNo, searchDto.PageSize);
 
             PageListHandle?.Invoke(pageList);
 

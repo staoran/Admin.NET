@@ -65,7 +65,7 @@ namespace Furion.Extras.Admin.NET.Service
                                        .Where(dataScopeList.Count > 0, u => dataScopeList.Contains(u.Id)) // 非管理员范围限制
                                        .Where(u => u.Status != CommonStatus.DELETED).OrderBy(u => u.Sort)
                                        .Select(u => u.Adapt<OrgOutput>())
-                                       .ToPagedListAsync(input.PageNo, input.PageSize);
+                                       .ToADPagedListAsync(input.PageNo, input.PageSize);
             return orgs;
         }
 

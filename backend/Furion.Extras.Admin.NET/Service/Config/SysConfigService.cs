@@ -43,7 +43,7 @@ namespace Furion.Extras.Admin.NET.Service
                                                     (code, u => EF.Functions.Like(u.Code, $"%{input.Code.Trim()}%")),
                                                     (groupCode, u => EF.Functions.Like(u.GroupCode, $"%{input.GroupCode.Trim()}%")))
                                              .Where(u => u.Status != CommonStatus.DELETED).OrderBy(u => u.GroupCode)
-                                             .ToPagedListAsync(input.PageNo, input.PageSize);
+                                             .ToADPagedListAsync(input.PageNo, input.PageSize);
             return configs;
         }
 

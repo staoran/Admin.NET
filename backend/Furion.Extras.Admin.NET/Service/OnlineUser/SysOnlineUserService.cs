@@ -49,7 +49,7 @@ namespace Furion.Extras.Admin.NET.Service
                 .Where(!string.IsNullOrWhiteSpace(input.SearchValue), o => o.Account.Contains(input.SearchValue) || o.Name.Contains(input.SearchValue))
                 .Select(o => o.Adapt<OnlineUserOutput>());
 
-            var currentPageData = onlineUserOutputs.ToPagedList(input.PageNo, input.PageSize);
+            var currentPageData = onlineUserOutputs.ToADPagedList(input.PageNo, input.PageSize);
 
             //填充租户名称
             var tenants = await _sysTenantRep.DetachedEntities.ToListAsync();

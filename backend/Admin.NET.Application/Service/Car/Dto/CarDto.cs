@@ -1,11 +1,12 @@
 ﻿using System;
+using Furion.Extras.Admin.NET;
 
 namespace Admin.NET.Application
 {
     /// <summary>
     /// 车辆信息输出参数
     /// </summary>
-    public class CarOutput
+    public class CarDto
     {
         /// <summary>
         /// 名称

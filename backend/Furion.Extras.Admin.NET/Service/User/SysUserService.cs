@@ -78,7 +78,7 @@ namespace Furion.Extras.Admin.NET.Service
                                          .Where(x => x.n.u.AdminType != AdminType.SuperAdmin)//排除超级管理员
                                          .Where(!superAdmin && dataScopes.Count > 0, x => dataScopes.Contains(x.n.e.OrgId))
                                          .Select(u => u.n.u.Adapt<UserOutput>())
-                                         .ToPagedListAsync(input.PageNo, input.PageSize);
+                                         .ToADPagedListAsync(input.PageNo, input.PageSize);
 
             foreach (var user in users.Rows)
             {

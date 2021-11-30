@@ -19,7 +19,7 @@ namespace Furion.Extras.Admin.NET
         /// <param name="pageIndex">页码，必须大于0</param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public static PageResult<TEntity> ToPagedList<TEntity>(this IQueryable<TEntity> entities, int pageIndex = 1, int pageSize = 20)
+        public static PageResult<TEntity> ToADPagedList<TEntity>(this IQueryable<TEntity> entities, int pageIndex = 1, int pageSize = 20)
         {
             if (pageIndex <= 0) throw new InvalidOperationException($"{nameof(pageIndex)} 必须是大于0的正整数。");
 
@@ -46,7 +46,7 @@ namespace Furion.Extras.Admin.NET
         /// <param name="pageSize"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static async Task<PageResult<TEntity>> ToPagedListAsync<TEntity>(this IQueryable<TEntity> entities, int pageIndex = 1, int pageSize = 20, CancellationToken cancellationToken = default)
+        public static async Task<PageResult<TEntity>> ToADPagedListAsync<TEntity>(this IQueryable<TEntity> entities, int pageIndex = 1, int pageSize = 20, CancellationToken cancellationToken = default)
         {
             if (pageIndex <= 0) throw new InvalidOperationException($"{nameof(pageIndex)} 必须是大于0的正整数。");
 
@@ -72,7 +72,7 @@ namespace Furion.Extras.Admin.NET
         /// <param name="pageIndex">页码，必须大于0</param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public static PageResult<TEntity> ToPagedList<TEntity>(this IEnumerable<TEntity> entities, int pageIndex = 1, int pageSize = 20)
+        public static PageResult<TEntity> ToADPagedList<TEntity>(this IEnumerable<TEntity> entities, int pageIndex = 1, int pageSize = 20)
         {
             if (pageIndex <= 0) throw new InvalidOperationException($"{nameof(pageIndex)} 必须是大于0的正整数。");
 

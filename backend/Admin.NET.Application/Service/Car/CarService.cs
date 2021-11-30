@@ -1,53 +1,113 @@
-﻿using Admin.NET.Application.Dto;
-using Admin.NET.Application.Entity;
-using Furion.Extras.Admin.NET.Service;
+﻿using Admin.NET.Application.Entity;
 using Furion.DatabaseAccessor;
+using Furion.DatabaseAccessor.Extensions;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
+using Furion.Extras.Admin.NET;
+using Furion.FriendlyException;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 
 namespace Admin.NET.Application
 {
-
-    [Route("api/[controller]")]
-    [ApiDescriptionSettings("自己的业务", Name = "Car", Order = 90)]
-    public class CarService : BaseService<Car, CarSeaarch, CarAdd, CarUpdate, CarImport, CarDetail, CarPageList, CarExport, CarPrint>, IDynamicApiController, ITransient
+    /// <summary>
+    /// 车辆信息服务
+    /// </summary>
+    [ApiDescriptionSettings("自己的业务", Name = "Car", Order = 100)]
+    public class CarService : ICarService, IDynamicApiController, ITransient
     {
-        public CarService(IRepository<Car> repository) : base(repository)
-        {
-            // 动作可以写在构造函数中
-            BeforeAddAction = add =>
-            {
+        private readonly IRepository<Car, MasterDbContextLocator> _carRep;
 
-            };
+        public CarService(
+            IRepository<Car, MasterDbContextLocator> carRep
+        )
+        {
+            _carRep = carRep;
         }
 
         /// <summary>
-        /// 新增
+        /// 分页查询车辆信息
         /// </summary>
-        /// <param name="addDto"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        public override Task Add(CarAdd addDto)
+        [HttpGet("/Car/page")]
+        public async Task<PageResult<CarOutput>> Page([FromQuery] CarInput input)
         {
-            // 动作也可以写在方法重写中
-            AfterAddAction = a =>
-            {
+            var cars = await _carRep.DetachedEntities
+                                     .Where(!string.IsNullOrEmpty(input.CarName), u => EF.Functions.Like(u.CarName, $"%{input.CarName.Trim()}%"))
+                                     .Where(!string.IsNullOrEmpty(input.CarNo), u => u.CarNo == input.CarNo)
+                                     .OrderBy(PageInputOrder.OrderBuilder<CarInput>(input))
+                                     .ProjectToType<CarOutput>()
+                                     .ToADPagedListAsync(input.PageNo, input.PageSize);
 
-            };
-            return base.Add(addDto);
+            return cars;
         }
 
         /// <summary>
-        /// 继承通用类之后默认会生成API
-        /// 无用或者不想暴露的通用方法可以重写后打上[NonAction]特性
+        /// 增加车辆信息
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        [NonAction]
-        public override Task<CarPrint> Print(long id)
+        [HttpPost("/Car/add")]
+        public async Task Add(AddCarInput input)
         {
-            return base.Print(id);
+            var car = input.Adapt<Car>();
+            await _carRep.InsertAsync(car);
         }
+
+        /// <summary>
+        /// 删除车辆信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost("/Car/delete")]
+        public async Task Delete(DeleteCarInput input)
+        {
+            var car = await _carRep.FirstOrDefaultAsync(u => u.Id == input.Id);
+            await _carRep.DeleteAsync(car);
+        }
+
+        /// <summary>
+        /// 更新车辆信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost("/Car/edit")]
+        public async Task Update(UpdateCarInput input)
+        {
+            var isExist = await _carRep.AnyAsync(u => u.Id == input.Id, false);
+            if (!isExist) throw Oops.Oh(ErrorCode.D3000);
+
+            var car = input.Adapt<Car>();
+            await _carRep.UpdateAsync(car, ignoreNullValues: true);
+        }
+
+        /// <summary>
+        /// 获取车辆信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("/Car/detail")]
+        public async Task<CarOutput> Get([FromQuery] QueryeCarInput input)
+        {
+            return (await _carRep.DetachedEntities.FirstOrDefaultAsync(u => u.Id == input.Id)).Adapt<CarOutput>();
+        }
+
+        /// <summary>
+        /// 获取车辆信息列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("/Car/list")]
+        public async Task<List<CarOutput>> List([FromQuery] CarInput input)
+        {
+            return await _carRep.DetachedEntities.ProjectToType<CarOutput>().ToListAsync();
+        }
+
     }
 }

@@ -75,7 +75,7 @@ namespace Furion.Extras.Admin.NET.Service
                                               (code, u => EF.Functions.Like(u.Code, $"%{input.Code.Trim()}%")))
                                        //.Where(u => u.Status == CommonStatus.ENABLE)
                                        .OrderBy(u => u.Sort)
-                                       .ToPagedListAsync(input.PageNo, input.PageSize);
+                                       .ToADPagedListAsync(input.PageNo, input.PageSize);
             return apps;
         }
 

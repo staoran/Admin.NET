@@ -47,7 +47,7 @@ namespace Furion.Extras.Admin.NET.Service
                                          (value, u => EF.Functions.Like(u.Value, $"%{input.Value.Trim()}%")))
                                   .Where(u => (u.Status != CommonStatus.DELETED && !supperAdmin) || (u.Status <= CommonStatus.DELETED && supperAdmin)).OrderBy(u => u.Sort)
                                   .Select(u => u.Adapt<DictDataOutput>())
-                                  .ToPagedListAsync(input.PageNo, input.PageSize);
+                                  .ToADPagedListAsync(input.PageNo, input.PageSize);
             return dictDatas;
         }
 

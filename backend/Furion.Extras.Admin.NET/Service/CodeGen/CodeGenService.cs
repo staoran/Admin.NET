@@ -51,7 +51,7 @@ namespace Furion.Extras.Admin.NET.Service.CodeGen
             var tableName = !string.IsNullOrEmpty(input.TableName?.Trim());
             var codeGens = await _sysCodeGenRep.DetachedEntities
                                                .Where((tableName, u => EF.Functions.Like(u.TableName, $"%{input.TableName.Trim()}%")))
-                                               .ToPagedListAsync(input.PageNo, input.PageSize);
+                                               .ToADPagedListAsync(input.PageNo, input.PageSize);
             return codeGens;
         }
 

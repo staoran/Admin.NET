@@ -46,7 +46,7 @@ namespace Furion.Extras.Admin.NET.Service
             var timers = await _sysTimerRep.DetachedEntities
                                            .Where(!string.IsNullOrEmpty(input.JobName?.Trim()), u => EF.Functions.Like(u.JobName, $"%{input.JobName.Trim()}%"))
                                            .ProjectToType<JobOutput>()
-                                           .ToPagedListAsync(input.PageNo, input.PageSize);
+                                           .ToADPagedListAsync(input.PageNo, input.PageSize);
 
             timers.Rows.ToList().ForEach(u =>
             {
