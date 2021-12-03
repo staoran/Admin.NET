@@ -86,7 +86,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [NonAction]
-        public async Task<List<RoleOutput>> GetRoleList([FromQuery] RoleInput input)
+        public async Task<dynamic> GetRoleList([FromQuery] RoleInput input)
         {
             var name = !string.IsNullOrEmpty(input.Name?.Trim());
             var code = !string.IsNullOrEmpty(input.Code?.Trim());
@@ -95,7 +95,11 @@ namespace Furion.Extras.Admin.NET.Service
                                            (code, u => EF.Functions.Like(u.Code, $"%{input.Code.Trim()}%")))
                                     .Where(u => u.Status == CommonStatus.ENABLE)
                                     .OrderBy(u => u.Sort)
-                                    .ProjectToType<RoleOutput>()
+                                    .Select(u => new
+                                    {
+                                        u.Id,
+                                        Name = u.Name + "[" + u.Code + "]",
+                                    })
                                     .ToListAsync();
         }
 
