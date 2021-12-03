@@ -16,7 +16,7 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task<SysRole> GetRoleInfo([FromQuery] QueryRoleInput input);
 
-        Task<List<RoleOutput>> GetRoleList([FromQuery] RoleInput input);
+        Task<dynamic> GetRoleList([FromQuery] RoleInput input);
 
         Task<List<long>> GetUserDataScopeIdList(List<long> roleIdList, long orgId);
 
