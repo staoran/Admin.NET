@@ -56,7 +56,7 @@ namespace Furion.Extras.Admin.NET.Service
                                              .Where(input.FileLocation > 0, u => u.FileLocation == input.FileLocation)
                                              .Where(fileBucket, u => EF.Functions.Like(u.FileBucket, $"%{input.FileBucket.Trim()}%"))
                                              .Where(fileOriginName, u => EF.Functions.Like(u.FileOriginName, $"%{input.FileOriginName.Trim()}%"))
-                                             .Select(u => u.Adapt<FileOutput>())
+                                             .ProjectToType<FileOutput>()
                                              .ToADPagedListAsync(input.PageNo, input.PageSize);
             return files;
         }

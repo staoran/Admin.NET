@@ -44,7 +44,7 @@ namespace Furion.Extras.Admin.NET.Service
                                            .Where(searchBeginTime, u => u.ExceptionTime >= DateTime.Parse(input.SearchBeginTime.Trim()) &&
                                                                    u.ExceptionTime <= DateTime.Parse(input.SearchEndTime.Trim()))
                                            .OrderByDescending(u => u.Id)
-                                           .Select(u => u.Adapt<ExLogOutput>())
+                                           .ProjectToType<ExLogOutput>()
                                            .ToADPagedListAsync(input.PageNo, input.PageSize);
             return exLogs;
         }

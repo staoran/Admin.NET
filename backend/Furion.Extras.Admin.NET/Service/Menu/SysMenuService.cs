@@ -167,7 +167,7 @@ namespace Furion.Extras.Admin.NET.Service
             var menus = await _sysMenuRep.DetachedEntities.Where((application, u => u.Application == input.Application.Trim()),
                                                                  (name, u => EF.Functions.Like(u.Name, $"%{input.Name.Trim()}%")))
                                                           .Where(u => u.Status == CommonStatus.ENABLE).OrderBy(u => u.Sort)
-                                                          .Select(u => u.Adapt<MenuOutput>())
+                                                          .ProjectToType<MenuOutput>()
                                                           .ToListAsync();
             return new TreeBuildUtil<MenuOutput>().Build(menus);
         }

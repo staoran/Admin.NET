@@ -45,8 +45,9 @@ namespace Furion.Extras.Admin.NET.Service
                                   .Where(u => u.TypeId == input.TypeId)
                                   .Where((code, u => EF.Functions.Like(u.Code, $"%{input.Code.Trim()}%")),
                                          (value, u => EF.Functions.Like(u.Value, $"%{input.Value.Trim()}%")))
-                                  .Where(u => (u.Status != CommonStatus.DELETED && !supperAdmin) || (u.Status <= CommonStatus.DELETED && supperAdmin)).OrderBy(u => u.Sort)
-                                  .Select(u => u.Adapt<DictDataOutput>())
+                                  .Where(u => (u.Status != CommonStatus.DELETED && !supperAdmin) || (u.Status <= CommonStatus.DELETED && supperAdmin))
+                                  .OrderBy(u => u.Sort)
+                                  .ProjectToType<DictDataOutput>()
                                   .ToADPagedListAsync(input.PageNo, input.PageSize);
             return dictDatas;
         }

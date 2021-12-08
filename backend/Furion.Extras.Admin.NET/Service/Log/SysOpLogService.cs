@@ -43,7 +43,7 @@ namespace Furion.Extras.Admin.NET.Service
                                            .Where(searchBeginTime, u => u.OpTime >= DateTime.Parse(input.SearchBeginTime.Trim()) &&
                                                                    u.OpTime <= DateTime.Parse(input.SearchEndTime.Trim()))
                                            .OrderBy(PageInputOrder.OrderBuilder(input)) // 封装了任意字段排序示例
-                                           .Select(u => u.Adapt<OpLogOutput>())
+                                           .ProjectToType<OpLogOutput>()
                                            .ToADPagedListAsync(input.PageNo, input.PageSize);
             return opLogs;
         }

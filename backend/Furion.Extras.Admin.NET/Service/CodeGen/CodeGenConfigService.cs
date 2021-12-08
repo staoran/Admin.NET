@@ -37,7 +37,7 @@ namespace Furion.Extras.Admin.NET.Service
         {
             var result = await _sysCodeGenConfigRep.DetachedEntities
                                              .Where(u => u.CodeGenId == input.CodeGenId && u.WhetherCommon != YesOrNot.Y.ToString())
-                                             .Select(u => u.Adapt<CodeGenConfig>()).ToListAsync();
+                                             .ProjectToType<CodeGenConfig>().ToListAsync();
             await DtoMapper(result);
             return result;
         }

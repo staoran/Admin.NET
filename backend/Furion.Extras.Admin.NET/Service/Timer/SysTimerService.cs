@@ -269,7 +269,7 @@ namespace Furion.Extras.Admin.NET.Service
         [NonAction]
         public void StartTimerJob()
         {
-            var sysTimerList = _sysTimerRep.DetachedEntities.Where(t => t.StartNow).Select(u => u.Adapt<AddJobInput>()).ToList();
+            var sysTimerList = _sysTimerRep.DetachedEntities.Where(t => t.StartNow).ProjectToType<AddJobInput>().ToList();
             sysTimerList.ForEach(AddTimerJob);
         }
 

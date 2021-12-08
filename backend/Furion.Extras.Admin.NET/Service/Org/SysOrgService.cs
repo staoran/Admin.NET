@@ -64,7 +64,7 @@ namespace Furion.Extras.Admin.NET.Service
                                                          || u.Id == long.Parse(input.Pid.Trim()))) // 根据父机构id查询
                                        .Where(dataScopeList.Count > 0, u => dataScopeList.Contains(u.Id)) // 非管理员范围限制
                                        .Where(u => u.Status != CommonStatus.DELETED).OrderBy(u => u.Sort)
-                                       .Select(u => u.Adapt<OrgOutput>())
+                                       .ProjectToType<OrgOutput>()
                                        .ToADPagedListAsync(input.PageNo, input.PageSize);
             return orgs;
         }
@@ -111,8 +111,11 @@ namespace Furion.Extras.Admin.NET.Service
             var orgs = await _sysOrgRep.DetachedEntities
                                        .Where(pId, u => u.Pid == long.Parse(input.Pid))
                                        .Where(dataScopeList.Count > 0, u => dataScopeList.Contains(u.Id))
-                                       .Where(u => u.Status != CommonStatus.DELETED).OrderBy(u => u.Sort).ToListAsync();
-            return orgs.Adapt<List<OrgOutput>>();
+                                       .Where(u => u.Status != CommonStatus.DELETED)
+                                       .OrderBy(u => u.Sort)
+                                       .ProjectToType<OrgOutput>()
+                                       .ToListAsync();
+            return orgs;
         }
 
         /// <summary>
