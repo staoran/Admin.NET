@@ -79,6 +79,10 @@ namespace Admin.NET.Web.Core
             //// qcloud oss
             //// 从配置文件中加载节点为‘OSSProvider’的配置信息
             //services.AddOSSService("QCloud", "OSSProvider");
+
+            //.net6下使用Npgsql数据库时使用以下2行配置
+            //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);//启用遗留时间戳行为
+            //AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);//禁用日期时间无限转换
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
