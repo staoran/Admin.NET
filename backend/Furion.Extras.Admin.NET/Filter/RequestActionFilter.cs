@@ -64,8 +64,8 @@ namespace Furion.Extras.Admin.NET
                     ClassName = context.Controller.ToString(),
                     MethodName = actionDescriptor?.ActionName,
                     ReqMethod = httpRequest.Method,
-                    Param = JSON.Serialize(context.ActionArguments.Count < 1 ? "" : context.ActionArguments),
-                    Result = actionContext.Result?.GetType() == typeof(JsonResult) ? JSON.Serialize(actionContext.Result) : "",
+                    Param = context.ActionArguments.Count < 1 ? string.Empty : JSON.Serialize(context.ActionArguments),
+                    Result = actionContext.Result?.GetType() == typeof(JsonResult) ? JSON.Serialize(actionContext.Result) : string.Empty,
                     ElapsedTime = sw.ElapsedMilliseconds,
                     OpTime = DateTimeOffset.Now,
                     Account = httpContext.User?.FindFirstValue(ClaimConst.CLAINM_ACCOUNT)
