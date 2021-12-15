@@ -40,7 +40,7 @@ namespace Admin.NET.EntityFramework.Core
         public object GetTenantId()
         {
             if (App.User == null) return null;
-            return Convert.ToInt64(App.User.FindFirst(ClaimConst.TENANT_ID)?.Value);
+            return App.User.FindFirst(ClaimConst.TENANT_ID)?.Value;
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace Admin.NET.EntityFramework.Core
             }
 
             // 当前操作者信息
-            var userId = App.User.FindFirst(ClaimConst.CLAINM_USERID)?.Value;
-            var userName = App.User.FindFirst(ClaimConst.CLAINM_ACCOUNT)?.Value;
+            var userId = App.User?.FindFirst(ClaimConst.CLAINM_USERID)?.Value;
+            var userName = App.User?.FindFirst(ClaimConst.CLAINM_ACCOUNT)?.Value;
 
             foreach (var entity in entities)
             {
@@ -96,8 +96,9 @@ namespace Admin.NET.EntityFramework.Core
                         // 自动设置租户Id
                         case EntityState.Added:
                             var tenantId = entity.Property(nameof(Entity.TenantId)).CurrentValue;
-                            if (tenantId == null || (long)tenantId == 0)
-                                entity.Property(nameof(Entity.TenantId)).CurrentValue = long.Parse(GetTenantId().ToString());
+                            var currTenantId = GetTenantId();
+                            if ((tenantId == null || (long)tenantId == 0) && currTenantId != null)
+                                entity.Property(nameof(Entity.TenantId)).CurrentValue = Convert.ToInt64(currTenantId);
 
                             obj.Id = obj.Id == 0 ? YitIdHelper.NextId() : obj.Id;
                             obj.CreatedTime = DateTimeOffset.Now;
