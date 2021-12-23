@@ -1,12 +1,10 @@
-using Furion.Extras.Admin.NET;
-using Furion.Extras.Admin.NET.Service;
 using Furion;
 using Furion.DatabaseAccessor;
+using Furion.Extras.Admin.NET;
+using Furion.Extras.Admin.NET.Service;
 using Furion.FriendlyException;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System;
-using System.Linq;
 using Yitter.IdGenerator;
 
 namespace Admin.NET.EntityFramework.Core

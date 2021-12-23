@@ -1,11 +1,6 @@
-﻿using Furion.Extras.Admin.NET.Service;
-using Furion.DataEncryption;
+﻿using Furion.DataEncryption;
+using Furion.Extras.Admin.NET.Service;
 using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using UAParser;
 
 namespace Furion.Extras.Admin.NET

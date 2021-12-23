@@ -127,6 +127,7 @@ namespace Furion.Extras.Admin.NET
         /// </summary>
         [ErrorCodeItemMetadata("禁止删除系统管理员角色(sys_manager_role)")]
         D1019,
+
         /// <summary>
         /// 禁止修改系统管理员角色(sys_manager_role)
         /// </summary>
@@ -330,6 +331,7 @@ namespace Furion.Extras.Admin.NET
         /// </summary>
         [ErrorCodeItemMetadata("通知公告编辑失败，类型必须为草稿")]
         D7002,
+
         /// <summary>
         /// 通知公告操作失败，非发布者不能进行操作
         /// </summary>

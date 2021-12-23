@@ -1,5 +1,4 @@
-﻿using Furion.DependencyInjection;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Furion.Extras.Admin.NET.Service
 {

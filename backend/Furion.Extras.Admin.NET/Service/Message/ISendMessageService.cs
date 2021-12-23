@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Furion.Extras.Admin.NET.Service
+﻿namespace Furion.Extras.Admin.NET.Service
 {
     public interface ISendMessageService
     {
@@ -33,7 +29,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="message">发送内容</param>
         /// <param name="type">消息类型</param>
         /// <returns></returns>
-        Task SendMessageToAllUser(string title,  string message, MessageType type);
+        Task SendMessageToAllUser(string title, string message, MessageType type);
 
         /// <summary>
         /// 发送消息给除了发送人的其他人

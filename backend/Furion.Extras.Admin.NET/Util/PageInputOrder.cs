@@ -9,7 +9,7 @@ namespace Furion.Extras.Admin.NET
     /// </summary>
     public static class PageInputOrder
     {
-        /// <summary> 
+        /// <summary>
         /// 排序方式(默认降序)
         /// </summary>
         /// <param name="pageInput"> </param>

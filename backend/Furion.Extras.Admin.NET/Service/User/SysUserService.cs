@@ -10,11 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniExcelLibs;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
 namespace Furion.Extras.Admin.NET.Service
@@ -93,7 +88,6 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost("/sysUser/add")]
-        //[UnitOfWork]//不能嵌套uow
         public async Task AddUser(AddUserInput input)
         {
             // 数据范围检查
@@ -120,7 +114,6 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost("/sysUser/delete")]
-        //[UnitOfWork]
         public async Task DeleteUser(DeleteUserInput input)
         {
             // 数据范围检查
@@ -158,7 +151,6 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost("/sysUser/edit")]
-        //[UnitOfWork]
         public async Task UpdateUser(UpdateUserInput input)
         {
             // 数据范围检查

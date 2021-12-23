@@ -1,9 +1,7 @@
 ﻿using Furion.DependencyInjection;
 using Microsoft.Extensions.Caching.Memory;
-using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Text;
 using Yitter.IdGenerator;
 

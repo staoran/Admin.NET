@@ -1,9 +1,6 @@
 ﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {

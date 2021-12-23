@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Furion.Extras.Admin.NET
 {
@@ -20,6 +15,5 @@ namespace Furion.Extras.Admin.NET
         /// </summary>
         [Description("公告")]
         ANNOUNCEMENT = 2,
-
     }
 }

@@ -1,8 +1,4 @@
-﻿using Furion.DependencyInjection;
-using System;
-using System.Collections.Generic;
-
-namespace Furion.Extras.Admin.NET.Service
+﻿namespace Furion.Extras.Admin.NET.Service
 {
     /// <summary>
     /// 用户登录输出参数

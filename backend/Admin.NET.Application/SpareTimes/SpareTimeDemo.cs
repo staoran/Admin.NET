@@ -1,7 +1,6 @@
 ﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.TaskScheduler;
-using System;
 
 namespace Admin.NET.Application
 {

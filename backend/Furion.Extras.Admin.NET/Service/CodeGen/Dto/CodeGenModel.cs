@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Furion.Extras.Admin.NET.Service
+﻿namespace Furion.Extras.Admin.NET.Service
 {
     /// <summary>
     /// 代码生成参数类

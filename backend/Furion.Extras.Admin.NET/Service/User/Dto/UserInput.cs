@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Furion.Extras.Admin.NET.Service
@@ -303,7 +301,7 @@ namespace Furion.Extras.Admin.NET.Service
 
         [Required(ErrorMessage = "性别不能为空")]
         public int Sex { get; set; }
-       
+
         [Required(ErrorMessage = "生日不能为空")]
         public DateTime? Birthday { get; set; }
 

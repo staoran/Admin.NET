@@ -9,12 +9,7 @@ using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
 namespace Furion.Extras.Admin.NET.Service
@@ -115,7 +110,7 @@ namespace Furion.Extras.Admin.NET.Service
             return pageList;
         }
 
-        #endregion
+        #endregion 查询/分页查询
 
         #region 新增
 
@@ -145,7 +140,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterAddAction?.Invoke(entity.Entity);
         }
 
-        #endregion
+        #endregion 新增
 
         #region 删除/假删除
 
@@ -199,7 +194,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterFakeDeleteAction?.Invoke(ids, count);
         }
 
-        #endregion
+        #endregion 删除/假删除
 
         #region 修改
 
@@ -225,7 +220,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterUpdateAction?.Invoke(entity.Entity);
         }
 
-        #endregion
+        #endregion 修改
 
         #region 导入
 
@@ -292,7 +287,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterImportAction?.Invoke(import.Data);
         }
 
-        #endregion
+        #endregion 导入
 
         #region 导出
 
@@ -355,7 +350,7 @@ namespace Furion.Extras.Admin.NET.Service
                 });
         }
 
-        #endregion
+        #endregion 导出
 
         #region 打印
 
@@ -370,7 +365,7 @@ namespace Furion.Extras.Admin.NET.Service
             return entity.Adapt<TPrintDto>();
         }
 
-        #endregion
+        #endregion 打印
 
         #region 私有方法
 
@@ -405,6 +400,6 @@ namespace Furion.Extras.Admin.NET.Service
             }
         }
 
-        #endregion
+        #endregion 私有方法
     }
 }

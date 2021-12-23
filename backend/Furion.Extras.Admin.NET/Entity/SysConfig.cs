@@ -1,8 +1,6 @@
-﻿using Furion.Extras.Admin.NET.Service;
-using Furion;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
+using Furion.Extras.Admin.NET.Service;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Furion.Extras.Admin.NET.Service.Notice
+﻿namespace Furion.Extras.Admin.NET.Service.Notice
 {
     public interface ISysNoticeUserService
     {

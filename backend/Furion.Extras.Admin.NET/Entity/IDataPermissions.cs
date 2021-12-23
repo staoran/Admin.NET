@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Furion.Extras.Admin.NET.Entity
+﻿namespace Furion.Extras.Admin.NET.Entity
 {
     /// <summary>
     /// 数据权限接口，实现数据权限必须继承本接口

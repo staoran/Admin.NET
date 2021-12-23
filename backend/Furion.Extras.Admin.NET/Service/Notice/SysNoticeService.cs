@@ -6,10 +6,6 @@ using Furion.FriendlyException;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service.Notice
 {
@@ -52,7 +48,7 @@ namespace Furion.Extras.Admin.NET.Service.Notice
                                              .Where(input.Type > 0, u => u.Type == input.Type)
                                              .Where(u => u.Status != NoticeStatus.DELETED)
                                              //通知公告管理应只有发布人可以管理自己发布的，其他人只能在已收公告中看到
-                                             .Where(u=>u.PublicUserId == _userManager.UserId)
+                                             .Where(u => u.PublicUserId == _userManager.UserId)
                                              .ToADPagedListAsync(input.PageNo, input.PageSize);
             return notices;
         }
@@ -75,7 +71,7 @@ namespace Furion.Extras.Admin.NET.Service.Notice
                 notice.PublicTime = DateTimeOffset.Now;
             var newItem = await notice.InsertNowAsync();
             //如果是草稿则将状态标记为暂不通知，下次更改状态后再修改为未更改状态
-            if (notice.Status!=NoticeStatus.DRAFT)
+            if (notice.Status != NoticeStatus.DRAFT)
             {
                 // 通知到的人
                 var noticeUserIdList = input.NoticeUserIdList;
@@ -88,7 +84,6 @@ namespace Furion.Extras.Admin.NET.Service.Notice
                 var noticeUserStatus = NoticeUserStatus.NONOTICE;
                 await _sysNoticeUserService.Add(newItem.Entity.Id, noticeUserIdList, noticeUserStatus);
             }
-           
         }
 
         /// <summary>
@@ -100,7 +95,7 @@ namespace Furion.Extras.Admin.NET.Service.Notice
         public async Task DeleteNotice(DeleteNoticeInput input)
         {
             var notice = await _sysNoticeRep.FirstOrDefaultAsync(u => u.Id == input.Id);
-            if (notice.Status != NoticeStatus.DRAFT && notice.Status != NoticeStatus.CANCEL ) // 只能删除草稿和撤回的公告
+            if (notice.Status != NoticeStatus.DRAFT && notice.Status != NoticeStatus.CANCEL) // 只能删除草稿和撤回的公告
                 throw Oops.Oh(ErrorCode.D7001);
             if (notice.PublicUserId != _userManager.UserId)
                 throw Oops.Oh(ErrorCode.D7003);
@@ -122,7 +117,7 @@ namespace Furion.Extras.Admin.NET.Service.Notice
             if (input.Status != NoticeStatus.DRAFT)
                 throw Oops.Oh(ErrorCode.D7002);
             // 如果发布者非本人则不能修改
-            SysNotice noticeInDb = await _sysNoticeRep.DetachedEntities.Where(u=>u.Id==input.Id).FirstOrDefaultAsync();
+            SysNotice noticeInDb = await _sysNoticeRep.DetachedEntities.Where(u => u.Id == input.Id).FirstOrDefaultAsync();
             if (noticeInDb.PublicUserId != _userManager.UserId)
                 throw Oops.Oh(ErrorCode.D7003);
 
@@ -141,8 +136,6 @@ namespace Furion.Extras.Admin.NET.Service.Notice
                 var noticeUserStatus = NoticeUserStatus.UNREAD;
                 await _sysNoticeUserService.Update(input.Id, noticeUserIdList, noticeUserStatus);
             }
-          
-            
         }
 
         /// <summary>
@@ -177,12 +170,12 @@ namespace Furion.Extras.Admin.NET.Service.Notice
             var noticeResult = notice.Adapt<NoticeDetailOutput>();
             noticeResult.NoticeUserIdList = noticeUserIdList;
             noticeResult.NoticeUserReadInfoList = noticeUserReadInfoList;
-            if(noticeResult.Status==(int)NoticeStatus.CANCEL)
+            if (noticeResult.Status == (int)NoticeStatus.CANCEL)
             {
                 noticeResult.Content = "<h1 style=\"text-align: center; \">该内容已被发布者撤回</h1>";
             }
             // 如果该条通知公告为已发布，则将当前用户的该条通知公告设置为已读
-            if (notice.Status == NoticeStatus.PUBLIC || notice.Status==NoticeStatus.CANCEL)
+            if (notice.Status == NoticeStatus.PUBLIC || notice.Status == NoticeStatus.CANCEL)
                 await _sysNoticeUserService.Read(notice.Id, _userManager.UserId, NoticeUserStatus.READ);
             return noticeResult;
         }
@@ -199,7 +192,7 @@ namespace Furion.Extras.Admin.NET.Service.Notice
             if (input.Status != NoticeStatus.CANCEL && input.Status != NoticeStatus.DELETED && input.Status != NoticeStatus.PUBLIC)
                 throw Oops.Oh(ErrorCode.D7000);
 
-            var noticeuser = await _sysNoticeUserRep.DetachedEntities.Where(u => u.NoticeId == input.Id).Select(u=>u.UserId).ToListAsync();
+            var noticeuser = await _sysNoticeUserRep.DetachedEntities.Where(u => u.NoticeId == input.Id).Select(u => u.UserId).ToListAsync();
 
             var notice = await _sysNoticeRep.FirstOrDefaultAsync(u => u.Id == input.Id);
             if (notice.PublicUserId != _userManager.UserId)
@@ -213,7 +206,6 @@ namespace Furion.Extras.Admin.NET.Service.Notice
             }
             else if (input.Status == NoticeStatus.PUBLIC)
             {
-                
                 notice.PublicTime = DateTimeOffset.Now;
             }
             await notice.UpdateAsync();
@@ -224,7 +216,6 @@ namespace Furion.Extras.Admin.NET.Service.Notice
                 var noticeUserStatus = NoticeUserStatus.UNREAD;
                 await _sysNoticeUserService.Update(input.Id, noticeUserIdList, noticeUserStatus);
             }
-
         }
 
         /// <summary>
@@ -241,7 +232,7 @@ namespace Furion.Extras.Admin.NET.Service.Notice
                                              .Where(searchValue, u => EF.Functions.Like(u.u.Title, $"%{input.SearchValue.Trim()}%") ||
                                                                       EF.Functions.Like(u.u.Content, $"%{input.SearchValue.Trim()}%"))
                                              .Where(input.Type > 0, u => u.u.Type == input.Type)
-                                             .Where(u => u.u.Status != NoticeStatus.DELETED && u.u.Status!=NoticeStatus.DRAFT)
+                                             .Where(u => u.u.Status != NoticeStatus.DELETED && u.u.Status != NoticeStatus.DRAFT)
                                              .Select(u => u.u.Adapt(u.e.Adapt<NoticeReceiveOutput>()))
                                              .ToADPagedListAsync(input.PageNo, input.PageSize);
             return notices;
@@ -293,6 +284,5 @@ namespace Furion.Extras.Admin.NET.Service.Notice
                 TotalRows = count
             };
         }
-
     }
 }

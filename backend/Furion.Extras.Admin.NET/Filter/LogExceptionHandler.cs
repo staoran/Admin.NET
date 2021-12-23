@@ -1,11 +1,9 @@
-﻿using System;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Furion.DependencyInjection;
+﻿using Furion.DependencyInjection;
 using Furion.EventBus;
 using Furion.FriendlyException;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Serilog;
+using System.Security.Claims;
 
 namespace Furion.Extras.Admin.NET
 {

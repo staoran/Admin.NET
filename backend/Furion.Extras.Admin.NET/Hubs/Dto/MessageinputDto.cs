@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-
-namespace Furion.Extras.Admin.NET
+﻿namespace Furion.Extras.Admin.NET
 {
     public class MessageinputDto
     {
@@ -28,6 +25,6 @@ namespace Furion.Extras.Admin.NET
         /// <summary>
         /// 消息类型
         /// </summary>
-        public MessageType messageType {  get; set; }
+        public MessageType messageType { get; set; }
     }
 }

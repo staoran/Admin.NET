@@ -7,9 +7,6 @@ using Furion.FriendlyException;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -228,7 +225,7 @@ namespace Furion.Extras.Admin.NET.Service
             var tenantAdminUser = await GetTenantAdminUser(input.Id);
             if (tenantAdminUser == null) return;
             // 这里传false，就不会走全局tenantId过滤。true的话查不到数据，当前功能为超级管理员使用
-            var roleIds = await _sysUserRoleService.GetUserRoleIdList(tenantAdminUser.Id,false);
+            var roleIds = await _sysUserRoleService.GetUserRoleIdList(tenantAdminUser.Id, false);
             input.Id = roleIds[0]; // 重置租户管理员角色Id
             await _sysRoleMenuService.GrantMenu(input);
         }

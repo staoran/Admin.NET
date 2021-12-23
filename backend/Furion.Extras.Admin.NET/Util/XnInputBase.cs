@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Furion.Extras.Admin.NET
+﻿namespace Furion.Extras.Admin.NET
 {
     /// <summary>
     /// 通用输入扩展参数（带权限）

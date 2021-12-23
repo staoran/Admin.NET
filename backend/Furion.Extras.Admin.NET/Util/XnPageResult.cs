@@ -1,7 +1,4 @@
-﻿using Mapster;
-using System.Collections.Generic;
-
-namespace Furion.Extras.Admin.NET
+﻿namespace Furion.Extras.Admin.NET
 {
     public class PageResult<T>
     {

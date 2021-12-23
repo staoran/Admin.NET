@@ -130,7 +130,7 @@ namespace Admin.NET.Web.Core
 
             // 设置雪花Id的workerId，确保每个实例workerId都应不同
             var workerId = ushort.Parse(App.Configuration["SnowId:WorkerId"] ?? "1");
-            YitIdHelper.SetIdGenerator(new IdGeneratorOptions {WorkerId = workerId});
+            YitIdHelper.SetIdGenerator(new IdGeneratorOptions { WorkerId = workerId });
 
             // 开启自启动定时任务
             App.GetService<ISysTimerService>().StartTimerJob();

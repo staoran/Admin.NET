@@ -1,5 +1,4 @@
 ﻿using Furion.TaskScheduler;
-using System;
 
 namespace Furion.Extras.Admin.NET.Service
 {

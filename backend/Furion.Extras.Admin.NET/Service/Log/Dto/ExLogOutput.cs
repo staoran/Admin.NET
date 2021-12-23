@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Furion.Extras.Admin.NET.Service
+﻿namespace Furion.Extras.Admin.NET.Service
 {
     /// <summary>
     /// 异常日志参数

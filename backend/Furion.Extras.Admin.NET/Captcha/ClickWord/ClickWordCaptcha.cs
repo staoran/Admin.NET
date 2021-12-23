@@ -1,13 +1,8 @@
-﻿using Furion;
-using Furion.DependencyInjection;
+﻿using Furion.DependencyInjection;
 using Furion.JsonSerialization;
 using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
 using Yitter.IdGenerator;
 
 namespace Furion.Extras.Admin.NET

@@ -9,11 +9,7 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using UAParser;
 
 namespace Furion.Extras.Admin.NET.Service
@@ -64,7 +60,6 @@ namespace Furion.Extras.Admin.NET.Service
         /// <returns></returns>
         [HttpPost("/login")]
         [AllowAnonymous]
-        // [Consumes("application/json")]
         public string LoginAsync([Required] LoginInput input)
         {
             // 获取加密后的密码

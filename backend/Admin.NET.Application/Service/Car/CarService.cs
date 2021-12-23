@@ -1,6 +1,5 @@
 ﻿using Admin.NET.Application.Entity;
 using Furion.DatabaseAccessor;
-using Furion.DatabaseAccessor.Extensions;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Furion.Extras.Admin.NET;
@@ -8,10 +7,7 @@ using Furion.FriendlyException;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Threading.Tasks;
 
 namespace Admin.NET.Application
 {
@@ -108,6 +104,5 @@ namespace Admin.NET.Application
         {
             return await _carRep.DetachedEntities.ProjectToType<CarOutput>().ToListAsync();
         }
-
     }
 }

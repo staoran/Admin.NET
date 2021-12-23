@@ -9,9 +9,6 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using Yitter.IdGenerator;
 
@@ -22,6 +19,7 @@ namespace Admin.NET.EntityFramework.Core
     {
         //缓存服务
         private readonly ISysCacheService _sysCacheService;
+
         public DefaultDbContext(ISysCacheService sysCacheService, DbContextOptions<DefaultDbContext> options) : base(options)
         {
             //缓存服务
@@ -135,6 +133,7 @@ namespace Admin.NET.EntityFramework.Core
                                 obj.CreatedUserName = userName;
                             }
                             break;
+
                         case EntityState.Modified:
                             // 排除租户Id
                             entity.Property(nameof(DEntityTenant.TenantId)).IsModified = false;
@@ -236,6 +235,7 @@ namespace Admin.NET.EntityFramework.Core
         }
 
         #region 数据权限
+
         /// <summary>
         /// 获取用户Id
         /// </summary>
@@ -278,7 +278,6 @@ namespace Admin.NET.EntityFramework.Core
         /// <returns></returns>
         protected LambdaExpression DataScopesFilterExpression(EntityTypeBuilder entityBuilder, DbContext dbContext, string onTableCreatedUserId = null, string onTableCreatedUserOrgId = null, object filterValue = null)
         {
-
             onTableCreatedUserId ??= nameof(IDataPermissions.CreatedUserId);//用户id字段
             onTableCreatedUserOrgId ??= nameof(IDataPermissions.CreatedUserOrgId);//用户部门字段
 
@@ -291,8 +290,6 @@ namespace Admin.NET.EntityFramework.Core
             Expression finialExpression = Expression.Constant(true);
             ParameterExpression parameterExpression = Expression.Parameter(metadata.ClrType, "u");
 
-
-
             // 个人用户数据过滤器
             if (metadata.FindProperty(onTableCreatedUserId) != null)
             {
@@ -303,7 +300,6 @@ namespace Admin.NET.EntityFramework.Core
                         typeof(object)
                 }, parameterExpression, constantExpression), right));
             }
-
 
             //数据权限过滤器
             if (metadata.FindProperty(onTableCreatedUserOrgId) != null)
@@ -324,8 +320,6 @@ namespace Admin.NET.EntityFramework.Core
             return Expression.Lambda(finialExpression, parameterExpression);
         }
 
-
-        #endregion
-
+        #endregion 数据权限
     }
 }

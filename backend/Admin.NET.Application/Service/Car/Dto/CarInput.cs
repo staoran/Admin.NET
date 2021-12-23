@@ -1,6 +1,5 @@
 ﻿using Furion.Extras.Admin.NET;
 using Furion.Extras.Admin.NET.Service;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Admin.NET.Application
@@ -14,12 +13,11 @@ namespace Admin.NET.Application
         /// 名称
         /// </summary>
         public virtual string CarName { get; set; }
-        
+
         /// <summary>
         /// 号码
         /// </summary>
         public virtual string CarNo { get; set; }
-        
     }
 
     public class AddCarInput : CarInput
@@ -37,11 +35,9 @@ namespace Admin.NET.Application
         /// </summary>
         [Required(ErrorMessage = "Id主键不能为空")]
         public long Id { get; set; }
-        
     }
 
     public class QueryeCarInput : BaseId
     {
-
     }
 }

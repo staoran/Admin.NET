@@ -5,10 +5,6 @@ using Furion.DynamicApiController;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -146,7 +142,6 @@ namespace Furion.Extras.Admin.NET.Service
             }
         }
 
-
         /// <summary>
         /// 映射主表
         /// </summary>
@@ -161,6 +156,5 @@ namespace Furion.Extras.Admin.NET.Service
                 //item.CodeGenTestName = (await _codeGenTestRep.FirstOrDefaultAsync(e => e.Id == item.CodeGenId))?.Name;
             }
         }
-
     }
 }

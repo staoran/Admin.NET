@@ -9,6 +9,7 @@
         /// 所属生成主表
         /// </summary>
         public CodeGenOutput CodeGen { get; set; }
+
         /// <summary>
         /// 主键Id
         /// </summary>

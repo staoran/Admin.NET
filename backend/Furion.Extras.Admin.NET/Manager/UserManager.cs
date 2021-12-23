@@ -2,7 +2,6 @@
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET
 {

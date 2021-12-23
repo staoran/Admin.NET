@@ -18,12 +18,11 @@ namespace Furion.Extras.Admin.NET
         /// </summary>
         [Description("已读")]
         READ = 1,
+
         /// <summary>
         /// 暂不通知
         /// </summary>
-        [Description ("暂不通知")]
-        NONOTICE=3
-
-
+        [Description("暂不通知")]
+        NONOTICE = 3
     }
 }

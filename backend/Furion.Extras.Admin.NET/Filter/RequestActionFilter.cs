@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
 using System.Diagnostics;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using UAParser;
 
 namespace Furion.Extras.Admin.NET

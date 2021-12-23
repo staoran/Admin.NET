@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Furion.DependencyInjection;
+﻿using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -34,7 +30,7 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpGet("/sysMessage/allUser")]
         public async Task SendMessageToAllUser(string title, string message, MessageType type)
         {
-            await _chatHubContext.Clients.All.ReceiveMessage(new {title = title, message = message, messagetype = type });
+            await _chatHubContext.Clients.All.ReceiveMessage(new { title = title, message = message, messagetype = type });
         }
 
         /// <summary>
@@ -46,7 +42,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="type">消息类型</param>
         /// <returns></returns>
         [HttpGet("/sysMessage/otherUser")]
-        public async Task SendMessageToOtherUser(string title, string message,MessageType type, long userId)
+        public async Task SendMessageToOtherUser(string title, string message, MessageType type, long userId)
         {
             var onlineuserlist = await _sysCacheService.GetAsync<List<OnlineUser>>(CommonConst.CACHE_KEY_ONLINE_USER);
 
@@ -54,7 +50,7 @@ namespace Furion.Extras.Admin.NET.Service
 
             if (user != null)
             {
-                await _chatHubContext.Clients.AllExcept(user[0].ConnectionId).ReceiveMessage(new {title = title, message = message, messagetype= type });
+                await _chatHubContext.Clients.AllExcept(user[0].ConnectionId).ReceiveMessage(new { title = title, message = message, messagetype = type });
             }
         }
 
@@ -77,7 +73,6 @@ namespace Furion.Extras.Admin.NET.Service
                 foreach (var item in user)
                 {
                     await _chatHubContext.Clients.Client(item.ConnectionId).ReceiveMessage(new { title = title, message = message, messagetype = type });
-
                 }
             }
         }
