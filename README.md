@@ -11,8 +11,8 @@
 </div>
 
 ### 🍟 概述
-
-* 基于.NET 5实现的通用管理平台。整合最新技术，模块插件式开发，前后端分离，开箱即用。
+* .NET 5版本，请[点击这里](https://gitee.com/zuohuaijun/Admin.NET/tree/net5)
+* 基于.NET 6实现的通用管理平台。整合最新技术，模块插件式开发，前后端分离，开箱即用。
 * 后台基于Furion框架，vue2前端基于小诺框架，vue3前端基于Vben-Admin框架。
 * 集成EF Core、多租户、缓存、数据校验、鉴权、事件总线、动态API、通讯、远程请求、任务调度、gRPC等众多黑科技。
 * 核心模块包括：用户、角色、职位、组织机构、菜单、字典、日志、多应用管理、文件管理、定时任务等功能。
@@ -271,11 +271,11 @@ GIT完成后默认为SqlLite数据库，使用其他数据库可通过基于EF C
 【EF批量操作】
 
 使用 Zack.EFCore.Batch [https://hub.fastgit.org/yangzhongke/Zack.EFCore.Batch](https://hub.fastgit.org/yangzhongke/Zack.EFCore.Batch) 安装对应包即可
-1. MSSQL：Zack.EFCore.Batch.MSSQL
-2. MySql：Zack.EFCore.Batch.MySQL.Pomelo
-3. Npgsql：Zack.EFCore.Batch.Npgsql
-4. Oracle：Zack.EFCore.Batch.Oracle
-5. Sqlite：Zack.EFCore.Batch.Sqlite
+1. MSSQL：Zack.EFCore.Batch.MSSQL_NET6
+2. MySql：Zack.EFCore.Batch.MySQL.Pomelo_NET6
+3. Npgsql：Zack.EFCore.Batch.Npgsql_NET6
+4. Oracle：Zack.EFCore.Batch.Oracle_NET6
+5. Sqlite：Zack.EFCore.Batch.Sqlite_NET6
 
 ```
 提示：记得修改Admin.NET.EntityFramework.Core层里面Startup注册服务类型 opt.UseBatchEF_Sqlite()， 改成相应得库类型。
@@ -334,7 +334,7 @@ vue.config.js:
 
 ### 🥦 补充说明
 
-* 基于.NET 5平台 Furion 开发框架与小诺Antd Vue版本相结合，实时跟随基架升级而升级！
+* 基于.NET 6平台 Furion 开发框架与小诺Antd Vue版本相结合，实时跟随基架升级而升级！
 * 持续集百家所长，完善与丰富本框架基础设施，为.NET生态增加一种选择！
 * 后期会推出基于此框架的相关应用场景案例，提供给大家使用！
 * 有问题讨论的小伙伴可加群一起学习讨论。 QQ群1【87333204】 QQ群2【252381476】
