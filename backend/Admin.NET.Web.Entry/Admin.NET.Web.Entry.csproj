@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Drawing支持linux -->
     <RuntimeHostConfigurationOption Include="System.Drawing.EnableUnixSupport" Value="true" />
   </ItemGroup>
 
