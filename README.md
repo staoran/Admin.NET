@@ -123,7 +123,7 @@ dotnet new Admin.NET -n 你的项目名称
 
 ### 🍄 快速启动
 
-需要安装：VS2019（最新版）、npm或yarn（最新版）
+需要安装：VS2022（最新版）、npm或yarn（最新版）
 
 * 启动后台：打开backend/Admin.NET.sln解决方案，直接运行（F5）即可启动（数据库默认SQLite）
 * 启动前端：VSCode或HBuilder，打开frontend文件夹，进行依赖下载，运行npm install或yarn命令，再运行npm run serve或 yarn run serve
@@ -237,7 +237,7 @@ dotnet new Admin.NET -n 你的项目名称
 
 
 【MySQL】
-1. Admin.NET.EntityFramework.Core 项目安装 ``` Pomelo.EntityFrameworkCore.MySql，Nuget 需安装 5.0 版本 (支持 MySql 5.x +)  MySql.EntityFrameworkCore：支持 (MySql 8.x +) ```
+1. Admin.NET.EntityFramework.Core 项目安装 ``` Pomelo.EntityFrameworkCore.MySql，Nuget 需安装 6.x + 版本 (支持 MySql 5.x +)  ```
 2. DefaultDbContext.cs 指定 DbProvider , ```[AppDbContext("DefaultConnection", DbProvider.MySql)]```
 3. dbsettings.json 配置 "DefaultConnection": ```"Data Source=localhost;Database=Admin.NET;User ID=root;Password=000000;pooling=true;port=3306;sslmode=none;CharSet=utf8;"```
 4. 按照【EF批量操作】操作修改为指定包。
@@ -271,23 +271,25 @@ GIT完成后默认为SqlLite数据库，使用其他数据库可通过基于EF C
 2. 程序包管理控制台默认项目设置为 XXXX.Database.Migrations
 3. 依次输入并回车执行
 ```
-    Add-Migration v1.0.0 -Context DefaultDbContext
-    update-database v1.0.0 -Context DefaultDbContext 
     Add-Migration v1.0.0 -Context MultiTenantDbContext
     update-database v1.0.0 -Context MultiTenantDbContext
+
+    Add-Migration v1.0.0 -Context DefaultDbContext
+    update-database v1.0.0 -Context DefaultDbContext 
 ```
 至此完成初始数据部署。后期添加/修改自己业务的数据类后通过更新版本号来更新数据库即可。
 ```
-    Add-Migration v1.0.1 -Context DefaultDbContext
-    update-database v1.0.1 -Context DefaultDbContext 
     Add-Migration v1.0.1 -Context MultiTenantDbContext
     update-database v1.0.1 -Context MultiTenantDbContext
+
+    Add-Migration v1.0.1 -Context DefaultDbContext
+    update-database v1.0.1 -Context DefaultDbContext 
 ```
 建议调试库不存储重要数据，如需初始数据在seed中添加。方便随时清库（删除Migrations目录，重新1.0.0)解决数据交互出现的各种问题。
 
 
 
-### 🚗 前端优化
+### 🚗 前端优化（可选）
 
 经过 [12df9c7](https://gitee.com/zuohuaijun/Admin.NET/commit/12df9c7980007afb3bcadfe10777c3b36c0ca17d)的优化之后，打包从200多个文件，到现在的十多个文件。
 但是js的chunk-vendors文件大小还是高达5.8M。各位小伙伴可以通过以下方式来继续深度优化。
@@ -359,7 +361,6 @@ GNU 风格的版本号管理策略
 * 基于.NET 6平台 Furion 开发框架与小诺Antd Vue版本相结合，实时跟随基架升级而升级！
 * 持续集百家所长，完善与丰富本框架基础设施，为.NET生态增加一种选择！
 * 后期会推出基于此框架的相关应用场景案例，提供给大家使用！
-* 有问题讨论的小伙伴可加群一起学习讨论。 QQ群1【87333204】 QQ群2【252381476】
 
 ### 🍻 贡献代码
 
