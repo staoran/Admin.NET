@@ -22,38 +22,36 @@
 如果对您有帮助，点击右上角⭐Star⭐关注 ，感谢支持开源！
 ```
 [![Stargazers over time](https://whnb.wang/stars/zuohuaijun/Admin.NET)](https://whnb.wang)
-### 🍁 框架拓展包
 
-更新不及时，建议使用源码
+### 🍎 效果图
 
-|                                                                 包类型                                                                             | 名称                              |                                                                                 版本                                                                                                     | 描述                   |
-| :------------------------------------------------------------------------------------------------------------------------------------------------: | -------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | ---------------------- |
-|       [![nuget](https://shields.io/badge/-Nuget-yellow?cacheSeconds=604800)](https://www.nuget.org/packages/Furion.Extras.Admin.NET/)              | Furion.Extras.Admin.NET          |              [![nuget](https://img.shields.io/nuget/v/Furion.Extras.Admin.NET.svg?cacheSeconds=10800)](https://www.nuget.org/packages/Furion.Extras.Admin.NET/)                          | Admin.NET 核心包       |
-
-```
-可自行按照 Furion 框架脚手架初始化工程，然后引用此包即可，其他层配置见源代码。🔊此包会紧跟Furion版本更新而更新。
-```
-
-### 🍀 框架脚手架
-
-|                                                                 模板类型                                                                           | 名称                              |                                                                                 版本                                                                                                     | 描述                   |
-| :------------------------------------------------------------------------------------------------------------------------------------------------: | -------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | ---------------------- |
-|       [![nuget](https://shields.io/badge/-Nuget-yellow?cacheSeconds=604800)](https://www.nuget.org/packages/Furion.Admin.NET.Template.App/)        | Furion.Admin.NET.Template.App    |              [![nuget](https://img.shields.io/nuget/v/Furion.Admin.NET.Template.App.svg?cacheSeconds=10800)](https://www.nuget.org/packages/Furion.Admin.NET.Template.App/)              | Admin.NET 框架模板     |
-
-```
-打开 CMD 或 Powershell 执行dotnet命令
-
-1、安装脚手架
-dotnet new --install Furion.Admin.NET.Template.App
-
-2、更新脚手架
-dotnet new --install Furion.Admin.NET.Template.App
-
-3、使用脚手架（生成之后推荐将所有的 nuget 包更新到最新版本）
-dotnet new Admin.NET -n 你的项目名称
-
-其实安装之后可以直接在VS里面进行可视化及创建工程
-```
+<table>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/1.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/2.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/3.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/4.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/5.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/6.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/7.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/8.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/9.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/10.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/11.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/12.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/13.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/14.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/15.png"/></td>
+    </tr>
+</table>
 
 ### 🐱‍🚀 模块/插件化开发
 
@@ -83,24 +81,12 @@ dotnet new Admin.NET -n 你的项目名称
 
 将后台提供的Swagger接口直接生成对应前端的API文件，前端再也不需要手撸一个个的对应后后的API定义了。后台接口更新后，只需要重新生成一遍覆盖即可。
 
-详细教程见群里面视频文件【Fur课堂_20201028前后端（第1部份）.mp4】、【Fur课堂_20201028前后端（第2部份）.mp4】
-
 <table>
     <tr>
         <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/bf-01.png"/></td>
         <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/bf-02.png"/></td>
     </tr>
 </table>
-
-`增加了Vue3.0、Vite、Antd、TypeScript模式的UI框架，希望大家来一来完善各页面应用，感谢💖💖💖`
-
-### 😎 衍生版本
-
-【Admin.NET】隆重推出SqlSugar版本
-
-- 👉 SqlSugar版本：[https://gitee.com/zhengguojing/admin-net-sqlsugar](https://gitee.com/zhengguojing/admin-net-sqlsugar)
-
-`如果集成其他ORM，请参照各自操作使用说明。系统默认EFCore不会处理其他ORM实体等，请自行处理。`
 
 ### 👑 多租户简介
 
@@ -177,37 +163,6 @@ dotnet new Admin.NET -n 你的项目名称
 -  [wynnyo/vue-signalr: Signalr client for vue js (github.com)](https://github.com/wynnyo/vue-signalr)
 
 😎通读以上文档，您就可以玩转本项目了（其实您已经是高手了）。项目使用上的问题，文档中基本都可以找到答案。
-
-
-### 🍎 效果图
-
-<table>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/1.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/2.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/3.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/4.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/5.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/6.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/7.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/8.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/9.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/10.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/11.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/12.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/13.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/14.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/15.png"/></td>
-    </tr>
-</table>
 
 ### 🍖 详细功能
 
@@ -355,6 +310,14 @@ GNU 风格的版本号管理策略
 - [ ] 集成微信开发
 - [ ] 实现电商应用插件
 - [ ] 集成工作流
+
+### 😎 衍生版本
+
+【Admin.NET】隆重推出SqlSugar版本
+
+- 👉 SqlSugar版本：[https://gitee.com/zhengguojing/admin-net-sqlsugar](https://gitee.com/zhengguojing/admin-net-sqlsugar)
+
+`如果集成其他ORM，请参照各自操作使用说明。系统默认EFCore不会处理其他ORM实体等，请自行处理。`
 
 ### 🥦 补充说明
 
