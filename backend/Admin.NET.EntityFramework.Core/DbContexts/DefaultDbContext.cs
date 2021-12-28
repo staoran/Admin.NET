@@ -243,7 +243,7 @@ namespace Admin.NET.EntityFramework.Core
         public object GetUserId()
         {
             if (App.User == null) return null;
-            return Convert.ToInt64(App.User.FindFirst(ClaimConst.CLAINM_USERID)?.Value);
+            return App.User.FindFirst(ClaimConst.CLAINM_USERID)?.Value;
         }
 
         /// <summary>

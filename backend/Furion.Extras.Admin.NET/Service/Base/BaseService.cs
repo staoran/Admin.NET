@@ -161,7 +161,6 @@ namespace Furion.Extras.Admin.NET.Service
         public virtual async Task Delete(List<long> ids)
         {
             BeforeDeleteAction?.Invoke(ids);
-
             var count = await Repository.Context.DeleteRangeAsync<TEntity>(x => ids.Contains(x.Id));
 
             AfterDeleteAction?.Invoke(ids, count);

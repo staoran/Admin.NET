@@ -54,7 +54,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <returns></returns>
         public async Task DeleteUserDataScopeListByOrgIdList(List<long> orgIdList)
         {
-            var dataScopes = await _sysUserDataScopeRep.Where(u => orgIdList.Contains(u.SysOrgId)).ToListAsync();
+            var dataScopes = await _sysUserDataScopeRep.Where(u => orgIdList.Contains(u.SysOrgId), false).ToListAsync();
             await _sysUserDataScopeRep.DeleteAsync(dataScopes);
         }
 
@@ -65,7 +65,8 @@ namespace Furion.Extras.Admin.NET.Service
         /// <returns></returns>
         public async Task DeleteUserDataScopeListByUserId(long userId)
         {
-            await _sysUserDataScopeRep.AsQueryable(m => m.SysUserId == userId, false).DeleteRangeAsync(_sysUserDataScopeRep.Context);
+            var sudsList = await _sysUserDataScopeRep.AsQueryable(m => m.SysUserId == userId, false).ToListAsync();
+            await _sysUserDataScopeRep.DeleteAsync(sudsList);
         }
     }
 }
