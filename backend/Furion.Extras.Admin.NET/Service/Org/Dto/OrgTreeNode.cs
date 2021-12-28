@@ -25,7 +25,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <summary>
         /// 值
         /// </summary>
-        public string Value { get; set; }
+        public long Value { get; set; }
 
         /// <summary>
         /// 排序，越小优先级越高
