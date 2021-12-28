@@ -170,7 +170,7 @@ namespace Furion.Extras.Admin.NET.Service.Notice
             var noticeResult = notice.Adapt<NoticeDetailOutput>();
             noticeResult.NoticeUserIdList = noticeUserIdList;
             noticeResult.NoticeUserReadInfoList = noticeUserReadInfoList;
-            if (noticeResult.Status == (int)NoticeStatus.CANCEL)
+            if (noticeResult.Status == NoticeStatus.CANCEL)
             {
                 noticeResult.Content = "<h1 style=\"text-align: center; \">该内容已被发布者撤回</h1>";
             }
