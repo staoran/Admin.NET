@@ -216,10 +216,6 @@
           valuePropName: 'checked',
           initialValue: '2'
         })
-        this.form.getFieldDecorator('authorName', {
-          //initialValue: 'zuohuaijun'
-          initialValue: 'fuqiang'
-        })
 
         // 初始化菜单默认选择
         this.form.getFieldDecorator('menuApplication', {

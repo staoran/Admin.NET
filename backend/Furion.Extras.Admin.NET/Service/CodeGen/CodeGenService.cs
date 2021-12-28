@@ -7,6 +7,8 @@ using Furion.ViewEngine;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.Text;
 
 namespace Furion.Extras.Admin.NET.Service.CodeGen
@@ -145,7 +147,10 @@ namespace Furion.Extras.Admin.NET.Service.CodeGen
 
                 dbContext = Db.GetDbContext(dbContentLocator);
             }
-            return dbContext.Model.GetEntityTypes().Select(u => new TableOutput
+            // 获取实体类型属性
+            //var entityType = dbContext.Model.GetEntityTypes()要改成 var entityType = dbContext.GetService<IDesignTimeModel>().Model.GetEntityTypes()
+
+            return dbContext.GetService<IDesignTimeModel>().Model.GetEntityTypes().Select(u => new TableOutput
             {
                 DatabaseName = dbContextLocatorName,
                 TableName = u.GetDefaultTableName(),
@@ -169,7 +174,7 @@ namespace Furion.Extras.Admin.NET.Service.CodeGen
                 dbContext = Db.GetDbContext(dbContentLocator);
             }
             // 获取实体类型属性
-            var entityType = dbContext.Model.GetEntityTypes().FirstOrDefault(u => u.ClrType.Name == tableName);
+            var entityType = dbContext.GetService<IDesignTimeModel>().Model.GetEntityTypes().FirstOrDefault(u => u.ClrType.Name == tableName);
             if (entityType == null) return null;
 
             // 获取原始类型属性
@@ -204,7 +209,7 @@ namespace Furion.Extras.Admin.NET.Service.CodeGen
                 dbContext = Db.GetDbContext(dbContentLocator);
             }
             // 获取实体类型属性
-            var entityType = dbContext.Model.GetEntityTypes()
+            var entityType = dbContext.GetService<IDesignTimeModel>().Model.GetEntityTypes()
                 .FirstOrDefault(u => u.ClrType.Name == input.TableName);
             if (entityType == null) return null;
 
