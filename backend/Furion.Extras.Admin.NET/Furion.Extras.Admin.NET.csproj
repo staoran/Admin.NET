@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>1.0.33</Version>
+    <Version>2.0.2</Version>
     <Authors>左怀军/zuohuaijun</Authors>
     <Company>Dilon Co.,Ltd.</Company>
     <Product>Furion.Extras.Admin.NET</Product>
