@@ -1,4 +1,4 @@
-﻿using Furion.TaskScheduler;
+using Furion.TaskScheduler;
 using System.ComponentModel.DataAnnotations;
 
 namespace Furion.Extras.Admin.NET.Service
