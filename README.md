@@ -132,37 +132,6 @@
 ├─Furion.Extras.Admin.NET           ->封装的框架核心层
 ```
 
-### 📖 帮助文档
-
-👉后台文档：
-* Furion后台框架文档 [https://dotnetchina.gitee.io/furion/docs/source](https://dotnetchina.gitee.io/furion/docs/source)
-
-👉前端文档：
-* 小诺前端业务文档 [https://doc.xiaonuo.vip/snowy_vue/bizs/](https://doc.xiaonuo.vip/snowy_vue/bizs/)
-
-1. Ant Design Pro of Vue 使用文档 [https://pro.antdv.com/docs/getting-started](https://pro.antdv.com/docs/getting-started)
-2. Ant Design of Vue 组件文档 [https://www.antdv.com/docs/vue/getting-started-cn/](https://www.antdv.com/docs/vue/getting-started-cn/)
-3. Vue 开发文档 [https://cn.vuejs.org/v2/guide/](https://cn.vuejs.org/v2/guide/)
-
-👉快捷部署到 linux 文档：
-
-- [Admin.NET 快捷部署到 linux 方案 | Wynnyo Blog](http://wynnyo.com/archives/publish-linux)
-- [本地 md文件](./build/readme.md)
-
-👉代码生成器使用教程：
-
-- [本地 md文件](./doc/代码生成器使用.md)
-
-👉fork项目后该这样做后续开发：
-
-- [本地 md文件](./doc/fork项目后该这样做后续开发.md)
-
-👉关于signalr使用：
-
--  [wynnyo/vue-signalr: Signalr client for vue js (github.com)](https://github.com/wynnyo/vue-signalr)
-
-😎通读以上文档，您就可以玩转本项目了（其实您已经是高手了）。项目使用上的问题，文档中基本都可以找到答案。
-
 ### 🍖 详细功能
 
  1. 主控面板、控制台页面，可进行工作台，分析页，统计等功能的展示。
@@ -183,7 +152,6 @@
 16. 系统配置、系统运行的参数的维护，参数的配置与系统运行机制息息相关。
 17. 邮件发送、发送邮件功能。
 18. 短信发送、短信发送功能，可使用阿里云sms，腾讯云sms，支持拓展。
-
 
 ### 💪 数据库操作
 
@@ -238,6 +206,37 @@ GIT完成后默认为SqlLite数据库，使用其他数据库可通过基于EF C
     update-database v1.0.1 -Context DefaultDbContext 
 ```
 建议调试库不存储重要数据，如需初始数据在seed中添加。方便随时清库（删除Migrations目录，重新1.0.0)解决数据交互出现的各种问题。
+
+### 📖 帮助文档
+
+👉后台文档：
+* Furion后台框架文档 [https://dotnetchina.gitee.io/furion/docs/source](https://dotnetchina.gitee.io/furion/docs/source)
+
+👉前端文档：
+* 小诺前端业务文档 [https://doc.xiaonuo.vip/snowy_vue/bizs/](https://doc.xiaonuo.vip/snowy_vue/bizs/)
+
+1. Ant Design Pro of Vue 使用文档 [https://pro.antdv.com/docs/getting-started](https://pro.antdv.com/docs/getting-started)
+2. Ant Design of Vue 组件文档 [https://www.antdv.com/docs/vue/getting-started-cn/](https://www.antdv.com/docs/vue/getting-started-cn/)
+3. Vue 开发文档 [https://cn.vuejs.org/v2/guide/](https://cn.vuejs.org/v2/guide/)
+
+👉快捷部署到 linux 文档：
+
+- [Admin.NET 快捷部署到 linux 方案 | Wynnyo Blog](http://wynnyo.com/archives/publish-linux)
+- [本地 md文件](./build/readme.md)
+
+👉代码生成器使用教程：
+
+- [本地 md文件](./doc/代码生成器使用.md)
+
+👉fork项目后该这样做后续开发：
+
+- [本地 md文件](./doc/fork项目后该这样做后续开发.md)
+
+👉关于signalr使用：
+
+-  [wynnyo/vue-signalr: Signalr client for vue js (github.com)](https://github.com/wynnyo/vue-signalr)
+
+😎通读以上文档，您就可以玩转本项目了（其实您已经是高手了）。项目使用上的问题，文档中基本都可以找到答案。
 
 ### 🚗 前端优化（可选）
 
