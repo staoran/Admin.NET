@@ -99,7 +99,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// 执行间隔时间（单位秒）
         /// </summary>
         /// <example>5</example>
-        public int Interval { get; set; }
+        public int? Interval { get; set; }
 
         /// <summary>
         /// Cron表达式

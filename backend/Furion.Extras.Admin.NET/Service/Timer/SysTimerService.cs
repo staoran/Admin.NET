@@ -247,9 +247,9 @@ namespace Furion.Extras.Admin.NET.Service
             {
                 case SpareTimeTypes.Interval:
                     if (input.DoOnce)
-                        SpareTime.DoOnce(input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
+                        SpareTime.DoOnce((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
                     else
-                        SpareTime.Do(input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
+                        SpareTime.Do((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
                     break;
 
                 case SpareTimeTypes.Cron:
