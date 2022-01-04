@@ -45,8 +45,7 @@ namespace Admin.NET.EntityFramework.Core
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-            if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+            if (Database.ProviderName == DbProvider.Sqlite)
             {
                 // SQLite does not have proper support for DateTimeOffset via Entity Framework Core, see the limitations
                 // here: https://docs.microsoft.com/en-us/ef/core/providers/sqlite/limitations#query-limitations
@@ -67,6 +66,34 @@ namespace Admin.NET.EntityFramework.Core
                     }
                 }
             }
+            //处理mysql时区问题 https://gitee.com/dotnetchina/Furion/issues/I3RSCO#note_5685893_link
+            else if (Database.ProviderName == DbProvider.MySql || Database.ProviderName == DbProvider.MySqlOfficial)
+            {
+                var converter = new ValueConverter<DateTimeOffset, DateTime>(v => v.LocalDateTime, v => v);
+
+                // 扫描程序集，获取数据库实体相关类型
+                var types = App.EffectiveTypes.Where(t => (typeof(IPrivateEntity).IsAssignableFrom(t) || typeof(IPrivateModelBuilder).IsAssignableFrom(t))
+                     && t.IsClass && !t.IsAbstract && !t.IsGenericType && !t.IsInterface && !t.IsDefined(typeof(ManualAttribute), true));
+
+                if (types.Any())
+                {
+                    foreach (var item in types)
+                    {
+                        if (item.IsSubclassOf(typeof(DEntityBase)) || item.IsSubclassOf(typeof(EntityBase)))
+                        {
+                            foreach (var property in item.GetProperties())
+                            {
+                                if (property.PropertyType == typeof(DateTimeOffset?) || property.PropertyType == typeof(DateTimeOffset))
+                                {
+                                    builder.Entity(item).Property(property.Name).HasConversion(converter);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            base.OnModelCreating(builder);
         }
 
         /// <summary>
