@@ -186,7 +186,8 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysFileInfo/uploadAvatar")]
         public async Task<long> UploadFileAvatar(IFormFile file)
         {
-            return await UploadFile(file, _configuration["UploadFile:Avatar:path"]);
+            const string key = "UploadFile:Avatar";
+            return await UploadFile(file, key);
         }
 
         /// <summary>
@@ -197,7 +198,8 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysFileInfo/uploadDocument")]
         public async Task UploadFileDocument(IFormFile file)
         {
-            await UploadFile(file, _configuration["UploadFile:Document:path"]);
+            const string key = "UploadFile:Document";
+            await UploadFile(file, key);
         }
 
         /// <summary>
@@ -208,8 +210,8 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysFileInfo/uploadShop")]
         public async Task UploadFileShop(IFormFile file)
         {
-            const string keyObje = "UploadFile:Shop";
-            await UploadFile(file, keyObje);
+            const string key = "UploadFile:Shop";
+            await UploadFile(file, key);
         }
 
         /// <summary>
