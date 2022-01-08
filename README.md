@@ -11,8 +11,7 @@
 </div>
 
 ### 🍟 概述
-* .NET 5版本，请[点击这里](https://gitee.com/zuohuaijun/Admin.NET/tree/net5)
-* 基于.NET 6实现的通用管理平台。整合最新技术，模块插件式开发，前后端分离，开箱即用。
+* 基于.NET 6实现的通用管理平台（.NET 5版本，请[点击这里](https://gitee.com/zuohuaijun/Admin.NET/tree/net5)）。整合最新技术，模块插件式开发，前后端分离，开箱即用。
 * 后台基于Furion框架，vue2前端基于小诺框架，vue3前端基于Vben-Admin框架。
 * 集成EF Core、多租户、缓存、数据校验、鉴权、事件总线、动态API、通讯、远程请求、任务调度、gRPC等众多黑科技。
 * 核心模块包括：用户、角色、职位、组织机构、菜单、字典、日志、多应用管理、文件管理、定时任务等功能。
@@ -107,20 +106,6 @@
 
 访问地址：[http://1.117.110.74:8080/](http://1.117.110.74:8080/) PS: 1m带宽小水管，首次加载20左右~
 
-### 🍄 快速启动
-
-需要安装：VS2022（最新版）、npm或yarn（最新版）
-
-* 启动后台：打开backend/Admin.NET.sln解决方案，直接运行（F5）即可启动（数据库默认SQLite）
-* 启动前端：VSCode或HBuilder，打开frontend文件夹，进行依赖下载，运行npm install或yarn命令，再运行npm run serve或 yarn run serve
-* 浏览器访问：`http://localhost:81` （默认前端端口为：81，后台端口为：5566）
-<table>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/f1.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/f0.png"/></td>
-    </tr>
-</table>
-
 ### 🏀 分层说明
 ```
 ├─Admin.NET.Application             ->业务应用层，在此写您具体业务代码
@@ -153,62 +138,10 @@
 17. 邮件发送、发送邮件功能。
 18. 短信发送、短信发送功能，可使用阿里云sms，腾讯云sms，支持拓展。
 
-### 💪 数据库操作
-
-本框架ORM默认采用EF Core开发，加上拓展比如SqlSugar，理论上兼容并支持所有类型数据库。😜
-
-【EF批量操作】
-
-修改Admin.NET.EntityFramework.Core层里面Startup注册服务类型 opt.UseBatchEF_Sqlite()， 改成相应得库类型。
-
-Furion.Extras.Admin.NET 安装 Zack.EFCore.Batch 安装对应包即可
-```
-*  MSSQL：Zack.EFCore.Batch.MSSQL_NET6
-*  MySql：Zack.EFCore.Batch.MySQL.Pomelo_NET6
-* Npgsql：Zack.EFCore.Batch.Npgsql_NET6
-* Oracle：Zack.EFCore.Batch.Oracle_NET6
-* Sqlite：Zack.EFCore.Batch.Sqlite_NET6
-```
-【MySQL】
-1. DefaultDbContext.cs 指定 DbProvider , ```[AppDbContext("DefaultConnection", DbProvider.MySql)]```
-2. dbsettings.json 配置 "DefaultConnection": ```"Data Source=localhost;Database=Admin.NET;User ID=root;Password=000000;pooling=true;port=3306;sslmode=none;CharSet=utf8;"```
-3. 按照【EF批量操作】操作修改为指定包。
-4. 按照【数据库初始化操作】里执行数据库迁移。
-
-【SQLServer】
-1. DefaultDbContext.cs 指定 DbProvider , ```[AppDbContext("DefaultConnection", DbProvider.SqlServer)]```
-2. dbsettings.json 配置 "DefaultConnection": ```"Server=localhost;Database=Admin.NET;User=sa;Password=000000;MultipleActiveResultSets=True;"```
-3. 按照【EF批量操作】操作修改为指定包。
-4. 按照【数据库初始化操作】里执行数据库迁移。
-
-```
-提示：其他类型数据库依次类推，首先添加EF的Core版包，然后指定数据库类型，修改数据库连接字符串，执行EF迁移命令即可。
-```
-
-【数据库初始化操作】
-GIT完成后默认为SqlLite数据库，使用其他数据库可通过基于EF Core的CodeFirst初始化,添加好拓展包，创建好空数据库，设置好数据库信息和后，即可通过此操作可进行数据库初始化操作。
-1. 启动项目设置为 XXXX.Web.Entry
-2. 程序包管理控制台默认项目设置为 XXXX.Database.Migrations
-3. 依次输入并回车执行
-```
-    Add-Migration v1.0.0 -Context MultiTenantDbContext
-    update-database v1.0.0 -Context MultiTenantDbContext
-
-    Add-Migration v1.0.0 -Context DefaultDbContext
-    update-database v1.0.0 -Context DefaultDbContext 
-```
-至此完成初始数据部署。后期添加/修改自己业务的数据类后通过更新版本号来更新数据库即可。
-```
-    Add-Migration v1.0.1 -Context MultiTenantDbContext
-    update-database v1.0.1 -Context MultiTenantDbContext
-
-    Add-Migration v1.0.1 -Context DefaultDbContext
-    update-database v1.0.1 -Context DefaultDbContext 
-```
-建议调试库不存储重要数据，如需初始数据在seed中添加。方便随时清库（删除Migrations目录，重新1.0.0)解决数据交互出现的各种问题。
-
 ### 📖 帮助文档
 
+<p>关注公众号，进入【手摸手文档】，100%成功进入调试<br>
+<img src="https://gitee.com/zuohuaijun/Admin.NET/blob/master/doc/img/shoumoshou_qrcode.png" /></p>
 👉后台文档：
 * Furion后台框架文档 [https://dotnetchina.gitee.io/furion/docs/source](https://dotnetchina.gitee.io/furion/docs/source)
 
@@ -296,9 +229,10 @@ GNU 风格的版本号管理策略
 
 - [x] 集成多租户功能
 - [x] 集成代码生成器
-- [x] 集成导入导出
+- [x] 集成Excel导入导出
 - [x] 在线用户及黑名单
 - [x] 集成对象存储(Object Storage Service,简称OSS)
+- [x] 上传下载
 - [ ] 邮件发送
 - [ ] 短信发送
 - [ ] 集成微信开发
