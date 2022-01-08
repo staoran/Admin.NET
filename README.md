@@ -140,8 +140,8 @@
 
 ### 📖 帮助文档
 
-<p>关注公众号，进入【手摸手文档】，100%成功进入调试<br>
-<img src="https://gitee.com/zuohuaijun/Admin.NET/blob/master/doc/img/shoumoshou_qrcode.png" /></p>
+<p>关注公众号，进入【手摸手文档】，100%成功进入调试<br>          
+<img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/shoumoshou_qrcode.png" style="width:40px;height:40px" /></p>
 👉后台文档：
 * Furion后台框架文档 [https://dotnetchina.gitee.io/furion/docs/source](https://dotnetchina.gitee.io/furion/docs/source)
 
