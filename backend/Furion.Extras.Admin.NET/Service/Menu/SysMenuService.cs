@@ -446,7 +446,6 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost("/sysMenu/change")]
         public async Task<List<AntDesignTreeNode>> ChangeAppMenu(ChangeAppMenuInput input)
         {
