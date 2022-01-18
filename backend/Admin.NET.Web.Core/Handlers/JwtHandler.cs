@@ -67,7 +67,8 @@ namespace Admin.NET.Web.Core
             // 默认路由(获取登录用户信息)
             var defalutRoute = new List<string>()
             {
-                "getLoginUser"
+                "getLoginUser",     //登录
+                "sysMenu:change"    //切换顶部菜单
             };
 
             if (defalutRoute.Contains(routeName)) return true;
