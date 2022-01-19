@@ -32,7 +32,6 @@ namespace Furion.Extras.Admin.NET
 
             // 变化点: 3个字
             int rightCodeLength = 3;
-
             Bitmap bitmap = null;
             Graphics g = null;
             MemoryStream ms = null;
@@ -40,46 +39,46 @@ namespace Furion.Extras.Admin.NET
 
             Color[] colorArray = { Color.Black, Color.DarkBlue, Color.Green, Color.Orange, Color.Brown, Color.DarkCyan, Color.Purple };
 
-            string bgImagesDir = Path.Combine(App.WebHostEnvironment.WebRootPath, "Captcha/Image");
-            string[] bgImagesFiles = Directory.GetFiles(bgImagesDir);
+            string bgImagesDir = Path.Combine(App.WebHostEnvironment.WebRootPath, "Captcha/Image");//背景图片路径
+            string[] bgImagesFiles = Directory.GetFiles(bgImagesDir);//背景图片列表
 
             // 字体来自：https://www.zcool.com.cn/special/zcoolfonts/
-            string fontsDir = Path.Combine(App.WebHostEnvironment.WebRootPath, "Captcha/Font");
+            string fontsDir = Path.Combine(App.WebHostEnvironment.WebRootPath, "Captcha/Font");//字体路径
+            //所有字体，如果有多个字体文件的话
             string[] fontFiles = new DirectoryInfo(fontsDir)?.GetFiles()
                 ?.Where(m => m.Extension.ToLower() == ".ttf")
                 ?.Select(m => m.FullName).ToArray();
 
-            int imgIndex = random.Next(bgImagesFiles.Length);
-            string randomImgFile = bgImagesFiles[imgIndex];
-            var imageStream = Image.FromFile(randomImgFile);
+            int imgIndex = random.Next(bgImagesFiles.Length);//随机一个背景图片
+            string randomImgFile = bgImagesFiles[imgIndex];//得到背景图片路径
+            var imageStream = Image.FromFile(randomImgFile);//得到背景图片对象
 
-            bitmap = new Bitmap(imageStream, width, height);
-            imageStream.Dispose();
-            g = Graphics.FromImage(bitmap);
-            Color[] penColor = { Color.Red, Color.Green, Color.Blue };
-            int code_length = code.Length;
+            bitmap = new Bitmap(imageStream, width, height);//背景图片转成位图
+            imageStream.Dispose();//释放图片对象
+            g = Graphics.FromImage(bitmap);//得到Graphics对象（定义了绘制和填充图形对象的方法和属性）
+            int code_length = code.Length;//传进来的文字长度
             var words = new List<string>();
             for (int i = 0; i < code_length; i++)
             {
-                int colorIndex = random.Next(colorArray.Length);
-                int fontIndex = random.Next(fontFiles.Length);
-                Font f = LoadFont(fontFiles[fontIndex], 18, FontStyle.Regular);
-                Brush b = new SolidBrush(colorArray[colorIndex]);
-                int _y = random.Next(height);
-                if (_y > (height - 30))
+                int colorIndex = random.Next(colorArray.Length);//随机一个颜色
+                int fontIndex = random.Next(fontFiles.Length);//随机一个字体
+                Font f = LoadFont(fontFiles[fontIndex], 18, FontStyle.Regular);//加载字体
+                Brush b = new SolidBrush(colorArray[colorIndex]);//得到一个带色的画笔
+                int _y = random.Next(height);//随机一个高度
+                if (_y > (height - 30))//如果超出总高度-30
                     _y -= 60;
 
-                int _x = width / (i + 1);
-                if ((width - _x) < 50)
+                int _x = width / (i + 1);//宽度
+                if ((width - _x) < 50)//如果总宽度距离背景图片边距少于50，由此看，第一个字肯定少于50, width - 60
                 {
                     _x = width - 60;
                 }
-                string word = code.Substring(i, 1);
+                string word = code.Substring(i, 1);//取出文字
                 if (rtnResult.RepData.Point.Count < rightCodeLength)
                 {
                     // (int, int) percentPos = ToPercentPos((width, height), (_x, _y));
                     // 添加正确答案 位置数据
-                    if (random.Next(0, 3).Equals(1) || (code_length - i).Equals(rightCodeLength - rtnResult.RepData.Point.Count))
+                    if (random.Next(0, 3).Equals(1) || code_length - i == rightCodeLength - rtnResult.RepData.Point.Count)
                     {
                         rtnResult.RepData.Point.Add(new PointPosModel()
                         {
@@ -89,16 +88,17 @@ namespace Furion.Extras.Admin.NET
                         words.Add(word);
                     }
                 }
-                g.DrawString(word, f, b, _x, _y);
+                g.DrawString(word, f, b, _x, _y);//将文字绘制到背景图片上
             }
             rtnResult.RepData.WordList = words;
 
             ms = new MemoryStream();
-            bitmap.Save(ms, ImageFormat.Jpeg);
-            g.Dispose();
-            bitmap.Dispose();
-            ms.Dispose();
+            bitmap.Save(ms, ImageFormat.Jpeg);//位图保存成jpeg
+            g.Dispose();//释放资源
+            bitmap.Dispose();//释放资源
+            //转成base64
             rtnResult.RepData.OriginalImageBase64 = Convert.ToBase64String(ms.GetBuffer()); //"data:image/jpg;base64," +
+            ms.Dispose();
             rtnResult.RepData.Token = YitIdHelper.NextId().ToString();
 
             // 缓存验证码正确位置集合
