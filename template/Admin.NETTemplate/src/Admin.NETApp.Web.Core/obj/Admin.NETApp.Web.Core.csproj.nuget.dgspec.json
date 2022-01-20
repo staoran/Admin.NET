@@ -1,0 +1,344 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Web.Core\\Admin.NETApp.Web.Core.csproj": {}
+  },
+  "projects": {
+    "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Application\\Admin.NETApp.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Application\\Admin.NETApp.Application.csproj",
+        "projectName": "Admin.NETApp.Application",
+        "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Application\\Admin.NETApp.Application.csproj",
+        "packagesPath": "C:\\Users\\yongwei\\.nuget\\packages\\",
+        "outputPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\yongwei\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Core\\Admin.NETApp.Core.csproj": {
+                "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Core\\Admin.NETApp.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Core\\Admin.NETApp.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Core\\Admin.NETApp.Core.csproj",
+        "projectName": "Admin.NETApp.Core",
+        "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Core\\Admin.NETApp.Core.csproj",
+        "packagesPath": "C:\\Users\\yongwei\\.nuget\\packages\\",
+        "outputPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\yongwei\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Furion.Extras.Admin.NET": {
+              "target": "Package",
+              "version": "[1.0.32, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Database.Migrations\\Admin.NETApp.Database.Migrations.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Database.Migrations\\Admin.NETApp.Database.Migrations.csproj",
+        "projectName": "Admin.NETApp.Database.Migrations",
+        "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Database.Migrations\\Admin.NETApp.Database.Migrations.csproj",
+        "packagesPath": "C:\\Users\\yongwei\\.nuget\\packages\\",
+        "outputPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Database.Migrations\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\yongwei\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.EntityFramework.Core\\Admin.NETApp.EntityFramework.Core.csproj": {
+                "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.EntityFramework.Core\\Admin.NETApp.EntityFramework.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.EntityFramework.Core\\Admin.NETApp.EntityFramework.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.EntityFramework.Core\\Admin.NETApp.EntityFramework.Core.csproj",
+        "projectName": "Admin.NETApp.EntityFramework.Core",
+        "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.EntityFramework.Core\\Admin.NETApp.EntityFramework.Core.csproj",
+        "packagesPath": "C:\\Users\\yongwei\\.nuget\\packages\\",
+        "outputPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.EntityFramework.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\yongwei\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Core\\Admin.NETApp.Core.csproj": {
+                "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Core\\Admin.NETApp.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Web.Core\\Admin.NETApp.Web.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Web.Core\\Admin.NETApp.Web.Core.csproj",
+        "projectName": "Admin.NETApp.Web.Core",
+        "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Web.Core\\Admin.NETApp.Web.Core.csproj",
+        "packagesPath": "C:\\Users\\yongwei\\.nuget\\packages\\",
+        "outputPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Web.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\yongwei\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Application\\Admin.NETApp.Application.csproj": {
+                "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Application\\Admin.NETApp.Application.csproj"
+              },
+              "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Database.Migrations\\Admin.NETApp.Database.Migrations.csproj": {
+                "projectPath": "E:\\NET\\Admin.NET\\Admin.NET-master\\template\\Admin.NETTemplate\\src\\Admin.NETApp.Database.Migrations\\Admin.NETApp.Database.Migrations.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
