@@ -219,10 +219,10 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/captcha/get")]
         [AllowAnonymous]
         [NonUnify]
-        public async Task<dynamic> GetCaptcha()
+        public async Task<ClickWordCaptchaResult> GetCaptcha()
         {
             // 图片大小要与前端保持一致（坐标范围）
-            return await Task.FromResult(_captchaHandle.CreateCaptchaImage(_captchaHandle.RandomCode(4), 310, 155));
+            return await _captchaHandle.CreateCaptchaImage(_captchaHandle.RandomCode(4), 310, 155);
         }
 
         /// <summary>
@@ -233,9 +233,9 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/captcha/check")]
         [AllowAnonymous]
         [NonUnify]
-        public async Task<dynamic> VerificationCode(ClickWordCaptchaInput input)
+        public async Task<ClickWordCaptchaResult> VerificationCode(ClickWordCaptchaInput input)
         {
-            return await Task.FromResult(_captchaHandle.CheckCode(input));
+            return await _captchaHandle.CheckCode(input);
         }
     }
 }
