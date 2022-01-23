@@ -83,10 +83,13 @@ namespace Furion.Extras.Admin.NET.Service
                 dataScopes.ForEach(u =>
                 {
                     var sysOrg = _sysOrgRep.DetachedEntities.FirstOrDefault(c => c.Id == u);
-                    var parentAndChildIdListWithSelf = sysOrg.Pids.TrimEnd(',').Replace("[", "").Replace("]", "")
-                                                                  .Split(",").Select(u => long.Parse(u)).ToList();
-                    parentAndChildIdListWithSelf.Add(sysOrg.Id);
-                    dataScopeList.AddRange(parentAndChildIdListWithSelf);
+                    if (sysOrg != null)
+                    {
+                        var parentAndChildIdListWithSelf = sysOrg.Pids.TrimEnd(',').Replace("[", "").Replace("]", "")
+                                                                    .Split(",").Select(u => long.Parse(u)).ToList();
+                        parentAndChildIdListWithSelf.Add(sysOrg.Id);
+                        dataScopeList.AddRange(parentAndChildIdListWithSelf);
+                    }
                 });
             }
 
