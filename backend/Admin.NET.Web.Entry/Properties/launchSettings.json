@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Admin.NET.Web.Entry": {
+    "Development-Admin.NET": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
