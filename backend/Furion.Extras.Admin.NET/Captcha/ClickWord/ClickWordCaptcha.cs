@@ -56,7 +56,7 @@ namespace Furion.Extras.Admin.NET
             //字体
             var fontPath = fontFiles[random.Next(fontFiles.Length)];
             var collection = new FontCollection();
-            var fontFamily = collection.Install(fontPath);
+            var fontFamily = collection.Add(fontPath);
             //collection.Install("path/to/emojiFont.ttf");//可以安装多个
             //collection.InstallCollection("path/to/font.ttc");
             //
