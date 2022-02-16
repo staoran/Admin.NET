@@ -104,8 +104,8 @@
 - 开发者租户：用户名：superAdmin，密码：123456
 - 公司1租户： 公司1租户管理员（用户名：zuohuaijun@163.com 密码：123456），公司1租户普通用户（用户名：dilon@163.com 密码：123456）           
 
-地址1：[http://1.117.110.74:8080/](http://1.117.110.74:8080/) PS: 1m带宽小水管，首次加载20左右~
-地址2： [http://xwxtest01.wogof.com:9001/](http://xwxtest01.wogof.com:9001/)
+- 地址1：[http://1.117.110.74:8080/](http://1.117.110.74:8080/) PS: 1m带宽小水管，首次加载20左右~
+- 地址2： [http://xwxtest01.wogof.com:9001/](http://xwxtest01.wogof.com:9001/)
 #### 演示用户：
 - 超级管理员:superAdmin
 - 系统管理员:admin
