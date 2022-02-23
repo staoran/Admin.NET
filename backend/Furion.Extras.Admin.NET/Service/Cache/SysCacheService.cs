@@ -3,10 +3,7 @@ using Furion.DynamicApiController;
 using Furion.JsonSerialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -31,7 +28,7 @@ namespace Furion.Extras.Admin.NET.Service
         [NonAction]
         public async Task<List<long>> GetDataScope(long userId)
         {
-            var cacheKey = CommonConst.CACHE_KEY_DATASCOPE + $"{userId}";
+            var cacheKey = CommonConst.CACHE_KEY_DATASCOPE + userId;
             var res = await _cache.GetStringAsync(cacheKey);
             return string.IsNullOrWhiteSpace(res) ? null : JSON.Deserialize<List<long>>(res);
         }
@@ -45,7 +42,7 @@ namespace Furion.Extras.Admin.NET.Service
         [NonAction]
         public async Task SetDataScope(long userId, List<long> dataScopes)
         {
-            var cacheKey = CommonConst.CACHE_KEY_DATASCOPE + $"{userId}";
+            var cacheKey = CommonConst.CACHE_KEY_DATASCOPE + userId;
             await _cache.SetStringAsync(cacheKey, JSON.Serialize(dataScopes));
 
             await AddCacheKey(cacheKey);
@@ -89,7 +86,7 @@ namespace Furion.Extras.Admin.NET.Service
         [NonAction]
         public async Task<List<string>> GetPermission(long userId)
         {
-            var cacheKey = CommonConst.CACHE_KEY_PERMISSION + $"{userId}";
+            var cacheKey = CommonConst.CACHE_KEY_PERMISSION + userId;
             var res = await _cache.GetStringAsync(cacheKey);
             return string.IsNullOrWhiteSpace(res) ? null : JSON.Deserialize<List<string>>(res);
         }
@@ -103,7 +100,7 @@ namespace Furion.Extras.Admin.NET.Service
         [NonAction]
         public async Task SetPermission(long userId, List<string> permissions)
         {
-            var cacheKey = CommonConst.CACHE_KEY_PERMISSION + $"{userId}";
+            var cacheKey = CommonConst.CACHE_KEY_PERMISSION + userId;
             await _cache.SetStringAsync(cacheKey, JSON.Serialize(permissions));
 
             await AddCacheKey(cacheKey);
@@ -228,8 +225,11 @@ namespace Furion.Extras.Admin.NET.Service
         {
             var res = await _cache.GetStringAsync(CommonConst.CACHE_KEY_ALL);
             var allkeys = string.IsNullOrWhiteSpace(res) ? new List<string>() : JSON.Deserialize<List<string>>(res);
-            allkeys.Add(cacheKey);
-            await _cache.SetStringAsync(CommonConst.CACHE_KEY_ALL, JSON.Serialize(allkeys));
+            if (!allkeys.Any(m => m == cacheKey))
+            {
+                allkeys.Add(cacheKey);
+                await _cache.SetStringAsync(CommonConst.CACHE_KEY_ALL, JSON.Serialize(allkeys));
+            }
         }
 
         /// <summary>
@@ -242,8 +242,11 @@ namespace Furion.Extras.Admin.NET.Service
         {
             var res = await _cache.GetStringAsync(CommonConst.CACHE_KEY_ALL);
             var allkeys = string.IsNullOrWhiteSpace(res) ? new List<string>() : JSON.Deserialize<List<string>>(res);
-            allkeys.Remove(cacheKey);
-            await _cache.SetStringAsync(CommonConst.CACHE_KEY_ALL, JSON.Serialize(allkeys));
+            if (allkeys.Any(m => m == cacheKey))
+            {
+                allkeys.Remove(cacheKey);
+                await _cache.SetStringAsync(CommonConst.CACHE_KEY_ALL, JSON.Serialize(allkeys));
+            }
         }
     }
 }

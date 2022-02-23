@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Furion.Extras.Admin.NET.Service
+﻿namespace Furion.Extras.Admin.NET.Service
 {
     /// <summary>
     /// 用户参数

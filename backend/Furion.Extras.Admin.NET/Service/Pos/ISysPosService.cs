@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -11,9 +10,9 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task<SysPos> GetPos([FromQuery] QueryPosInput input);
 
-        Task<dynamic> GetPosList([FromQuery] PosInput input);
+        Task<List<SysPos>> GetPosList([FromQuery] PosInput input);
 
-        Task<dynamic> QueryPosPageList([FromQuery] PosInput input);
+        Task<PageResult<SysPos>> QueryPosPageList([FromQuery] PosInput input);
 
         Task<dynamic> QueryPosPageListV3(PosInput input);
 

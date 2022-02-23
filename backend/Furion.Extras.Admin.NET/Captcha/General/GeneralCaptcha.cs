@@ -1,9 +1,7 @@
 ﻿using Furion.DependencyInjection;
 using Microsoft.Extensions.Caching.Memory;
-using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Text;
 using Yitter.IdGenerator;
 
@@ -26,7 +24,7 @@ namespace Furion.Extras.Admin.NET
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
-        public dynamic CreateCaptchaImage(int length = 4)
+        public ClickWordCaptchaResult CreateCaptchaImage(int length = 4)
         {
             var rtnResult = new ClickWordCaptchaResult();
 
@@ -106,7 +104,7 @@ namespace Furion.Extras.Admin.NET
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public dynamic CheckCode(GeneralCaptchaInput input)
+        public ClickWordCaptchaResult CheckCode(GeneralCaptchaInput input)
         {
             var res = new ClickWordCaptchaResult();
 

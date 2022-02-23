@@ -1,8 +1,6 @@
-﻿using Furion.Extras.Admin.NET.Service;
-using Furion;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
+using Furion.Extras.Admin.NET.Service;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -33,7 +31,6 @@ namespace Furion.Extras.Admin.NET
         /// 属性值
         /// </summary>
         [Comment("属性值")]
-        [MaxLength(50)]
         public string Value { get; set; }
 
         /// <summary>

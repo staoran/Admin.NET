@@ -1,6 +1,5 @@
 ﻿using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -12,6 +11,10 @@ namespace Furion.Extras.Admin.NET
     /// </summary>
     public abstract class DEntityBase : DEntityBase<long, MasterDbContextLocator>
     {
+        public DEntityBase()
+        {
+            Id = Yitter.IdGenerator.YitIdHelper.NextId();
+        }
     }
 
     public abstract class DEntityBase<TKey, TDbContextLocator1> : PrivateDEntityBase<TKey>
@@ -51,7 +54,7 @@ namespace Furion.Extras.Admin.NET
         /// 创建者名称
         /// </summary>
         [Comment("创建者名称")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public virtual string CreatedUserName { get; set; }
 
         /// <summary>
@@ -64,7 +67,7 @@ namespace Furion.Extras.Admin.NET
         /// 修改者名称
         /// </summary>
         [Comment("修改者名称")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public virtual string UpdatedUserName { get; set; }
 
         /// <summary>

@@ -1,5 +1,4 @@
-﻿using Furion;
-using Furion.DatabaseAccessor;
+﻿using Furion.DatabaseAccessor;
 using Furion.DatabaseAccessor.Extensions;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
@@ -10,11 +9,7 @@ using Furion.TaskScheduler;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -39,16 +34,16 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysTimers/page")]
-        public async Task<dynamic> GetTimerPageList([FromQuery] JobPageInput input)
+        public async Task<PageResult<JobOutput>> GetTimerPageList([FromQuery] JobPageInput input)
         {
             var workers = SpareTime.GetWorkers().ToList();
 
             var timers = await _sysTimerRep.DetachedEntities
                                            .Where(!string.IsNullOrEmpty(input.JobName?.Trim()), u => EF.Functions.Like(u.JobName, $"%{input.JobName.Trim()}%"))
-                                           .Select(u => u.Adapt<JobOutput>())
-                                           .ToPagedListAsync(input.PageNo, input.PageSize);
+                                           .ProjectToType<JobOutput>()
+                                           .ToADPagedListAsync(input.PageNo, input.PageSize);
 
-            timers.Items.ToList().ForEach(u =>
+            timers.Rows.ToList().ForEach(u =>
             {
                 var timer = workers.FirstOrDefault(m => m.WorkerName == u.JobName);
                 if (timer != null)
@@ -58,7 +53,7 @@ namespace Furion.Extras.Admin.NET.Service
                     u.Exception = JSON.Serialize(timer.Exception);
                 }
             });
-            return XnPageResult<JobOutput>.PageResult(timers);
+            return timers;
         }
 
         /// <summary>
@@ -77,7 +72,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         /// <returns></returns>
         [HttpGet("/sysTimers/localJobList")]
-        public async Task<dynamic> GetLocalJobList()
+        public async Task<IEnumerable<TaskMethodInfo>> GetLocalJobList()
         {
             // 获取本地所有任务方法
             return await GetTaskMethods();
@@ -149,7 +144,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysTimers/detail")]
-        public async Task<dynamic> GetTimer([FromQuery] QueryJobInput input)
+        public async Task<SysTimer> GetTimer([FromQuery] QueryJobInput input)
         {
             return await _sysTimerRep.DetachedEntities.FirstOrDefaultAsync(u => u.Id == input.Id);
         }
@@ -263,9 +258,9 @@ namespace Furion.Extras.Admin.NET.Service
             {
                 case SpareTimeTypes.Interval:
                     if (input.DoOnce)
-                        SpareTime.DoOnce(input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
+                        SpareTime.DoOnce((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
                     else
-                        SpareTime.Do(input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
+                        SpareTime.Do((int)input.Interval * 1000, action, input.JobName, input.Remark, input.StartNow, executeType: input.ExecuteType);
                     break;
 
                 case SpareTimeTypes.Cron:
@@ -280,7 +275,7 @@ namespace Furion.Extras.Admin.NET.Service
         [NonAction]
         public void StartTimerJob()
         {
-            var sysTimerList = _sysTimerRep.DetachedEntities.Where(t => t.StartNow).Select(u => u.Adapt<AddJobInput>()).ToList();
+            var sysTimerList = _sysTimerRep.DetachedEntities.Where(t => t.StartNow).ProjectToType<AddJobInput>().ToList();
             sysTimerList.ForEach(AddTimerJob);
         }
 

@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -18,7 +16,7 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task<List<long>> OwnMenu([FromQuery] QueryTenantInput input);
 
-        Task<dynamic> QueryTenantPageList([FromQuery] TenantPageInput input);
+        Task<PageResult<TenantOutput>> QueryTenantPageList([FromQuery] TenantPageInput input);
 
         Task<dynamic> QueryTenantPageListV3(TenantPageInput input);
 

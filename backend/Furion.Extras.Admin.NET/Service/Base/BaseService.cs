@@ -9,12 +9,7 @@ using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
 namespace Furion.Extras.Admin.NET.Service
@@ -80,7 +75,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// 分页数据返回前处理
         /// </summary>
         /// <returns></returns>
-        protected Action<PagedList<TEntity>> PageListHandle = null;
+        protected Action<PageResult<TEntity>> PageListHandle = null;
 
         /// <summary>
         /// 分页查询
@@ -89,7 +84,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         [HttpPost("page")]
-        public virtual async Task<PageResult<TPageListDto>> PageList(TSearchDto searchDto)
+        public virtual async Task<PageResult<TEntity>> PageList(TSearchDto searchDto)
         {
             IQueryable<TEntity> queryable;
             if (SearchQueryable != null)
@@ -108,14 +103,14 @@ namespace Furion.Extras.Admin.NET.Service
                     queryable = queryable.Where(SearchExpression(searchDto));
             }
 
-            PagedList<TEntity> pageList = await queryable.ToPagedListAsync(searchDto.PageNo, searchDto.PageSize);
+            var pageList = await queryable.ToADPagedListAsync(searchDto.PageNo, searchDto.PageSize);
 
             PageListHandle?.Invoke(pageList);
 
-            return XnPageResult<TEntity>.PageResult<TPageListDto>(pageList);
+            return pageList;
         }
 
-        #endregion
+        #endregion 查询/分页查询
 
         #region 新增
 
@@ -145,7 +140,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterAddAction?.Invoke(entity.Entity);
         }
 
-        #endregion
+        #endregion 新增
 
         #region 删除/假删除
 
@@ -166,7 +161,6 @@ namespace Furion.Extras.Admin.NET.Service
         public virtual async Task Delete(List<long> ids)
         {
             BeforeDeleteAction?.Invoke(ids);
-
             var count = await Repository.Context.DeleteRangeAsync<TEntity>(x => ids.Contains(x.Id));
 
             AfterDeleteAction?.Invoke(ids, count);
@@ -199,7 +193,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterFakeDeleteAction?.Invoke(ids, count);
         }
 
-        #endregion
+        #endregion 删除/假删除
 
         #region 修改
 
@@ -225,7 +219,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterUpdateAction?.Invoke(entity.Entity);
         }
 
-        #endregion
+        #endregion 修改
 
         #region 导入
 
@@ -292,7 +286,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterImportAction?.Invoke(import.Data);
         }
 
-        #endregion
+        #endregion 导入
 
         #region 导出
 
@@ -355,7 +349,7 @@ namespace Furion.Extras.Admin.NET.Service
                 });
         }
 
-        #endregion
+        #endregion 导出
 
         #region 打印
 
@@ -370,7 +364,7 @@ namespace Furion.Extras.Admin.NET.Service
             return entity.Adapt<TPrintDto>();
         }
 
-        #endregion
+        #endregion 打印
 
         #region 私有方法
 
@@ -405,6 +399,6 @@ namespace Furion.Extras.Admin.NET.Service
             }
         }
 
-        #endregion
+        #endregion 私有方法
     }
 }

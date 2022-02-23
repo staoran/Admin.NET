@@ -1,7 +1,5 @@
 ﻿using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 
 namespace Furion.Extras.Admin.NET.SeedData
 {

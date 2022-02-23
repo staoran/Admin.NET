@@ -7,9 +7,6 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -167,7 +164,7 @@ namespace Furion.Extras.Admin.NET.Service
             var menus = await _sysMenuRep.DetachedEntities.Where((application, u => u.Application == input.Application.Trim()),
                                                                  (name, u => EF.Functions.Like(u.Name, $"%{input.Name.Trim()}%")))
                                                           .Where(u => u.Status == CommonStatus.ENABLE).OrderBy(u => u.Sort)
-                                                          .Select(u => u.Adapt<MenuOutput>())
+                                                          .ProjectToType<MenuOutput>()
                                                           .ToListAsync();
             return new TreeBuildUtil<MenuOutput>().Build(menus);
         }
@@ -395,7 +392,7 @@ namespace Furion.Extras.Admin.NET.Service
                                          {
                                              Id = u.Id,
                                              ParentId = u.Pid,
-                                             Value = u.Id.ToString(),
+                                             IntValue = u.Id,
                                              Title = u.Name,
                                              Weight = u.Weight
                                          }).ToListAsync();
@@ -426,7 +423,7 @@ namespace Furion.Extras.Admin.NET.Service
                                          {
                                              Id = u.Id,
                                              ParentId = u.Pid,
-                                             Value = u.Id.ToString(),
+                                             IntValue = u.Id,
                                              Title = u.Name,
                                              Weight = u.Weight
                                          }).ToListAsync();
@@ -449,7 +446,6 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost("/sysMenu/change")]
         public async Task<List<AntDesignTreeNode>> ChangeAppMenu(ChangeAppMenuInput input)
         {

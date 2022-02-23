@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -11,11 +10,9 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task<SysConfig> GetConfig([FromQuery] QueryConfigInput input);
 
-        Task<dynamic> GetConfigList();
+        Task<List<SysConfig>> GetConfigList();
 
-        Task<dynamic> QueryConfigPageListV3(ConfigPageInput input);
-
-        Task<dynamic> QueryConfigPageList([FromQuery] ConfigPageInput input);
+        Task<PageResult<SysConfig>> QueryConfigPageList([FromQuery] ConfigPageInput input);
 
         Task UpdateConfig(UpdateConfigInput input);
 
@@ -23,6 +20,6 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task<bool> GetCaptchaOpenFlag();
 
-        Task UpdateConfigCache(string code, object value);
+        Task UpdateConfigCache(string code, string value);
     }
 }

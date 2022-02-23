@@ -6,9 +6,6 @@ using Furion.FriendlyException;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -52,9 +49,14 @@ namespace Furion.Extras.Admin.NET.Service
         [NonAction]
         public async Task<List<RoleOutput>> GetUserRoleList(long userId)
         {
-            return await _sysRoleRep.DetachedEntities.Join(_sysUserRoleRep.DetachedEntities, u => u.Id, e => e.SysRoleId, (u, e) => new { u, e })
-                                    .Where(x => x.e.SysUserId == userId)
-                                    .Select(x => x.u.Adapt<RoleOutput>()).ToListAsync();
+            return await _sysUserRoleRep.Include(m => m.SysRole, false)
+                  .Where(m => m.SysUserId == userId && m.SysRole.Status == CommonStatus.ENABLE)
+                  .Select(m => new RoleOutput
+                  {
+                      Id = m.SysRoleId,
+                      Code = m.SysRole.Code,
+                      Name = m.SysRole.Name
+                  }).ToListAsync();
         }
 
         /// <summary>
@@ -63,7 +65,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysRole/page")]
-        public async Task<dynamic> QueryRolePageList([FromQuery] RolePageInput input)
+        public async Task<PageResult<SysRole>> QueryRolePageList([FromQuery] RolePageInput input)
         {
             var name = !string.IsNullOrEmpty(input.Name?.Trim());
             var code = !string.IsNullOrEmpty(input.Code?.Trim());
@@ -71,8 +73,8 @@ namespace Furion.Extras.Admin.NET.Service
                                          .Where((name, u => EF.Functions.Like(u.Name, $"%{input.Name.Trim()}%")),
                                                 (code, u => EF.Functions.Like(u.Code, $"%{input.Code.Trim()}%")))
                                          .Where(u => u.Status == CommonStatus.ENABLE).OrderBy(u => u.Sort)
-                                         .ToPagedListAsync(input.PageNo, input.PageSize);
-            return XnPageResult<SysRole>.PageResult(roles);
+                                         .ToADPagedListAsync(input.PageNo, input.PageSize);
+            return roles;
         }
 
         /// <summary>
@@ -99,12 +101,14 @@ namespace Furion.Extras.Admin.NET.Service
             return await _sysRoleRep.DetachedEntities
                                     .Where((name, u => EF.Functions.Like(u.Name, $"%{input.Name.Trim()}%")),
                                            (code, u => EF.Functions.Like(u.Code, $"%{input.Code.Trim()}%")))
-                                    .Where(u => u.Status == CommonStatus.ENABLE).OrderBy(u => u.Sort)
+                                    .Where(u => u.Status == CommonStatus.ENABLE)
+                                    .OrderBy(u => u.Sort)
                                     .Select(u => new
                                     {
                                         u.Id,
-                                        Name = u.Name + "[" + u.Code + "]"
-                                    }).ToListAsync();
+                                        Name = u.Name + "[" + u.Code + "]",
+                                    })
+                                    .ToListAsync();
         }
 
         /// <summary>
@@ -112,7 +116,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         /// <returns></returns>
         [HttpGet("/sysRole/dropDown")]
-        public async Task<dynamic> GetRoleDropDown()
+        public async Task<List<RoleOutput>> GetRoleDropDown()
         {
             // 如果不是超级管理员，则查询自己拥有的角色集合
             var roles = _userManager.SuperAdmin
@@ -122,12 +126,8 @@ namespace Furion.Extras.Admin.NET.Service
             return await _sysRoleRep.DetachedEntities
                                     .Where(roles.Count > 0, u => roles.Contains(u.Id))
                                     .Where(u => u.Status == CommonStatus.ENABLE)
-                                    .Select(u => new
-                                    {
-                                        u.Id,
-                                        u.Code,
-                                        u.Name
-                                    }).ToListAsync();
+                                    .ProjectToType<RoleOutput>()
+                                    .ToListAsync();
         }
 
         /// <summary>

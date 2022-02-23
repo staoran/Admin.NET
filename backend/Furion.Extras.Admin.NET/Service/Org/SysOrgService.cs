@@ -1,4 +1,3 @@
-using Furion;
 using Furion.DatabaseAccessor;
 using Furion.DatabaseAccessor.Extensions;
 using Furion.DependencyInjection;
@@ -7,9 +6,6 @@ using Furion.FriendlyException;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -50,7 +46,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysOrg/page")]
-        public async Task<dynamic> QueryOrgPageList([FromQuery] OrgPageInput input)
+        public async Task<PageResult<OrgOutput>> QueryOrgPageList([FromQuery] OrgPageInput input)
         {
             var dataScopeList = GetDataScopeList(await GetUserDataScopeIdList());
 
@@ -64,9 +60,9 @@ namespace Furion.Extras.Admin.NET.Service
                                                          || u.Id == long.Parse(input.Pid.Trim()))) // 根据父机构id查询
                                        .Where(dataScopeList.Count > 0, u => dataScopeList.Contains(u.Id)) // 非管理员范围限制
                                        .Where(u => u.Status != CommonStatus.DELETED).OrderBy(u => u.Sort)
-                                       .Select(u => u.Adapt<OrgOutput>())
-                                       .ToPagedListAsync(input.PageNo, input.PageSize);
-            return XnPageResult<OrgOutput>.PageResult(orgs);
+                                       .ProjectToType<OrgOutput>()
+                                       .ToADPagedListAsync(input.PageNo, input.PageSize);
+            return orgs;
         }
 
         /// <summary>
@@ -98,10 +94,13 @@ namespace Furion.Extras.Admin.NET.Service
                 dataScopes.ForEach(u =>
                 {
                     var sysOrg = _sysOrgRep.DetachedEntities.FirstOrDefault(c => c.Id == u);
-                    var parentAndChildIdListWithSelf = sysOrg.Pids.TrimEnd(',').Replace("[", "").Replace("]", "")
-                                                                  .Split(",").Select(u => long.Parse(u)).ToList();
-                    parentAndChildIdListWithSelf.Add(sysOrg.Id);
-                    dataScopeList.AddRange(parentAndChildIdListWithSelf);
+                    if (sysOrg != null)
+                    {
+                        var parentAndChildIdListWithSelf = sysOrg.Pids.TrimEnd(',').Replace("[", "").Replace("]", "")
+                                                                    .Split(",").Select(u => long.Parse(u)).ToList();
+                        parentAndChildIdListWithSelf.Add(sysOrg.Id);
+                        dataScopeList.AddRange(parentAndChildIdListWithSelf);
+                    }
                 });
             }
 
@@ -122,8 +121,11 @@ namespace Furion.Extras.Admin.NET.Service
             var orgs = await _sysOrgRep.DetachedEntities
                                        .Where(pId, u => u.Pid == long.Parse(input.Pid))
                                        .Where(dataScopeList.Count > 0, u => dataScopeList.Contains(u.Id))
-                                       .Where(u => u.Status != CommonStatus.DELETED).OrderBy(u => u.Sort).ToListAsync();
-            return orgs.Adapt<List<OrgOutput>>();
+                                       .Where(u => u.Status != CommonStatus.DELETED)
+                                       .OrderBy(u => u.Sort)
+                                       .ProjectToType<OrgOutput>()
+                                       .ToListAsync();
+            return orgs;
         }
 
         /// <summary>
@@ -321,15 +323,10 @@ namespace Furion.Extras.Admin.NET.Service
                 dataScopeList = GetDataScopeList(dataScopes);
             }
             var orgs = await _sysOrgRep.DetachedEntities.Where(dataScopeList.Count > 0, u => dataScopeList.Contains(u.Id))
-                                                        .Where(u => u.Status == CommonStatus.ENABLE).OrderBy(u => u.Sort)
-                                                        .Select(u => new OrgTreeNode
-                                                        {
-                                                            Id = u.Id,
-                                                            ParentId = u.Pid,
-                                                            Title = u.Name,
-                                                            Value = u.Id.ToString(),
-                                                            Weight = u.Sort
-                                                        }).ToListAsync();
+                                                        .Where(u => u.Status == CommonStatus.ENABLE)
+                                                        .OrderBy(u => u.Sort)
+                                                        .ProjectToType<OrgTreeNode>()
+                                                        .ToListAsync();
 
             return new TreeBuildUtil<OrgTreeNode>().Build(orgs);
         }

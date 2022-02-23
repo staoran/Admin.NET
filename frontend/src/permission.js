@@ -12,7 +12,7 @@ import { timeFix } from '@/utils/util'/// es/notification
 import Enumerable from 'linq'
 
 NProgress.configure({ showSpinner: false })
-const whiteList = ['login', 'register', 'registerResult'] // no redirect whitelist
+const whiteList = ['login', 'register', 'registerResult', 'wechat'] // no redirect whitelist
 // 无默认首页的情况
 const defaultRoutePath = '/welcome'
 
@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
   if (Vue.ls.get(ACCESS_TOKEN)) {
     /* has token */
     if (to.path === '/user/login') {
-      next({ path: defaultRoutePath })
+      //next({ path: defaultRoutePath })
       NProgress.done()
     } else {
       if (store.getters.roles.length === 0) {
@@ -50,7 +50,7 @@ router.beforeEach((to, from, next) => {
               const applocation = []
               res.apps.forEach(item => {
                 const apps = { 'code': '', 'name': '', 'active': '', 'menu': '' }
-                if (item.active === 'Y') {
+                if (item.active) {
                   apps.code = item.code
                   apps.name = item.name
                   apps.active = item.active
@@ -71,7 +71,7 @@ router.beforeEach((to, from, next) => {
                 firstApps.menu = res.menus
                 antDesignmenus = res.menus
               }
-              Vue.ls.set(ALL_APPS_MENU, applocation, 7 * 24 * 60 * 60 * 1000)
+              Vue.ls.set(ALL_APPS_MENU, applocation, 7 * 24 * 60 * 60 * 1000)//缓存7天
               // 延迟 1 秒显示欢迎信息
               setTimeout(() => {
                 notification.success({
@@ -102,6 +102,7 @@ router.beforeEach((to, from, next) => {
               next({ path: '/user/login', query: { redirect: to.fullPath } })
             })
           })
+        store.dispatch('getNoticReceiveList').then((res) => { })
       } else {
         next()
       }

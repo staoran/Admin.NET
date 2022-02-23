@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -12,7 +10,7 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task<string> GetNameByRoleId(long roleId);
 
-        Task<dynamic> GetRoleDropDown();
+        Task<List<RoleOutput>> GetRoleDropDown();
 
         Task<SysRole> GetRoleInfo([FromQuery] QueryRoleInput input);
 
@@ -30,7 +28,7 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task<List<long>> OwnMenu([FromQuery] QueryRoleInput input);
 
-        Task<dynamic> QueryRolePageList([FromQuery] RolePageInput input);
+        Task<PageResult<SysRole>> QueryRolePageList([FromQuery] RolePageInput input);
 
         Task<dynamic> QueryRolePageListV3(RolePageInput input);
 

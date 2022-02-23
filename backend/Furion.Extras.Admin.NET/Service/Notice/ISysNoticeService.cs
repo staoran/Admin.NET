@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service.Notice
 {
@@ -13,12 +12,12 @@ namespace Furion.Extras.Admin.NET.Service.Notice
 
         Task<NoticeDetailOutput> GetNotice([FromQuery] QueryNoticeInput input);
 
-        Task<dynamic> QueryNoticePageList([FromQuery] NoticePageInput input);
+        Task<PageResult<SysNotice>> QueryNoticePageList([FromQuery] NoticePageInput input);
 
-        Task<dynamic> QueryNoticePageListV3(NoticePageInput input);
-
-        Task<dynamic> ReceivedNoticePageList([FromQuery] NoticePageInput input);
+        Task<PageResult<NoticeReceiveOutput>> ReceivedNoticePageList([FromQuery] NoticePageInput input);
 
         Task UpdateNotice(UpdateNoticeInput input);
+
+        Task<dynamic> UnReadNoticeList([FromQuery] NoticeInput input);
     }
 }

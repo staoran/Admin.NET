@@ -6,8 +6,7 @@ using Furion.FriendlyException;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -43,7 +42,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysConfig/page")]
-        public async Task<dynamic> QueryConfigPageList([FromQuery] ConfigPageInput input)
+        public async Task<PageResult<SysConfig>> QueryConfigPageList([FromQuery] ConfigPageInput input)
         {
             var name = !string.IsNullOrEmpty(input.Name?.Trim());
             var code = !string.IsNullOrEmpty(input.Code?.Trim());
@@ -52,9 +51,10 @@ namespace Furion.Extras.Admin.NET.Service
                                              .Where((name, u => EF.Functions.Like(u.Name, $"%{input.Name.Trim()}%")),
                                                     (code, u => EF.Functions.Like(u.Code, $"%{input.Code.Trim()}%")),
                                                     (groupCode, u => EF.Functions.Like(u.GroupCode, $"%{input.GroupCode.Trim()}%")))
-                                             .Where(u => u.Status != CommonStatus.DELETED).OrderBy(u => u.GroupCode)
-                                             .ToPagedListAsync(input.PageNo, input.PageSize);
-            return XnPageResult<SysConfig>.PageResult(configs);
+                                             .Where(u => u.Status != CommonStatus.DELETED)
+                                             .OrderBy(PageInputOrder.OrderBuilder(input))
+                                             .ToADPagedListAsync(input.PageNo, input.PageSize);
+            return configs;
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         /// <returns></returns>
         [HttpGet("/sysConfig/list")]
-        public async Task<dynamic> GetConfigList()
+        public async Task<List<SysConfig>> GetConfigList()
         {
             return await _sysConfigRep.DetachedEntities.Where(u => u.Status != CommonStatus.DELETED).ToListAsync();
         }
@@ -131,7 +131,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        private async Task<dynamic> GetConfigCache(string code)
+        private async Task<string> GetConfigCache(string code)
         {
             var value = await _sysCacheService.GetStringAsync(code);
             if (string.IsNullOrEmpty(value))
@@ -149,9 +149,9 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="code"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public async Task UpdateConfigCache(string code, object value)
+        public async Task UpdateConfigCache(string code, string value)
         {
-            await _sysCacheService.SetAsync(code, value);
+            await _sysCacheService.SetStringAsync(code, value);
         }
 
         /// <summary>

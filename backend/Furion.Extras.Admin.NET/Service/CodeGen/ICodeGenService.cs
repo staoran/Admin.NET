@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service.CodeGen
 {
@@ -14,9 +12,9 @@ namespace Furion.Extras.Admin.NET.Service.CodeGen
 
         List<TableColumnOuput> GetColumnList(AddCodeGenInput input);
 
-        List<TableOutput> GetTableList();
+        List<TableOutput> GetTableList(string dbContextLocatorName);
 
-        Task<dynamic> QueryCodeGenPageList([FromQuery] CodeGenPageInput input);
+        Task<PageResult<SysCodeGen>> QueryCodeGenPageList([FromQuery] CodeGenPageInput input);
 
         Task<dynamic> QueryCodeGenPageListV3(CodeGenPageInput input);
 

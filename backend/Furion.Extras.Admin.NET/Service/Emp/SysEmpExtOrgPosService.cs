@@ -1,9 +1,6 @@
-﻿using Furion.DatabaseAccessor;
+using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -85,8 +82,8 @@ namespace Furion.Extras.Admin.NET.Service
         /// <returns></returns>
         public async Task DeleteEmpExtInfoByUserId(long empId)
         {
-            var empExtOrgPos = await _sysEmpExtOrgPosRep.Where(u => u.SysEmpId == empId).ToListAsync();
-            await _sysEmpExtOrgPosRep.DeleteAsync(empExtOrgPos);
+            var eeoprList = await _sysEmpExtOrgPosRep.AsQueryable(u => u.SysEmpId == empId, false).ToListAsync();
+            await _sysEmpExtOrgPosRep.DeleteAsync(eeoprList);
         }
     }
 }

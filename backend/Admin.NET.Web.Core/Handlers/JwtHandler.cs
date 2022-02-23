@@ -1,13 +1,14 @@
-﻿using Furion.Extras.Admin.NET;
-using Furion.Extras.Admin.NET.Service;
-using Furion;
+﻿using Furion;
 using Furion.Authorization;
 using Furion.DataEncryption;
+using Furion.Extras.Admin.NET;
+using Furion.Extras.Admin.NET.Options;
+using Furion.Extras.Admin.NET.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Furion.Extras.Admin.NET.Options;
 
 namespace Admin.NET.Web.Core
 {
@@ -66,16 +67,19 @@ namespace Admin.NET.Web.Core
             // 默认路由(获取登录用户信息)
             var defalutRoute = new List<string>()
             {
-                "getLoginUser"
+                "getLoginUser",     //登录
+                "sysMenu:change"    //切换顶部菜单
             };
 
             if (defalutRoute.Contains(routeName)) return true;
 
             // 获取用户权限集合（按钮或API接口）
+            var allPermissionList = await App.GetService<ISysMenuService>().GetAllPermissionList();
             var permissionList = await App.GetService<ISysMenuService>().GetLoginPermissionList(userManager.UserId);
 
             // 检查授权
-            return permissionList.Contains(routeName);
+            // 菜单中没有配置按钮权限，则不限制
+            return allPermissionList.All(u => u != routeName) || permissionList.Contains(routeName);
         }
     }
 }

@@ -8,6 +8,11 @@ namespace Furion.Extras.Admin.NET.Service
     public class CodeGenPageInput : PageInputBase
     {
         /// <summary>
+        /// 数据库名
+        /// </summary>
+        public string DatabaseName { get; set; }
+
+        /// <summary>
         /// 数据库表名
         /// </summary>
         public string TableName { get; set; }
@@ -15,6 +20,12 @@ namespace Furion.Extras.Admin.NET.Service
 
     public class AddCodeGenInput
     {
+        /// <summary>
+        /// 数据库名
+        /// </summary>
+        [Required(ErrorMessage = "数据库名不能为空")]
+        public string DatabaseName { get; set; }
+
         /// <summary>
         /// 数据库表名
         /// </summary>
@@ -84,6 +95,12 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         [Required(ErrorMessage = "代码生成器Id不能为空")]
         public long Id { get; set; }
+
+        /// <summary>
+        /// 数据库名
+        /// </summary>
+        [Required(ErrorMessage = "数据库名不能为空")]
+        public string DatabaseName { get; set; }
 
         /// <summary>
         /// 数据库表名

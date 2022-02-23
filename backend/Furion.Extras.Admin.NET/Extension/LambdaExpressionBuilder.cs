@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Furion.Extras.Admin.NET
@@ -46,28 +43,40 @@ namespace Furion.Extras.Admin.NET
             {
                 case QueryTypeEnum.Equals:
                     return Expression.Equal(propertyParam, constantParam);
+
                 case QueryTypeEnum.NotEquals:
                     return Expression.NotEqual(propertyParam, constantParam);
+
                 case QueryTypeEnum.Contains:
                     return Expression.Call(propertyParam, "Contains", null, constantParam);
+
                 case QueryTypeEnum.NotContains:
                     return Expression.Not(Expression.Call(propertyParam, "Contains", null, constantParam));
+
                 case QueryTypeEnum.StartsWith:
                     return Expression.Call(propertyParam, "StartsWith", null, constantParam);
+
                 case QueryTypeEnum.EndsWith:
                     return Expression.Call(propertyParam, "EndsWith", null, constantParam);
+
                 case QueryTypeEnum.GreaterThan:
                     return Expression.GreaterThan(propertyParam, constantParam);
+
                 case QueryTypeEnum.GreaterThanOrEquals:
                     return Expression.GreaterThanOrEqual(propertyParam, constantParam);
+
                 case QueryTypeEnum.LessThan:
                     return Expression.LessThan(propertyParam, constantParam);
+
                 case QueryTypeEnum.LessThanOrEquals:
                     return Expression.LessThanOrEqual(propertyParam, constantParam);
+
                 case QueryTypeEnum.StdIn:
                     return Expression.Call(typeof(Enumerable), "Contains", new[] { realPropertyType }, constantParam, propertyParam);
+
                 case QueryTypeEnum.StdNotIn:
                     return Expression.Not(Expression.Call(typeof(Enumerable), "Contains", new[] { realPropertyType }, constantParam, propertyParam));
+
                 default:
                     break;
             }
@@ -126,7 +135,6 @@ namespace Furion.Extras.Admin.NET
             var exp = simpleExps.Aggregate<Expression, Expression>(null, (left, right) =>
                 left == null ? right : Expression.AndAlso(left, right));
             return Expression.Lambda<Func<T, bool>>(exp, parameter);
-
         }
 
         public static Expression<Func<T, bool>> BuildOrElseLambda<T>(IEnumerable<Condition> conditions)

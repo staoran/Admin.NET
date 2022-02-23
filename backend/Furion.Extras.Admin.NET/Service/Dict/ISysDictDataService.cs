@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -13,13 +12,13 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task DeleteDictData(DeleteDictDataInput input);
 
-        Task<dynamic> GetDictData([FromQuery] QueryDictDataInput input);
+        Task<SysDictData> GetDictData([FromQuery] QueryDictDataInput input);
 
-        Task<dynamic> GetDictDataList([FromQuery] QueryDictDataListInput input);
+        Task<List<SysDictData>> GetDictDataList([FromQuery] QueryDictDataListInput input);
 
-        Task<dynamic> GetDictDataListByDictTypeId(long dictTypeId);
+        Task<List<SysDictData>> GetDictDataListByDictTypeId(long dictTypeId);
 
-        Task<dynamic> QueryDictDataPageList([FromQuery] DictDataPageInput input);
+        Task<PageResult<DictDataOutput>> QueryDictDataPageList([FromQuery] DictDataPageInput input);
 
         Task<dynamic> QueryDictDataPageListV3(DictDataPageInput input);
 

@@ -1,11 +1,10 @@
 ﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -16,12 +15,43 @@ namespace Furion.Extras.Admin.NET.Service
     public class SysOnlineUserService : ISysOnlineUserService, IDynamicApiController, ITransient
     {
         private readonly ISysCacheService _sysCacheService;
-        private readonly IRepository<SysUser> _sysUerrep;  // 用户表仓储
+        private readonly IRepository<SysUser> _sysUerRep;// 用户表仓储
+        private readonly IRepository<SysTenant, MultiTenantDbContextLocator> _sysTenantRep;// 租户仓储
+        private readonly IUserManager _userManager;
+        private readonly IHubContext<ChatHub, IChatClient> _chatHubContext;
 
-        public SysOnlineUserService(ISysCacheService sysCacheService, IRepository<SysUser> sysUerrep)
+        public SysOnlineUserService(ISysCacheService sysCacheService, IRepository<SysUser> sysUerRep,
+            IRepository<SysTenant, MultiTenantDbContextLocator> sysTenantRep, IUserManager userManager,
+            IHubContext<ChatHub, IChatClient> chatHubContext)
         {
             _sysCacheService = sysCacheService;
-            _sysUerrep = sysUerrep;
+            _sysUerRep = sysUerRep;
+            _sysTenantRep = sysTenantRep;
+            _userManager = userManager;
+            _chatHubContext = chatHubContext;
+        }
+
+        /// <summary>
+        /// 分页获取在线用户信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("/sysOnlineUser/page")]
+        public async Task<PageResult<OnlineUserOutput>> QueryOnlineUserPageList([FromQuery] PageInputBase input)
+        {
+            var onlineUsers = await _sysCacheService.GetAsync<List<OnlineUser>>(CommonConst.CACHE_KEY_ONLINE_USER) ?? new List<OnlineUser>();
+            var onlineUserOutputs = onlineUsers
+                .Where(!_userManager.SuperAdmin, o => o.TenantId == _userManager.User.TenantId)
+                .Where(!string.IsNullOrWhiteSpace(input.SearchValue), o => o.Account.Contains(input.SearchValue) || o.Name.Contains(input.SearchValue))
+                .Select(o => o.Adapt<OnlineUserOutput>());
+
+            var currentPageData = onlineUserOutputs.ToADPagedList(input.PageNo, input.PageSize);
+
+            //填充租户名称
+            var tenants = await _sysTenantRep.DetachedEntities.ToListAsync();
+            currentPageData.Rows.ToList().ForEach(o => o.TenantName = tenants.FirstOrDefault(p => p.Id == o.TenantId)?.Name);
+
+            return currentPageData;
         }
 
         /// <summary>
@@ -29,11 +59,30 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         /// <returns></returns>
         [HttpGet("/sysOnlineUser/list")]
-        public async Task<dynamic> List()
+        public async Task<List<OnlineUserOutput>> List()
         {
-            var onlineUsers = await _sysCacheService.GetAsync<List<OnlineUser>>(CommonConst.CACHE_KEY_ONLINE_USER);
-            var ids = onlineUsers.Select(u => u.UserId);
-            return await _sysUerrep.Where(u => ids.Contains(u.Id)).ToListAsync();
+            var onlineUsers = await _sysCacheService.GetAsync<List<OnlineUser>>(CommonConst.CACHE_KEY_ONLINE_USER) ?? new List<OnlineUser>();
+            var onlineUserOutputs = onlineUsers
+                .Where(!_userManager.SuperAdmin, o => o.TenantId == _userManager.User.TenantId)
+                .Select(o => o.Adapt<OnlineUserOutput>())
+                .ToList();
+
+            //填充租户名称
+            var tenants = await _sysTenantRep.DetachedEntities.ToListAsync();
+            onlineUserOutputs.ForEach(o => o.TenantName = tenants.FirstOrDefault(p => p.Id == o.TenantId)?.Name);
+
+            return onlineUserOutputs;
+        }
+
+        /// <summary>
+        /// 强制下线
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPost("/sysOnlineUser/forceExist")]
+        public async Task ForceExist([FromBody] OnlineUser user)
+        {
+            await _chatHubContext.Clients.Client(user.ConnectionId).ForceExist();
         }
     }
 }

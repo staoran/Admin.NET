@@ -1,13 +1,10 @@
-﻿using Furion.DatabaseAccessor;
+using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -41,7 +38,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysOpLog/page")]
-        public async Task<dynamic> QueryOpLogPageList([FromQuery] OpLogPageInput input)
+        public async Task<PageResult<OpLogOutput>> QueryOpLogPageList([FromQuery] OpLogPageInput input)
         {
             var name = !string.IsNullOrEmpty(input.Name?.Trim());
             var success = !string.IsNullOrEmpty(input.Success.ToString());
@@ -54,9 +51,9 @@ namespace Furion.Extras.Admin.NET.Service
                                            .Where(searchBeginTime, u => u.OpTime >= DateTime.Parse(input.SearchBeginTime.Trim()) &&
                                                                    u.OpTime <= DateTime.Parse(input.SearchEndTime.Trim()))
                                            .OrderBy(PageInputOrder.OrderBuilder(input)) // 封装了任意字段排序示例
-                                           .Select(u => u.Adapt<OpLogOutput>())
-                                           .ToPagedListAsync(input.PageNo, input.PageSize);
-            return XnPageResult<OpLogOutput>.PageResult(opLogs);
+                                           .ProjectToType<OpLogOutput>()
+                                           .ToADPagedListAsync(input.PageNo, input.PageSize);
+            return opLogs;
         }
 
         /// <summary>
@@ -66,8 +63,7 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysOpLog/delete")]
         public async Task ClearOpLog()
         {
-            var opLogs = await _sysOpLogRep.Entities.ToListAsync();
-            await _sysOpLogRep.DeleteAsync(opLogs);
+            await _sysOpLogRep.Context.DeleteRangeAsync<SysLogOp>();
         }
     }
 }

@@ -127,6 +127,7 @@ namespace Furion.Extras.Admin.NET
         /// </summary>
         [ErrorCodeItemMetadata("禁止删除系统管理员角色(sys_manager_role)")]
         D1019,
+
         /// <summary>
         /// 禁止修改系统管理员角色(sys_manager_role)
         /// </summary>
@@ -332,10 +333,28 @@ namespace Furion.Extras.Admin.NET
         D7002,
 
         /// <summary>
+        /// 通知公告操作失败，非发布者不能进行操作
+        /// </summary>
+        [ErrorCodeItemMetadata("通知公告操作失败，非发布者不能进行操作")]
+        D7003,
+
+        /// <summary>
         /// 文件不存在
         /// </summary>
         [ErrorCodeItemMetadata("文件不存在")]
         D8000,
+
+        /// <summary>
+        /// 不允许的文件类型
+        /// </summary>
+        [ErrorCodeItemMetadata("不允许的文件类型")]
+        D8001,
+
+        /// <summary>
+        /// 文件超过允许大小
+        /// </summary>
+        [ErrorCodeItemMetadata("文件超过允许大小")]
+        D8002,
 
         /// <summary>
         /// 已存在同名或同编码参数配置

@@ -1,7 +1,8 @@
-﻿using Furion.Extras.Admin.NET;
-using Furion.Extras.Admin.NET.Service;
-using Furion;
+﻿using Furion;
+using Furion.Extras.Admin.NET;
+using Furion.Extras.Admin.NET.Extension;
 using Furion.Extras.Admin.NET.Options;
+using Furion.Extras.Admin.NET.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -23,32 +24,39 @@ namespace Admin.NET.Web.Core
             services.AddJwt<JwtHandler>(enableGlobalAuthorize: true);
             services.AddCorsAccessor();
             services.AddRemoteRequest();
-            services.AddControllersWithViews()
-                    .AddMvcFilter<RequestActionFilter>()                    
-                    .AddNewtonsoftJson(options =>
-                    {
-                        // 首字母小写(驼峰样式)
-                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                        // 时间格式化
-                        options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                        // 忽略循环引用
-                        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                        // 忽略空值
-                        // options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    })
-                    .AddInjectWithUnifyResult<XnRestfulResultProvider>();
+            services.AddControllersWithViews().AddMvcFilter<RequestActionFilter>().AddNewtonsoftJson(options =>
+            {
+                // 首字母小写(驼峰样式)
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                // 时间格式化
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                // 忽略循环引用
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                // 忽略空值
+                // options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            }).AddInjectWithUnifyResult<XnRestfulResultProvider>();
             services.AddViewEngine();
             services.AddSignalR();
-            services.AddSimpleEventBus();
+
+            // 注册EventBus服务
+            services.AddEventBus(builder =>
+            {
+                // 注册 Log 日志订阅者
+                builder.AddSubscriber<LogEventSubscriber>();
+            });
 
             if (App.Configuration["Cache:CacheType"] == "RedisCache")
             {
-                services.AddStackExchangeRedisCache(options =>
-                {
-                    options.Configuration = App.Configuration["Cache:RedisConnectionString"]; // redis连接配置
-                    options.InstanceName = App.Configuration["Cache:InstanceName"]; // 键名前缀
-                });
+                //框架原注册StackExchangeRedisCache服务
+                //services.AddStackExchangeRedisCache(options =>
+                //{
+                //    options.Configuration = App.Configuration["Cache:RedisConnectionString"]; // redis连接配置
+                //     options.InstanceName = App.Configuration["Cache:InstanceName"]; // 键名前缀
+                // });
+
+                services.UseCsRedis();
             }
+
 
             //// default minio
             //// 添加默认对象储存配置信息
@@ -76,6 +84,10 @@ namespace Admin.NET.Web.Core
             //// qcloud oss
             //// 从配置文件中加载节点为‘OSSProvider’的配置信息
             //services.AddOSSService("QCloud", "OSSProvider");
+
+            //.net6下使用Npgsql数据库时使用以下2行配置
+            //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);//启用遗留时间戳行为
+            //AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);//禁用日期时间无限转换
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -118,9 +130,7 @@ namespace Admin.NET.Web.Core
             {
                 endpoints.MapHub<ChatHub>("/hubs/chathub");
 
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
             // 设置雪花Id的workerId，确保每个实例workerId都应不同

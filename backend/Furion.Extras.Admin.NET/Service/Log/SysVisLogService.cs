@@ -4,9 +4,6 @@ using Furion.DynamicApiController;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -40,7 +37,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysVisLog/page")]
-        public async Task<dynamic> QueryVisLogPageList([FromQuery] VisLogPageInput input)
+        public async Task<PageResult<VisLogOutput>> QueryVisLogPageList([FromQuery] VisLogPageInput input)
         {
             var name = !string.IsNullOrEmpty(input.Name?.Trim());
             var success = !string.IsNullOrEmpty(input.Success.ToString());
@@ -52,9 +49,9 @@ namespace Furion.Extras.Admin.NET.Service
                                              .Where(searchBeginTime, u => u.VisTime >= DateTime.Parse(input.SearchBeginTime.Trim()) &&
                                                                      u.VisTime <= DateTime.Parse(input.SearchEndTime.Trim()))
                                              .OrderByDescending(u => u.Id)
-                                             .Select(u => u.Adapt<VisLogOutput>())
-                                             .ToPagedListAsync(input.PageNo, input.PageSize);
-            return XnPageResult<VisLogOutput>.PageResult(visLogs);
+                                             .ProjectToType<VisLogOutput>()
+                                             .ToADPagedListAsync(input.PageNo, input.PageSize);
+            return visLogs;
         }
 
         /// <summary>
@@ -64,8 +61,7 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysVisLog/delete")]
         public async Task ClearVisLog()
         {
-            var visLogs = await _sysVisLogRep.Entities.ToListAsync();
-            await _sysVisLogRep.DeleteAsync(visLogs);
+            await _sysVisLogRep.Context.DeleteRangeAsync<SysLogVis>();
         }
     }
 }

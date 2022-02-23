@@ -1,11 +1,10 @@
-﻿using Furion.Extras.Admin.NET.OAuth;
-using Furion.DependencyInjection;
+﻿using Furion.DependencyInjection;
 using Furion.DynamicApiController;
+using Furion.Extras.Admin.NET.OAuth;
 using Furion.FriendlyException;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service.OAuth
 {

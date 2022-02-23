@@ -31,6 +31,11 @@
         public string GenerateType { get; set; }
 
         /// <summary>
+        /// 数据库名
+        /// </summary>
+        public string DatabaseName { get; set; }
+
+        /// <summary>
         /// 数据库表名
         /// </summary>
         public string TableName { get; set; }

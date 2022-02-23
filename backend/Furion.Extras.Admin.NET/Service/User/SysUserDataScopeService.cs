@@ -1,9 +1,6 @@
 ﻿using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -57,7 +54,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <returns></returns>
         public async Task DeleteUserDataScopeListByOrgIdList(List<long> orgIdList)
         {
-            var dataScopes = await _sysUserDataScopeRep.Where(u => orgIdList.Contains(u.SysOrgId)).ToListAsync();
+            var dataScopes = await _sysUserDataScopeRep.Where(u => orgIdList.Contains(u.SysOrgId), false).ToListAsync();
             await _sysUserDataScopeRep.DeleteAsync(dataScopes);
         }
 
@@ -68,8 +65,8 @@ namespace Furion.Extras.Admin.NET.Service
         /// <returns></returns>
         public async Task DeleteUserDataScopeListByUserId(long userId)
         {
-            var dataScopes = await _sysUserDataScopeRep.Where(u => u.SysUserId == userId).ToListAsync();
-            await _sysUserDataScopeRep.DeleteAsync(dataScopes);
+            var sudsList = await _sysUserDataScopeRep.AsQueryable(m => m.SysUserId == userId, false).ToListAsync();
+            await _sysUserDataScopeRep.DeleteAsync(sudsList);
         }
     }
 }

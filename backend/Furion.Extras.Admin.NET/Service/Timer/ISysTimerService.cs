@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -11,9 +10,9 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task DeleteTimer(DeleteJobInput input);
 
-        Task<dynamic> GetTimer([FromQuery] QueryJobInput input);
+        Task<SysTimer> GetTimer([FromQuery] QueryJobInput input);
 
-        Task<dynamic> GetTimerPageList([FromQuery] JobPageInput input);
+        Task<PageResult<JobOutput>> GetTimerPageList([FromQuery] JobPageInput input);
 
         Task<dynamic> GetTimerPageListV3(JobPageInput input);
 

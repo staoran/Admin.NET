@@ -2,8 +2,6 @@
 using Furion.FriendlyException;
 using Furion.RemoteRequest.Extensions;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.OAuth
 {

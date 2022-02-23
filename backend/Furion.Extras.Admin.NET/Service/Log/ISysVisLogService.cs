@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -7,8 +6,6 @@ namespace Furion.Extras.Admin.NET.Service
     {
         Task ClearVisLog();
 
-        Task<dynamic> QueryVisLogPageListV3(VisLogPageInput input);
-
-        Task<dynamic> QueryVisLogPageList([FromQuery] VisLogPageInput input);
+        Task<PageResult<VisLogOutput>> QueryVisLogPageList([FromQuery] VisLogPageInput input);
     }
 }

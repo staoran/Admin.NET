@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -18,7 +16,7 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task<dynamic> GetOrgTree();
 
-        Task<dynamic> QueryOrgPageList([FromQuery] OrgPageInput input);
+        Task<PageResult<OrgOutput>> QueryOrgPageList([FromQuery] OrgPageInput input);
 
 
         Task<dynamic> QueryOrgPageListV3(OrgPageInput input);

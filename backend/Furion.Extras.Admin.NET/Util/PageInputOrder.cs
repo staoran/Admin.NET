@@ -1,4 +1,4 @@
-﻿using Furion.FriendlyException;
+using Furion.FriendlyException;
 using Mapster;
 using MapsterMapper;
 
@@ -9,7 +9,7 @@ namespace Furion.Extras.Admin.NET
     /// </summary>
     public static class PageInputOrder
     {
-        /// <summary> 
+        /// <summary>
         /// 排序方式(默认降序)
         /// </summary>
         /// <param name="pageInput"> </param>
@@ -28,7 +28,7 @@ namespace Furion.Extras.Admin.NET
             TypeAdapterConfig config = new();
             config.ForType<T, PageInputBase>().IgnoreNullValues(true);
             Mapper mapper = new(config); // 务必将mapper设为单实例
-            PageInputBase nowPagerInput = mapper.Map<PageInputBase>(pageInput); ;
+            PageInputBase nowPagerInput = mapper.Map<PageInputBase>(pageInput);
             // 排序是否可用-排序字段和排序顺序都为非空才启用排序
             if (!string.IsNullOrEmpty(nowPagerInput.SortField) && !string.IsNullOrEmpty(nowPagerInput.SortOrder))
             {

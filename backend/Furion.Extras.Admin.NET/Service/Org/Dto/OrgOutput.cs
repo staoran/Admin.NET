@@ -13,12 +13,12 @@
         /// <summary>
         /// 机构Id
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 父Id
         /// </summary>
-        public string Pid { get; set; }
+        public long Pid { get; set; }
 
         /// <summary>
         /// 父Ids
@@ -53,6 +53,6 @@
         /// <summary>
         /// 状态（字典 0正常 1停用 2删除）
         /// </summary>
-        public int Status { get; set; }
+        public CommonStatus Status { get; set; }
     }
 }

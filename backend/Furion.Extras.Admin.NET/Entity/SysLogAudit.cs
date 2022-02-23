@@ -1,6 +1,5 @@
 ﻿using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -55,7 +54,7 @@ namespace Furion.Extras.Admin.NET
         /// 操作人名称
         /// </summary>
         [Comment("操作人名称")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string UserName { get; set; }
 
         /// <summary>

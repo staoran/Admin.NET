@@ -3,180 +3,24 @@
 
 <div align="center">
 
-[![star](https://gitee.com/dotnetchina/Furion/badge/star.svg?theme=gvp)](https://gitee.com/dotnetchina/Furion/stargazers)
 [![star](https://gitee.com/zuohuaijun/Admin.NET/badge/star.svg?theme=dark)](https://gitee.com/zuohuaijun/Admin.NET/stargazers)
 [![fork](https://gitee.com/zuohuaijun/Admin.NET/badge/fork.svg?theme=dark)](https://gitee.com/zuohuaijun/Admin.NET/members)
 [![GitHub license](https://img.shields.io/badge/license-Apache2-yellow)](https://gitee.com/dotnetchina/Furion/blob/master/LICENSE)
 
+![今日诗词](https://v2.jinrishici.com/one.svg?font-size=20&spacing=2&color=Chocolate)
 </div>
 
 ### 🍟 概述
-
-* 基于.NET 5实现的通用管理平台。整合最新技术，模块插件式开发，前后端分离，开箱即用。
-* 后台基于Furion框架，vue2前端基于小诺框架，vue3前端基于Vben-Admin框架。
+* 基于.NET 6实现的通用管理平台（.NET 5版本，请[点击这里](https://gitee.com/zuohuaijun/Admin.NET/tree/net5)）。整合最新技术，模块插件式开发，前后端分离，开箱即用。
+* 后台基于Furion框架，vue2前端基于小诺框架。
 * 集成EF Core、多租户、缓存、数据校验、鉴权、事件总线、动态API、通讯、远程请求、任务调度、gRPC等众多黑科技。
 * 核心模块包括：用户、角色、职位、组织机构、菜单、字典、日志、多应用管理、文件管理、定时任务等功能。
 * 代码简洁、易扩展，让开发更简单、更通用、更流行！
-
+* QQ交流群：[87333204](https://jq.qq.com/?_wv=1027&k=1t8iqf0G)
 ```
 如果对您有帮助，点击右上角⭐Star⭐关注 ，感谢支持开源！
 ```
-
-### 🍁 框架拓展包
-
-|                                                                 包类型                                                                             | 名称                              |                                                                                 版本                                                                                                     | 描述                   |
-| :------------------------------------------------------------------------------------------------------------------------------------------------: | -------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | ---------------------- |
-|       [![nuget](https://shields.io/badge/-Nuget-yellow?cacheSeconds=604800)](https://www.nuget.org/packages/Furion.Extras.Admin.NET/)              | Furion.Extras.Admin.NET          |              [![nuget](https://img.shields.io/nuget/v/Furion.Extras.Admin.NET.svg?cacheSeconds=10800)](https://www.nuget.org/packages/Furion.Extras.Admin.NET/)                          | Admin.NET 核心包       |
-
-```
-可自行按照 Furion 框架脚手架初始化工程，然后引用此包即可，其他层配置见源代码。🔊此包会紧跟Furion版本更新而更新。
-```
-
-### 🍀 框架脚手架
-
-|                                                                 模板类型                                                                           | 名称                              |                                                                                 版本                                                                                                     | 描述                   |
-| :------------------------------------------------------------------------------------------------------------------------------------------------: | -------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | ---------------------- |
-|       [![nuget](https://shields.io/badge/-Nuget-yellow?cacheSeconds=604800)](https://www.nuget.org/packages/Furion.Admin.NET.Template.App/)        | Furion.Admin.NET.Template.App    |              [![nuget](https://img.shields.io/nuget/v/Furion.Admin.NET.Template.App.svg?cacheSeconds=10800)](https://www.nuget.org/packages/Furion.Admin.NET.Template.App/)              | Admin.NET 框架模板     |
-
-```
-打开 CMD 或 Powershell 执行dotnet命令
-
-1、安装脚手架
-dotnet new --install Furion.Admin.NET.Template.App
-
-2、更新脚手架
-dotnet new --install Furion.Admin.NET.Template.App
-
-3、使用脚手架（生成之后推荐将所有的 nuget 包更新到最新版本）
-dotnet new Admin.NET -n 你的项目名称
-
-其实安装之后可以直接在VS里面进行可视化及创建工程
-```
-
-### 🐱‍🚀 模块/插件化开发
-
-* 按照 Furion 框架脚手架或者本框架脚手架初始化工程。
-* 创建自己业务的 Dll 插件库工程，引用 Furion.Extras.Admin.NET 包，编写自己的业务代码包括实体、服务等。
-* 在 XXX.Web.Entry 层里面的 appsettings.json 配置此插件 Dll 的路径。[配置文档说明](https://dotnetchina.gitee.io/furion/docs/module-dev)
-* 此时框架和自己业务实体可以同时做数据迁移，耦合度最低。也可以自行将数据库分系统库、业务库等。
-* 将自己业务前端代码包括view和api文件复制到前端工程相应目录即可。
-
-`仓库内 plugin 文件内为本框架模块/插件开发事例，供参考。`
-
-### 🎭 插件市场
-
-`欢迎大家勇于参与开源，贡献自己的应用插件，你我都可以做到，.NET正在迅速崛起，我们都是历史的见证人💪`
-
-【核酸采集系统】
-
-<table>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/covid19-1.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/covid19-2.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/covid19-3.png"/></td>
-    </tr>
-</table>
-
-### 🎁 前后端一体化
-
-将后台提供的Swagger接口直接生成对应前端的API文件，前端再也不需要手撸一个个的对应后后的API定义了。后台接口更新后，只需要重新生成一遍覆盖即可。
-
-详细教程见群里面视频文件【Fur课堂_20201028前后端（第1部份）.mp4】、【Fur课堂_20201028前后端（第2部份）.mp4】
-
-<table>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/bf-01.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/bf-02.png"/></td>
-    </tr>
-</table>
-
-`增加了Vue3.0、Vite、Antd、TypeScript模式的UI框架，希望大家来一来完善各页面应用，感谢💖💖💖`
-
-### 😎 衍生版本
-
-【Admin.NET】隆重推出SqlSugar版本
-
-- 👉 SqlSugar版本：[https://gitee.com/zhengguojing/admin-net-sqlsugar](https://gitee.com/zhengguojing/admin-net-sqlsugar)
-
-`如果集成其他ORM，请参照各自操作使用说明。系统默认EFCore不会处理其他ORM实体等，请自行处理。`
-
-### 👑 多租户简介
-
-框架目前采用基于共享数据库TenantId的方式实现，后期可无缝迁移转换到基于多库或者Schema模式。
-
-* 平台超管对租户进行增删改查操作，对各租户进行权限（菜单）的分配，租户管理员密码默认123456
-* 租户管理员根据平台分配的权限再对本租户内用户进一步权限划分
-* 针对新开发的业务功能，平台超管可以针对性分配给各租户（比如某租户购买后才有此功能菜单等） 
-
-### 🥞 更新日志
-
-更新日志 [点击查看](https://gitee.com/zuohuaijun/Admin.NET/commits/master)
-
-### 🍿 在线体验
-
-`感谢安徽合肥的网友🎉微信号Protear🎉提供的云服务器`
-
-- 体验地址：[http://www.dilon.vip:8866/](http://www.dilon.vip:8866/)
-- 开发者租户：用户名：superAdmin，密码：123456
-- 公司1租户： 公司1租户管理员（用户名：zuohuaijun@163.com 密码：123456），公司1租户普通用户（用户名：dilon@163.com 密码：123456）           
-
-### 🍄 快速启动
-
-需要安装：VS2019（最新版）、npm或yarn（最新版）
-
-* 启动后台：打开backend/Admin.NET.sln解决方案，直接运行（F5）即可启动（数据库默认SQLite）
-* 启动前端：VSCode或HBuilder，打开frontend文件夹，进行依赖下载，运行npm install或yarn命令，再运行npm run serve或 yarn run serve
-* 浏览器访问：`http://localhost:81` （默认前端端口为：81，后台端口为：5566）
-<table>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/f1.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/f0.png"/></td>
-    </tr>
-</table>
-
-### 🏀 分层说明
-```
-├─Admin.NET.Application             ->业务应用层，在此写您具体业务代码
-├─Admin.NET.Core                    ->框架核心层
-├─Admin.NET.Database.Migrations     ->架构维护层，主要存放迁移中间文件
-├─Admin.NET.EntityFramework.Core    ->EF Core配置层，主要配置数据库及相关
-├─Admin.NET.Web.Core                ->Web核心层，主要是服务注册及鉴权
-├─Admin.NET.Web.Entry               ->Web入口层/启动层，可任意更换
-├─Furion.Extras.Admin.NET           ->封装的框架核心层，已做成NuGet包
-注：源码直接开发建议自己的业务代码直接写在【Admin.NET.Application】层里面，可随框架升级减少冲突。或直接用模板脚手架创建自己的工程。
-```
-
-### 📖 帮助文档
-
-👉后台文档：
-* Furion后台框架文档 [https://dotnetchina.gitee.io/furion/docs/source](https://dotnetchina.gitee.io/furion/docs/source)
-
-👉前端文档：
-* 小诺前端业务文档 [https://doc.xiaonuo.vip/snowy_vue/bizs/](https://doc.xiaonuo.vip/snowy_vue/bizs/)
-
-1. Ant Design Pro of Vue 使用文档 [https://pro.antdv.com/docs/getting-started](https://pro.antdv.com/docs/getting-started)
-2. Ant Design of Vue 组件文档 [https://www.antdv.com/docs/vue/getting-started-cn/](https://www.antdv.com/docs/vue/getting-started-cn/)
-3. Vue 开发文档 [https://cn.vuejs.org/v2/guide/](https://cn.vuejs.org/v2/guide/)
-
-👉快捷部署到 linux 文档：
-
-- [Admin.NET 快捷部署到 linux 方案 | Wynnyo Blog](http://wynnyo.com/archives/publish-linux)
-- [本地 md文件](./build/readme.md)
-
-👉代码生成器使用教程：
-
-- [本地 md文件](./doc/代码生成器使用.md)
-
-👉fork项目后该这样做后续开发：
-
-- [本地 md文件](./doc/fork项目后该这样做后续开发.md)
-
-👉关于signalr使用：
-
--  [wynnyo/vue-signalr: Signalr client for vue js (github.com)](https://github.com/wynnyo/vue-signalr)
-
-😎通读以上文档，您就可以玩转本项目了（其实您已经是高手了）。项目使用上的问题，文档中基本都可以找到答案。
-
+[![Stargazers over time](https://whnb.wang/stars/zuohuaijun/Admin.NET)](https://whnb.wang)
 
 ### 🍎 效果图
 
@@ -208,17 +52,92 @@ dotnet new Admin.NET -n 你的项目名称
     </tr>
 </table>
 
+### 🐱‍🚀 模块/插件化开发
+
+* 按照 Furion 框架脚手架或者本框架脚手架初始化工程。
+* 创建自己业务的 Dll 插件库工程，引用 Furion.Extras.Admin.NET 包，编写自己的业务代码包括实体、服务等。
+* 在 XXX.Web.Entry 层里面的 appsettings.json 配置此插件 Dll 的路径。[配置文档说明](https://dotnetchina.gitee.io/furion/docs/module-dev)
+* 此时框架和自己业务实体可以同时做数据迁移，耦合度最低。也可以自行将数据库分系统库、业务库等。
+* 将自己业务前端代码包括view和api文件复制到前端工程相应目录即可。
+
+`仓库内 plugin 文件内为本框架模块/插件开发事例，供参考。`
+
+### 🎭 插件市场
+
+`欢迎大家勇于参与开源，贡献自己的应用插件，你我都可以做到，.NET正在迅速崛起，我们都是历史的见证人💪`
+
+【核酸采集系统】
+
+<table>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/covid19-1.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/covid19-2.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/covid19-3.png"/></td>
+    </tr>
+</table>
+
+### 🎁 前后端一体化
+
+将后台提供的Swagger接口直接生成对应前端的API文件，前端再也不需要手撸一个个的对应后后的API定义了。后台接口更新后，只需要重新生成一遍覆盖即可。
+
+<table>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/bf-01.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/bf-02.png"/></td>
+    </tr>
+</table>
+
+### 👑 多租户简介
+
+框架目前采用基于共享数据库TenantId的方式实现，后期可无缝迁移转换到基于多库或者Schema模式。
+
+* 平台超管对租户进行增删改查操作，对各租户进行权限（菜单）的分配，租户管理员密码默认123456
+* 租户管理员根据平台分配的权限再对本租户内用户进一步权限划分
+* 针对新开发的业务功能，平台超管可以针对性分配给各租户（比如某租户购买后才有此功能菜单等） 
+
+### 🥞 更新日志
+
+更新日志 [点击查看](https://gitee.com/zuohuaijun/Admin.NET/commits/master)
+
+### 🍿 在线体验
+
+- 开发者租户：用户名：superAdmin，密码：123456
+- 公司1租户： 公司1租户管理员（用户名：zuohuaijun@163.com 密码：123456），公司1租户普通用户（用户名：dilon@163.com 密码：123456）           
+
+- 地址1：[http://1.117.110.74:8080/](http://1.117.110.74:8080/) PS: 1m带宽小水管，首次加载20左右~
+- 地址2： [http://xwxtest01.wogof.com:9001/](http://xwxtest01.wogof.com:9001/)
+#### 演示用户：
+- 超级管理员:superAdmin
+- 系统管理员:admin
+- 普通用户:zuohuaijun
+- 以上默认密码：123456
+#### 租户演示用户：
+- 系统管理员:zuohuaijun@163.com
+- 普通用户:dilon@163.com
+- 以上默认密码：123456
+
+### 🏀 分层说明
+```
+├─Admin.NET.Application             ->业务应用层，在此写您具体业务代码
+├─Admin.NET.Core                    ->框架核心层，实体类
+├─Admin.NET.Database.Migrations     ->架构维护层，主要存放迁移中间文件
+├─Admin.NET.EntityFramework.Core    ->EF Core配置层，主要配置数据库及相关
+├─Admin.NET.Web.Core                ->Web核心层，主要是服务注册及鉴权
+├─Admin.NET.Web.Entry               ->Web入口层/启动层，可任意更换
+├─Furion.Extras.Admin.NET           ->封装的框架核心层
+```
+
 ### 🍖 详细功能
 
-1. 主控面板、控制台页面，可进行工作台，分析页，统计等功能的展示。
-2. 用户管理、对企业用户和系统管理员用户的维护，可绑定用户职务，机构，角色，数据权限等。
-3. 应用管理、通过应用来控制不同维度的菜单展示。
-4. 机构管理、公司组织架构维护，支持多层级结构的树形结构。
-5. 职位管理、用户职务管理，职务可作为用户的一个标签，职务目前没有和权限等其他功能挂钩。
-6. 菜单管理、菜单目录，菜单，和按钮的维护是权限控制的基本单位。
-7. 角色管理、角色绑定菜单后，可限制相关角色的人员登录系统的功能范围。角色也可以绑定数据授权范围。
-8. 字典管理、系统内各种枚举类型的维护。
-9. 访问日志、用户的登录和退出日志的查看和管理。
+ 1. 主控面板、控制台页面，可进行工作台，分析页，统计等功能的展示。
+ 2. 用户管理、对企业用户和系统管理员用户的维护，可绑定用户职务，机构，角色，数据权限等。
+ 3. 应用管理、通过应用来控制不同维度的菜单展示。
+ 4. 机构管理、公司组织架构维护，支持多层级结构的树形结构。
+ 5. 职位管理、用户职务管理，职务可作为用户的一个标签，职务目前没有和权限等其他功能挂钩。
+ 6. 菜单管理、菜单目录，菜单，和按钮的维护是权限控制的基本单位。
+ 7. 角色管理、角色绑定菜单后，可限制相关角色的人员登录系统的功能范围。角色也可以绑定数据授权范围。
+ 8. 字典管理、系统内各种枚举类型的维护。
+ 9. 访问日志、用户的登录和退出日志的查看和管理。
 10. 操作日志、用户的操作业务的日志的查看和管理。
 11. 服务监控、服务器的运行状态，CPU、内存、网络等信息数据的查看。
 12. 在线用户、当前系统在线用户的查看。
@@ -229,77 +148,123 @@ dotnet new Admin.NET -n 你的项目名称
 17. 邮件发送、发送邮件功能。
 18. 短信发送、短信发送功能，可使用阿里云sms，腾讯云sms，支持拓展。
 
+### 📖 帮助文档
 
-### 💪 数据库操作
+* 关注公众号，进入公众号回复【手摸手】获取文档，100%成功进入调试
+* 公众号中点外卖获取的收益用于反馈给提交PR的朋友
+* 第一次反馈：2022年1月15日，给前5名PR的朋友送出新年小礼品（不足部分[@JerryFox](https://gitee.com/JerryFox)提供资金支持）
+* <img src="https://gitee.com/zuohuaijun/Admin.NET/raw/master/doc/img/shoumoshou_qrcode.png" width="300px" />
+👉后台文档：
 
-本框架ORM默认采用EF Core开发，加上拓展比如SqlSugar，理论上兼容并支持所有类型数据库。😜
+* Furion后台框架文档 [https://dotnetchina.gitee.io/furion/docs/source](https://dotnetchina.gitee.io/furion/docs/source)
 
-【MySQL】
+👉前端文档：
+* 小诺前端业务文档 [https://doc.xiaonuo.vip/snowy_vue/bizs/](https://doc.xiaonuo.vip/snowy_vue/bizs/)
 
-1. Admin.NET.EntityFramework.Core 项目安装 ``` Pomelo.EntityFrameworkCore.MySql，Nuget 需安装 5.0 版本 (支持 MySql 5.x +)  MySql.EntityFrameworkCore：支持 (MySql 8.x +) ```
-2. DefaultDbContext.cs 指定 DbProvider , ```[AppDbContext("DefaultConnection", DbProvider.MySql)]```
-3. dbsettings.json 配置 "DefaultConnection": ```"Data Source=localhost;Database=Admin.NET;User ID=root;Password=000000;pooling=true;port=3306;sslmode=none;CharSet=utf8;"```
-4. 打开程序包管理器控制台，默认项目Admin.NET.Database.Migrations 执行命令:```Add-Migration Init和update-database```
+1. Ant Design Pro of Vue 使用文档 [https://pro.antdv.com/docs/getting-started](https://pro.antdv.com/docs/getting-started)
+2. Ant Design of Vue 组件文档 [https://www.antdv.com/docs/vue/getting-started-cn/](https://www.antdv.com/docs/vue/getting-started-cn/)
+3. Vue 开发文档 [https://cn.vuejs.org/v2/guide/](https://cn.vuejs.org/v2/guide/)
 
-【SQLServer】
+👉快捷部署到 linux 文档：
 
-1. Admin.NET.EntityFramework.Core 项目安装 ``` Microsoft.EntityFrameworkCore.SqlServer ```
-2. DefaultDbContext.cs 指定 DbProvider , ```[AppDbContext("DefaultConnection", DbProvider.SqlServer)]```
-3. dbsettings.json 配置 "DefaultConnection": ```"Server=localhost;Database=Admin.NET;User=sa;Password=000000;MultipleActiveResultSets=True;"```
-4. 打开程序包管理器控制台，默认项目Admin.NET.Database.Migrations 执行命令:```Add-Migration Init 和 update-database```
+- [Admin.NET 快捷部署到 linux 方案 | Wynnyo Blog](http://wynnyo.com/archives/publish-linux)
+- [本地 md文件](./build/readme.md)
+
+👉代码生成器使用教程：
+
+- [本地 md文件](./doc/代码生成器使用.md)
+
+👉fork项目后该这样做后续开发：
+
+- [本地 md文件](./doc/fork项目后该这样做后续开发.md)
+
+👉关于signalr使用：
+
+-  [wynnyo/vue-signalr: Signalr client for vue js (github.com)](https://github.com/wynnyo/vue-signalr)
+
+😎通读以上文档，您就可以玩转本项目了（其实您已经是高手了）。项目使用上的问题，文档中基本都可以找到答案。
+
+### 🚗 前端优化（可选）
+
+经过 [12df9c7](https://gitee.com/zuohuaijun/Admin.NET/commit/12df9c7980007afb3bcadfe10777c3b36c0ca17d)的优化之后，打包从200多个文件，到现在的十多个文件。
+但是js的chunk-vendors文件大小还是高达5.8M。各位小伙伴可以通过以下方式来继续深度优化。
+* 安装`webpack-bundle-analyzer`来分析打包文件方法(此步骤可忽略)：
+
+``` 
+//1.安装依赖
+npm install --save-dev webpack-bundle-analyzer
+//2.配置
+vue.config.js:
+  chainWebpack: (config) => {
+    config
+    .plugin('webpack-bundle-analyzer')
+    .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+//3.启动 or 打包
+```
+
+* 移除表单设计器。主要移除`k-form-design`的依赖，此优化节省主js(chunk.vendors)体积`2.3M`,节省gizp体积`700kb`
 
 ```
-提示：其他类型数据库依次类推，首先添加EF的Core版包，然后指定数据库类型，修改数据库连接字符串，执行EF迁移命令即可。
+1.main.js注释k-form-design相关
+2.注释src/views/system/formDesign/index..vue 所有代码
 ```
-【数据库初始化操作】
-GIT完成后默认为SqlLite数据库，使用其他数据库可通过基于EF Core的CodeFirst初始化,添加好拓展包，创建好空数据库，设置好数据库信息和后，即可通过此操作可进行数据库初始化操作。
-1. 启动项目设置为 XXXX.Web.Entry
-2. 程序包管理控制台默认项目设置为 XXXX.Database.Migrations
-3. 依次输入并回车执行
-```
-    Add-Migration v1.0.0 -Context DefaultDbContext
-    update-database v1.0.0 -Context DefaultDbContext 
-    Add-Migration v1.0.0 -Context MultiTenantDbContext
-    update-database v1.0.0 -Context MultiTenantDbContext
-```
-至此完成初始数据部署。后期添加/修改自己业务的数据类后通过更新版本号来更新数据库即可。
-```
-    Add-Migration v1.0.1 -Context DefaultDbContext
-    update-database v1.0.1 -Context DefaultDbContext 
-    Add-Migration v1.0.1 -Context MultiTenantDbContext
-    update-database v1.0.1 -Context MultiTenantDbContext
-```
-【EF批量操作】
 
-使用 Zack.EFCore.Batch [https://hub.fastgit.org/yangzhongke/Zack.EFCore.Batch](https://hub.fastgit.org/yangzhongke/Zack.EFCore.Batch) 安装对应包即可
-1. MSSQL：Zack.EFCore.Batch.MSSQL
-2. MySql：Zack.EFCore.Batch.MySQL.Pomelo
-3. Npgsql：Zack.EFCore.Batch.Npgsql
-4. Oracle：Zack.EFCore.Batch.Oracle
-5. Sqlite：Zack.EFCore.Batch.Sqlite
+* 移除`antv`，以及`viser-vue`(引入了antv/g2)。此优化节省了主js(chunk.vendors)体积`1.3M`,节省gizp体积`400kb`
 
 ```
-提示：记得修改Admin.NET.EntityFramework.Core层里面Startup注册服务类型 opt.UseBatchEF_Sqlite()， 改成相应得库类型。
+1.全局搜索antv，删除components中使用antv的组件(MiniArea、MiniBar、TagCloud)
+2.注释src\components\index.js中相关组件的引用
+3.移除src\core\lazy_use.js的viser-vue相关引用和use
+4.移除src\core\use.js的viser-vue相关引用和use
+5.移除package.json的antv和viser-vue。
+6.重新 npm i
+```
+
+目前，仅仅移除掉表单设计器和antv，主js(chunk.vendors)体积为**2.2M**，gzip体积为**680kb**。
+
+### 🥇版本号风格
+
+GNU 风格版本号
+```
+主版本号 . 子版本号 [. 修正版本号[ build- 编译版本号 ]]
+英文对照 : Major_Version_Number.Minor_Version_Number[.Revision_Number[.Build_Number]]
+示例：1.2.0 build-1234
+```
+GNU 风格的版本号管理策略
+```
+1.当项目在进行了局部修改或 bug 修正时，主版本号和子版本号都不变，修正版本号加 1;
+2.当项目在原有的基础上增加了部分功能时，主版本号不变，子版本号加 1，修正版本号复位为 0，因而可以被忽略掉 ;
+3.当项目在进行了重大修改或局部修正累积较多，而导致项目整体发生全局变化时，主版本号加 1;
+4.另外，编译版本号一般是编译器在编译过程中自动生成的，我们只定义其格式，并不进行人为控制 .
 ```
 
 ### ⚡ 近期计划
 
 - [x] 集成多租户功能
 - [x] 集成代码生成器
-- [x] 集成导入导出
+- [x] 集成Excel导入导出
 - [x] 在线用户及黑名单
+- [x] 集成对象存储(Object Storage Service,简称OSS)
+- [x] 上传下载
 - [ ] 邮件发送
 - [ ] 短信发送
 - [ ] 集成微信开发
 - [ ] 实现电商应用插件
 - [ ] 集成工作流
 
+### 😎 衍生版本
+
+【Admin.NET】隆重推出SqlSugar版本
+
+- 👉 SqlSugar版本：[https://gitee.com/zhengguojing/admin-net-sqlsugar](https://gitee.com/zhengguojing/admin-net-sqlsugar)
+
+`如果集成其他ORM，请参照各自操作使用说明。系统默认EFCore不会处理其他ORM实体等，请自行处理。`
+
 ### 🥦 补充说明
 
-* 基于.NET 5平台 Furion 开发框架与小诺Antd Vue版本相结合，实时跟随基架升级而升级！
+* 基于.NET 6平台 Furion 开发框架与小诺Antd Vue版本相结合，实时跟随基架升级而升级！
 * 持续集百家所长，完善与丰富本框架基础设施，为.NET生态增加一种选择！
 * 后期会推出基于此框架的相关应用场景案例，提供给大家使用！
-* 有问题讨论的小伙伴可加群一起学习讨论。 QQ群1【87333204】 QQ群2【252381476】
 
 ### 🍻 贡献代码
 

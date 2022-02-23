@@ -10,11 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OnceMi.AspNetCore.OSS;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Furion.Extras.Admin.NET.Service
@@ -59,7 +55,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysFileInfo/page")]
-        public async Task<dynamic> QueryFileInfoPageList([FromQuery] FilePageInput input)
+        public async Task<PageResult<FileOutput>> QueryFileInfoPageList([FromQuery] FilePageInput input)
         {
             var fileBucket = !string.IsNullOrEmpty(input.FileBucket?.Trim());
             var fileOriginName = !string.IsNullOrEmpty(input.FileOriginName?.Trim());
@@ -67,9 +63,9 @@ namespace Furion.Extras.Admin.NET.Service
                                              .Where(input.FileLocation > 0, u => u.FileLocation == input.FileLocation)
                                              .Where(fileBucket, u => EF.Functions.Like(u.FileBucket, $"%{input.FileBucket.Trim()}%"))
                                              .Where(fileOriginName, u => EF.Functions.Like(u.FileOriginName, $"%{input.FileOriginName.Trim()}%"))
-                                             .Select(u => u.Adapt<FileOutput>())
-                                             .ToPagedListAsync(input.PageNo, input.PageSize);
-            return XnPageResult<FileOutput>.PageResult(files);
+                                             .ProjectToType<FileOutput>()
+                                             .ToADPagedListAsync(input.PageNo, input.PageSize);
+            return files;
         }
 
         /// <summary>
@@ -125,7 +121,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysFileInfo/detail")]
-        public async Task<SysFile> GetFileInfo([FromQuery] QueryFileInoInput input)
+        public async Task<SysFile> GetFileInfo([FromQuery] QueryFileInfoInput input)
         {
             var file = await _sysFileInfoRep.FirstOrDefaultAsync(u => u.Id == input.Id);
             if (file == null)
@@ -139,7 +135,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysFileInfo/preview")]
-        public async Task<IActionResult> PreviewFileInfo([FromQuery] QueryFileInoInput input)
+        public async Task<IActionResult> PreviewFileInfo([FromQuery] QueryFileInfoInput input)
         {
             return await DownloadFileInfo(input);
         }
@@ -152,8 +148,10 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysFileInfo/upload")]
         public async Task<long> UploadFileDefault(IFormFile file)
         {
+            //对象存储的key
+            const string key = "UploadFile:Default";
             // 可以读取系统配置来决定将文件存储到什么地方
-            return await UploadFile(file, _configuration["UploadFile:Default:path"], FileLocation.LOCAL);
+            return await UploadFile(file, key, FileLocation.LOCAL);
         }
 
         /// <summary>
@@ -162,7 +160,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysFileInfo/download")]
-        public async Task<IActionResult> DownloadFileInfo([FromQuery] QueryFileInoInput input)
+        public async Task<IActionResult> DownloadFileInfo([FromQuery] QueryFileInfoInput input)
         {
             var file = await GetFileInfo(input);
             var fileName = HttpUtility.UrlEncode(file.FileOriginName, Encoding.GetEncoding("UTF-8"));
@@ -199,7 +197,8 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysFileInfo/uploadAvatar")]
         public async Task<long> UploadFileAvatar(IFormFile file)
         {
-            return await UploadFile(file, _configuration["UploadFile:Avatar:path"]);
+            const string key = "UploadFile:Avatar";
+            return await UploadFile(file, key);
         }
 
         /// <summary>
@@ -210,7 +209,8 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysFileInfo/uploadDocument")]
         public async Task UploadFileDocument(IFormFile file)
         {
-            await UploadFile(file, _configuration["UploadFile:Document:path"]);
+            const string key = "UploadFile:Document";
+            await UploadFile(file, key);
         }
 
         /// <summary>
@@ -221,22 +221,32 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysFileInfo/uploadShop")]
         public async Task UploadFileShop(IFormFile file)
         {
-            await UploadFile(file, _configuration["UploadFile:Shop:path"]);
+            const string key = "UploadFile:Shop";
+            await UploadFile(file, key);
         }
 
         /// <summary>
         /// 上传文件
         /// </summary>
         /// <param name="file"></param>
-        /// <param name="pathType"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
-        private static async Task<long> UploadFile(IFormFile file, string pathType)
+        [NonAction]//用户可以自定义要用的
+        public async Task<long> UploadFile(IFormFile file, string key)
         {
-            var filePath = Path.Combine(App.WebHostEnvironment.WebRootPath, pathType);
+            string path = _configuration[$"{key}:path"];
+            var filePath = Path.Combine(App.WebHostEnvironment.WebRootPath, path);
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(filePath);
 
+            var allowContentType = _configuration.GetSection($"{key}:contentType").Get<IEnumerable<string>>();
+
+            if (!allowContentType.Contains(file.ContentType)) throw Oops.Oh(ErrorCode.D8001);
+
+            var allowMaxSize = long.Parse(_configuration[$"{key}:maxSize"]);
             var fileSizeKb = (long)(file.Length / 1024.0); // 文件大小KB
+            if (fileSizeKb > allowMaxSize) throw Oops.Oh(ErrorCode.D8002);
+
             var originalFilename = file.FileName; // 文件原始名称
             var fileSuffix = Path.GetExtension(file.FileName).ToLower(); // 文件后缀
 
@@ -249,7 +259,7 @@ namespace Furion.Extras.Admin.NET.Service
                 FileOriginName = originalFilename,
                 FileSuffix = fileSuffix.TrimStart('.'),
                 FileSizeKb = fileSizeKb.ToString(),
-                FilePath = pathType
+                FilePath = path
             }.InsertNowAsync();
 
             var finalName = newFile.Entity.Id + fileSuffix; // 生成文件的最终名称
@@ -266,12 +276,20 @@ namespace Furion.Extras.Admin.NET.Service
         /// 上传文件
         /// </summary>
         /// <param name="file">文件</param>
-        /// <param name="pathType">存储路径</param>
+        /// <param name="key">对象存储键</param>
         /// <param name="fileLocation">文件存储位置</param>
         /// <returns></returns>
-        private async Task<long> UploadFile(IFormFile file, string pathType, FileLocation fileLocation)
+        private async Task<long> UploadFile(IFormFile file, string key, FileLocation fileLocation)
         {
+            string path = _configuration[$"{key}:path"];
+
+            var allowContentType = _configuration.GetSection($"{key}:contentType").Get<IEnumerable<string>>();
+            if (!allowContentType.Contains(file.ContentType)) throw Oops.Oh(ErrorCode.D8001);
+
+            var allowMaxSize = long.Parse(_configuration[$"{key}:maxSize"]);
             var fileSizeKb = (long)(file.Length / 1024.0); // 文件大小KB
+            if (fileSizeKb > allowMaxSize) throw Oops.Oh(ErrorCode.D8002);
+
             var originalFilename = file.FileName; // 文件原始名称
             var fileSuffix = Path.GetExtension(file.FileName).ToLower(); // 文件后缀
 
@@ -284,7 +302,7 @@ namespace Furion.Extras.Admin.NET.Service
                 FileOriginName = originalFilename,
                 FileSuffix = fileSuffix.TrimStart('.'),
                 FileSizeKb = fileSizeKb.ToString(),
-                FilePath = pathType
+                FilePath = path
             }.InsertNowAsync();
 
             var finalName = newFile.Entity.Id + fileSuffix; // 生成文件的最终名称
@@ -292,25 +310,25 @@ namespace Furion.Extras.Admin.NET.Service
             switch (fileLocation)
             {
                 case FileLocation.ALIYUN:
-                    var filePath = string.Concat(pathType, "/", finalName);
+                    var filePath = string.Concat(path, "/", finalName);
                     var stream = file.OpenReadStream();
                     await _oSSServiceFactory.Create("aliyun").PutObjectAsync(bucketName, filePath, stream);
                     break;
 
                 case FileLocation.TENCENT:
-                    var filePath1 = string.Concat(pathType, "/", finalName);
+                    var filePath1 = string.Concat(path, "/", finalName);
                     var stream1 = file.OpenReadStream();
                     await _oSSServiceFactory.Create("qcloud").PutObjectAsync(bucketName, filePath1, stream1);
                     break;
 
                 case FileLocation.MINIO:
-                    var filePath2 = string.Concat(pathType, "/", finalName);
+                    var filePath2 = string.Concat(path, "/", finalName);
                     var stream2 = file.OpenReadStream();
                     await _oSSServiceFactory.Create().PutObjectAsync(bucketName, filePath2, stream2);
                     break;
 
                 default:
-                    var filePath4 = Path.Combine(App.WebHostEnvironment.WebRootPath, pathType);
+                    var filePath4 = Path.Combine(App.WebHostEnvironment.WebRootPath, path);
                     if (!Directory.Exists(filePath4))
                         Directory.CreateDirectory(filePath4);
                     using (var stream4 = File.Create(Path.Combine(filePath4, finalName)))

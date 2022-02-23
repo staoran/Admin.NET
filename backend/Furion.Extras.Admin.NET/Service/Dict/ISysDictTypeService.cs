@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -14,15 +12,13 @@ namespace Furion.Extras.Admin.NET.Service
 
         Task<List<DictTreeOutput>> GetDictTree();
 
-        Task<dynamic> GetDictType([FromQuery] QueryDictTypeInfoInput input);
+        Task<SysDictType> GetDictType([FromQuery] QueryDictTypeInfoInput input);
 
-        Task<dynamic> GetDictTypeDropDown([FromQuery] DropDownDictTypeInput input);
+        Task<List<SysDictData>> GetDictTypeDropDown([FromQuery] DropDownDictTypeInput input);
 
-        Task<dynamic> GetDictTypeList();
+        Task<List<SysDictType>> GetDictTypeList();
 
-        Task<dynamic> QueryDictTypePageListV3(DictTypePageInput input);
-
-        Task<dynamic> QueryDictTypePageList([FromQuery] DictTypePageInput input);
+        Task<PageResult<SysDictType>> QueryDictTypePageList([FromQuery] DictTypePageInput input);
 
         Task UpdateDictType(UpdateDictTypeInput input);
     }

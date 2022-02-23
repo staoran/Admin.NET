@@ -1,12 +1,9 @@
-﻿using Furion.DatabaseAccessor;
+using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -40,7 +37,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysExLog/page")]
-        public async Task<dynamic> QueryExLogPageList([FromQuery] ExLogPageInput input)
+        public async Task<PageResult<ExLogOutput>> QueryExLogPageList([FromQuery] ExLogPageInput input)
         {
             var name = !string.IsNullOrEmpty(input.Name?.Trim());
             var className = !string.IsNullOrEmpty(input.ClassName?.Trim());
@@ -55,9 +52,9 @@ namespace Furion.Extras.Admin.NET.Service
                                            .Where(searchBeginTime, u => u.ExceptionTime >= DateTime.Parse(input.SearchBeginTime.Trim()) &&
                                                                    u.ExceptionTime <= DateTime.Parse(input.SearchEndTime.Trim()))
                                            .OrderByDescending(u => u.Id)
-                                           .Select(u => u.Adapt<ExLogOutput>())
-                                           .ToPagedListAsync(input.PageNo, input.PageSize);
-            return XnPageResult<ExLogOutput>.PageResult(exLogs);
+                                           .ProjectToType<ExLogOutput>()
+                                           .ToADPagedListAsync(input.PageNo, input.PageSize);
+            return exLogs;
         }
 
         /// <summary>
@@ -67,8 +64,7 @@ namespace Furion.Extras.Admin.NET.Service
         [HttpPost("/sysExLog/delete")]
         public async Task ClearExLog()
         {
-            var exLogs = await _sysExLogRep.Entities.ToListAsync();
-            await _sysExLogRep.DeleteAsync(exLogs);
+            await _sysExLogRep.Context.DeleteRangeAsync<SysLogEx>();
         }
     }
 }

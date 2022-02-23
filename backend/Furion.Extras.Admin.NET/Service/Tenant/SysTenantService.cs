@@ -7,9 +7,6 @@ using Furion.FriendlyException;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -42,15 +39,15 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysTenant/page")]
-        public async Task<dynamic> QueryTenantPageList([FromQuery] TenantPageInput input)
+        public async Task<PageResult<TenantOutput>> QueryTenantPageList([FromQuery] TenantPageInput input)
         {
             var name = !string.IsNullOrEmpty(input.Name?.Trim());
             var host = !string.IsNullOrEmpty(input.Host?.Trim());
             var tenants = await _sysTenantRep.DetachedEntities
                                              .Where((name, u => EF.Functions.Like(u.Name, $"%{input.Name.Trim()}%")))
-                                             .Select(u => u.Adapt<TenantOutput>())
-                                             .ToPagedListAsync(input.PageNo, input.PageSize);
-            return XnPageResult<TenantOutput>.PageResult(tenants);
+                                             .ProjectToType<TenantOutput>()
+                                             .ToADPagedListAsync(input.PageNo, input.PageSize);
+            return tenants;
         }
 
         /// <summary>
@@ -238,7 +235,8 @@ namespace Furion.Extras.Admin.NET.Service
         {
             var tenantAdminUser = await GetTenantAdminUser(input.Id);
             if (tenantAdminUser == null) return;
-            var roleIds = await _sysUserRoleService.GetUserRoleIdList(tenantAdminUser.Id);
+            // 这里传false，就不会走全局tenantId过滤。true的话查不到数据，当前功能为超级管理员使用
+            var roleIds = await _sysUserRoleService.GetUserRoleIdList(tenantAdminUser.Id, false);
             input.Id = roleIds[0]; // 重置租户管理员角色Id
             await _sysRoleMenuService.GrantMenu(input);
         }

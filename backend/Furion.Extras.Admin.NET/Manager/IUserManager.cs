@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Furion.Extras.Admin.NET
+﻿namespace Furion.Extras.Admin.NET
 {
     public interface IUserManager
     {

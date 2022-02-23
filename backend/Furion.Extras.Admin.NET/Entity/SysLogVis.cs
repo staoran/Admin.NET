@@ -1,6 +1,5 @@
-﻿using Furion.DatabaseAccessor;
+using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -43,7 +42,7 @@ namespace Furion.Extras.Admin.NET
         /// 地址
         /// </summary>
         [Comment("地址")]
-        [MaxLength(100)]
+        [MaxLength(1024)]
         public string Location { get; set; }
 
         /// <summary>
@@ -76,7 +75,7 @@ namespace Furion.Extras.Admin.NET
         /// 访问人
         /// </summary>
         [Comment("访问人")]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Account { get; set; }
     }
 }

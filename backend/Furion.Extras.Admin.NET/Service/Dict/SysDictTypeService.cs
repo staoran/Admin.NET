@@ -7,10 +7,6 @@ using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furion.Extras.Admin.NET.Service
 {
@@ -50,7 +46,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         /// <returns></returns>
         [HttpGet("/sysDictType/page")]
-        public async Task<dynamic> QueryDictTypePageList([FromQuery] DictTypePageInput input)
+        public async Task<PageResult<SysDictType>> QueryDictTypePageList([FromQuery] DictTypePageInput input)
         {
             bool supperAdmin = _userManager.SuperAdmin;
             var code = !string.IsNullOrEmpty(input.Code?.Trim());
@@ -59,8 +55,8 @@ namespace Furion.Extras.Admin.NET.Service
                                   .Where((code, u => EF.Functions.Like(u.Code, $"%{input.Code.Trim()}%")),
                                          (name, u => EF.Functions.Like(u.Name, $"%{input.Name.Trim()}%")))
                                   .Where(u => (u.Status != CommonStatus.DELETED && !supperAdmin) || (u.Status <= CommonStatus.DELETED && supperAdmin)).OrderBy(u => u.Sort)
-                                  .ToPagedListAsync(input.PageNo, input.PageSize);
-            return XnPageResult<SysDictType>.PageResult(dictTypes);
+                                  .ToADPagedListAsync(input.PageNo, input.PageSize);
+            return dictTypes;
         }
 
         /// <summary>
@@ -68,7 +64,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// </summary>
         /// <returns></returns>
         [HttpGet("/sysDictType/list")]
-        public async Task<dynamic> GetDictTypeList()
+        public async Task<List<SysDictType>> GetDictTypeList()
         {
             return await _sysDictTypeRep.DetachedEntities.Where(u => u.Status != CommonStatus.DELETED).ToListAsync();
         }
@@ -80,7 +76,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet("/sysDictType/dropDown")]
-        public async Task<dynamic> GetDictTypeDropDown([FromQuery] DropDownDictTypeInput input)
+        public async Task<List<SysDictData>> GetDictTypeDropDown([FromQuery] DropDownDictTypeInput input)
         {
             var dictType = await _sysDictTypeRep.FirstOrDefaultAsync(u => u.Code == input.Code, false);
             if (dictType == null) throw Oops.Oh(ErrorCode.D3000);
@@ -149,7 +145,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/sysDictType/detail")]
-        public async Task<dynamic> GetDictType([FromQuery] QueryDictTypeInfoInput input)
+        public async Task<SysDictType> GetDictType([FromQuery] QueryDictTypeInfoInput input)
         {
             return await _sysDictTypeRep.FirstOrDefaultAsync(u => u.Id == input.Id, false);
         }

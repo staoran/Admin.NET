@@ -1,7 +1,4 @@
-﻿using Furion.DependencyInjection;
-using System.Collections.Generic;
-
-namespace Furion.Extras.Admin.NET
+﻿namespace Furion.Extras.Admin.NET
 {
     /// <summary>
     /// 验证码输出参数

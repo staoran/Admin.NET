@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using Furion.DatabaseAccessor;
+using Furion.Extras.Admin.NET.Service;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,7 +11,7 @@ namespace Furion.Extras.Admin.NET
     /// </summary>
     [Table("sys_org")]
     [Comment("组织机构表")]
-    public class SysOrg : DEntityTenant
+    public class SysOrg : DEntityTenant, IEntityChangedListener<SysOrg>
     {
         /// <summary>
         /// 父Id
@@ -28,7 +29,7 @@ namespace Furion.Extras.Admin.NET
         /// 名称
         /// </summary>
         [Comment("名称")]
-        [Required, MaxLength(30)]
+        [Required, MaxLength(100)]
         public string Name { get; set; }
 
         /// <summary>
@@ -96,5 +97,11 @@ namespace Furion.Extras.Admin.NET
         /// 多对多中间表（角色数据范围）
         /// </summary>
         public List<SysRoleDataScope> SysRoleDataScopes { get; set; }
+
+        public void OnChanged(SysOrg newEntity, SysOrg oldEntity, DbContext dbContext, Type dbContextLocator, EntityState state)
+        {
+            //删除缓存
+            App.GetService<ISysCacheService>().DelByPatternAsync(CommonConst.CACHE_KEY_DATASCOPE);
+        }
     }
 }

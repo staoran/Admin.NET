@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Furion.Extras.Admin.NET.Service
+﻿namespace Furion.Extras.Admin.NET.Service
 {
     /// <summary>
     /// 通知公告参数
@@ -55,6 +53,6 @@ namespace Furion.Extras.Admin.NET.Service
         /// <summary>
         /// 状态（字典 0草稿 1发布 2撤回 3删除）
         /// </summary>
-        public int Status { get; set; }
+        public NoticeStatus Status { get; set; }
     }
 }

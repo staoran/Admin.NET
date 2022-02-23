@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Furion.Extras.Admin.NET.Service
+﻿namespace Furion.Extras.Admin.NET.Service
 {
     /// <summary>
     /// 字典类型与字典值构造的树
