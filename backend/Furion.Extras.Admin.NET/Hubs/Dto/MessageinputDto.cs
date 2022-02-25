@@ -1,4 +1,6 @@
-﻿namespace Furion.Extras.Admin.NET
+﻿using System.Collections.Generic;
+
+namespace Furion.Extras.Admin.NET
 {
     public class MessageinputDto
     {

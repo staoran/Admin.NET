@@ -1,4 +1,6 @@
-﻿namespace Furion.Extras.Admin.NET.Service
+﻿using System.Collections.Generic;
+
+namespace Furion.Extras.Admin.NET.Service
 {
     public class XnCodeGenOutput
     {

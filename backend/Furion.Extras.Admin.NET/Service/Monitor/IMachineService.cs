@@ -1,4 +1,6 @@
-﻿namespace Furion.Extras.Admin.NET.Service
+﻿using System.Threading.Tasks;
+
+namespace Furion.Extras.Admin.NET.Service
 {
     public interface IMachineService
     {

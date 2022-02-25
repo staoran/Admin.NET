@@ -1,4 +1,5 @@
-﻿using Furion.DatabaseAccessor;
+﻿using System;
+using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations.Schema;

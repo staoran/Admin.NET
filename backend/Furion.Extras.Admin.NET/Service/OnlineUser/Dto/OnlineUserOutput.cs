@@ -1,4 +1,6 @@
-﻿namespace Furion.Extras.Admin.NET
+﻿using System;
+
+namespace Furion.Extras.Admin.NET
 {
     public class OnlineUserOutput
     {

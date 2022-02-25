@@ -1,4 +1,6 @@
-﻿using Furion.DatabaseAccessor;
+﻿using System;
+using System.Collections.Generic;
+using Furion.DatabaseAccessor;
 using Furion.DataEncryption;
 using Furion.DependencyInjection;
 using Furion.DynamicApiController;
@@ -10,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 using UAParser;
 
 namespace Furion.Extras.Admin.NET.Service
@@ -206,18 +210,19 @@ namespace Furion.Extras.Admin.NET.Service
             // 角色信息
             loginOutput.Roles = await _sysRoleService.GetUserRoleList(userId);
 
-            MessageCenter.Send("create:vislog", new SysLogVis
-            {
-                Name = loginOutput.Name,
-                Success = YesOrNot.Y,
-                Message = "V3登录成功",
-                Ip = loginOutput.LastLoginIp,
-                Browser = loginOutput.LastLoginBrowser,
-                Os = loginOutput.LastLoginOs,
-                VisType = LoginType.LOGIN,
-                VisTime = loginOutput.LastLoginTime,
-                Account = loginOutput.Account
-            });
+            await _eventPublisher.PublishAsync(new ChannelEventSource("Create:VisLog",
+                new SysLogVis
+                {
+                    Name = loginOutput.Name,
+                    Success = YesOrNot.Y,
+                    Message = "V3登录成功",
+                    Ip = loginOutput.LastLoginIp,
+                    Browser = loginOutput.LastLoginBrowser,
+                    Os = loginOutput.LastLoginOs,
+                    VisType = LoginType.LOGIN,
+                    VisTime = loginOutput.LastLoginTime,
+                    Account = loginOutput.Account
+                }));
             return loginOutput;
         }
 

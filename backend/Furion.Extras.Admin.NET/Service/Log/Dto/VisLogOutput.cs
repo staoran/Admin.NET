@@ -1,4 +1,6 @@
-﻿namespace Furion.Extras.Admin.NET.Service
+﻿using System;
+
+namespace Furion.Extras.Admin.NET.Service
 {
     /// <summary>
     /// 访问日志参数

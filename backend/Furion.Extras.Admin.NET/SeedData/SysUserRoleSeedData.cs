@@ -1,4 +1,6 @@
-﻿using Furion.DatabaseAccessor;
+﻿using System;
+using System.Collections.Generic;
+using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 
 namespace Furion.Extras.Admin.NET.SeedData

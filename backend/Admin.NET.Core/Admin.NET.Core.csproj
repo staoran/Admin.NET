@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Furion.Extras.Admin.NET\Furion.Extras.Admin.NET.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="obj\Debug\net6.0" />
+  </ItemGroup>
+
 </Project>

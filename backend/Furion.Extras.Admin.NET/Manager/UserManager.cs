@@ -1,4 +1,5 @@
-﻿using Furion.DatabaseAccessor;
+﻿using System.Threading.Tasks;
+using Furion.DatabaseAccessor;
 using Furion.DependencyInjection;
 using Furion.FriendlyException;
 using Microsoft.AspNetCore.Http;

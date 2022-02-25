@@ -1,4 +1,7 @@
-﻿namespace Furion.Extras.Admin.NET.Service
+﻿using System;
+using System.Collections.Generic;
+
+namespace Furion.Extras.Admin.NET.Service
 {
     /// <summary>
     /// 系统通知公告详情参数

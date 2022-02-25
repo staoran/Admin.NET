@@ -1,4 +1,5 @@
-﻿using Furion.DependencyInjection;
+﻿using System.Threading.Tasks;
+using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

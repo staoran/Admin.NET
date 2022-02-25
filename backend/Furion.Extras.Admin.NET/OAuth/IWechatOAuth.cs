@@ -1,4 +1,6 @@
-﻿namespace Furion.Extras.Admin.NET.OAuth
+﻿using System.Threading.Tasks;
+
+namespace Furion.Extras.Admin.NET.OAuth
 {
     public interface IWechatOAuth
     {

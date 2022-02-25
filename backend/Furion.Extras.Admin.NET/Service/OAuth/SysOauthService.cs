@@ -1,4 +1,5 @@
-﻿using Furion.DependencyInjection;
+﻿using System.Threading.Tasks;
+using Furion.DependencyInjection;
 using Furion.DynamicApiController;
 using Furion.Extras.Admin.NET.OAuth;
 using Furion.FriendlyException;

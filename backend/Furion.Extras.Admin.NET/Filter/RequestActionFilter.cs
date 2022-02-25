@@ -1,3 +1,4 @@
+using System;
 using Furion.EventBus;
 using Furion.JsonSerialization;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using UAParser;
 
 namespace Furion.Extras.Admin.NET

@@ -1,3 +1,4 @@
+using System;
 using Furion.DatabaseAccessor;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;

@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Admin.NET.Database.Migrations\Admin.NET.Database.Migrations.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="obj\Debug\net6.0" />
+  </ItemGroup>
+
 </Project>

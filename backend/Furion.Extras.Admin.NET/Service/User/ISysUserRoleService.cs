@@ -1,4 +1,7 @@
-﻿namespace Furion.Extras.Admin.NET.Service
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Furion.Extras.Admin.NET.Service
 {
     public interface ISysUserRoleService
     {

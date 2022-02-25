@@ -1,4 +1,6 @@
-﻿namespace Furion.Extras.Admin.NET
+﻿using System;
+
+namespace Furion.Extras.Admin.NET
 {
     /// <summary>
     /// 禁用操作日志

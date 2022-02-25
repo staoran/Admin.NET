@@ -1,4 +1,6 @@
-﻿using Furion.LinqBuilder;
+﻿using System;
+using System.Linq;
+using Furion.LinqBuilder;
 using System.Linq.Expressions;
 
 namespace Furion.Extras.Admin.NET

@@ -9,7 +9,12 @@ using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
 namespace Furion.Extras.Admin.NET.Service
@@ -62,12 +67,14 @@ namespace Furion.Extras.Admin.NET.Service
         }
 
         /// <summary>
-        /// 分页搜索前
+        /// 附加的查询条件（在 完全自定义的分页搜索 为空的情况下，会附加在自动构建的查询条件之后）
+        /// 自动构建 是通过 复杂查询条件 自动生成的查询条件
         /// </summary>
         protected Func<TSearchDto, Expression<Func<TEntity, bool>>> SearchExpression = null;
 
         /// <summary>
-        /// 自定义分页搜索（复杂查询）
+        /// 完全自定义的分页搜索条件（将不会 自动构建查询条件 和执行 附加的查询条件）
+        /// 如果 复杂查询条件 为空，则默认使用
         /// </summary>
         protected Func<TSearchDto, IQueryable<TEntity>> SearchQueryable = null;
 
@@ -75,7 +82,7 @@ namespace Furion.Extras.Admin.NET.Service
         /// 分页数据返回前处理
         /// </summary>
         /// <returns></returns>
-        protected Action<PageResult<TEntity>> PageListHandle = null;
+        protected Action<PagedList<TEntity>> PageListHandle = null;
 
         /// <summary>
         /// 分页查询
@@ -84,33 +91,33 @@ namespace Furion.Extras.Admin.NET.Service
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         [HttpPost("page")]
-        public virtual async Task<PageResult<TEntity>> PageList(TSearchDto searchDto)
+        public virtual async Task<PageResult<TPageListDto>> PageList(TSearchDto searchDto)
         {
             IQueryable<TEntity> queryable;
-            if (SearchQueryable != null)
+            if (!searchDto.SearchParameters.Any() && SearchQueryable != null)
             {
                 // 通过派生类中定义的委托方法自定义查询条件
                 queryable = SearchQueryable(searchDto);
             }
             else
             {
-                // 动态构建查询条件
+                // 根据复杂查询条件动态构建查询条件
                 GetSearchParameters(searchDto);
                 queryable = Repository.DetachedEntities.Search(searchDto);
 
-                // 有自定义的查询条件
+                // 有自定义的附加查询条件
                 if (SearchExpression != null)
                     queryable = queryable.Where(SearchExpression(searchDto));
             }
 
-            var pageList = await queryable.ToADPagedListAsync(searchDto.PageNo, searchDto.PageSize);
+            PagedList<TEntity> pageList = await queryable.ToPagedListAsync(searchDto.PageNo, searchDto.PageSize);
 
             PageListHandle?.Invoke(pageList);
 
-            return pageList;
+            return PageResult<TEntity>.PageResult<TPageListDto>(pageList);
         }
 
-        #endregion 查询/分页查询
+        #endregion
 
         #region 新增
 
@@ -140,7 +147,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterAddAction?.Invoke(entity.Entity);
         }
 
-        #endregion 新增
+        #endregion
 
         #region 删除/假删除
 
@@ -161,6 +168,7 @@ namespace Furion.Extras.Admin.NET.Service
         public virtual async Task Delete(List<long> ids)
         {
             BeforeDeleteAction?.Invoke(ids);
+
             var count = await Repository.Context.DeleteRangeAsync<TEntity>(x => ids.Contains(x.Id));
 
             AfterDeleteAction?.Invoke(ids, count);
@@ -193,7 +201,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterFakeDeleteAction?.Invoke(ids, count);
         }
 
-        #endregion 删除/假删除
+        #endregion
 
         #region 修改
 
@@ -219,7 +227,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterUpdateAction?.Invoke(entity.Entity);
         }
 
-        #endregion 修改
+        #endregion
 
         #region 导入
 
@@ -286,7 +294,7 @@ namespace Furion.Extras.Admin.NET.Service
             AfterImportAction?.Invoke(import.Data);
         }
 
-        #endregion 导入
+        #endregion
 
         #region 导出
 
@@ -349,7 +357,7 @@ namespace Furion.Extras.Admin.NET.Service
                 });
         }
 
-        #endregion 导出
+        #endregion
 
         #region 打印
 
@@ -364,7 +372,7 @@ namespace Furion.Extras.Admin.NET.Service
             return entity.Adapt<TPrintDto>();
         }
 
-        #endregion 打印
+        #endregion
 
         #region 私有方法
 
@@ -399,6 +407,6 @@ namespace Furion.Extras.Admin.NET.Service
             }
         }
 
-        #endregion 私有方法
+        #endregion
     }
 }
